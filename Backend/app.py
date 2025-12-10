@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.counter import router as counter
 # Create FastAPI instance
-app = FastAPI(title="Inventory & Finance System")
+app = FastAPI(title="Exam Seating Planner Backend")
 
 # Enable CORS so React frontend can access it
 app.add_middleware(
