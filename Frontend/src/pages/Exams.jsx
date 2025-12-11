@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { PlusCircle, Edit2, Trash2, Calendar1 } from 'lucide-react';
-import Modal from '../components/Modal';
+import React, { useState } from "react";
+import { PlusCircle, Edit2, Trash2, Calendar1 } from "lucide-react";
+import Modal from "../components/Modal";
+import Select from "../components/Select";
 
 const ExamsPage = ({ exams = [], setExams, students = [] }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingExam, setEditingExam] = useState(null);
   const [formData, setFormData] = useState({
-    name: '',
-    date: '',
-    time: '',
-    duration: '',
-    students: []
+    name: "",
+    date: "",
+    time: "",
+    duration: "",
+    students: [],
   });
   const [selectedStudents, setSelectedStudents] = useState([]);
 
@@ -19,11 +20,15 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
     const examData = { ...formData, students: selectedStudents };
 
     if (editingExam) {
-      setExams(exams.map(ex => ex.id === editingExam.id ? { ...examData, id: ex.id } : ex));
+      setExams(
+        exams.map((ex) =>
+          ex.id === editingExam.id ? { ...examData, id: ex.id } : ex
+        )
+      );
     } else {
       setExams([...exams, { ...examData, id: Date.now() }]);
     }
-    setFormData({ name: '', date: '', time: '', duration: '', students: [] });
+    setFormData({ name: "", date: "", time: "", duration: "", students: [] });
     setSelectedStudents([]);
     setShowForm(false);
     setEditingExam(null);
@@ -37,7 +42,7 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
   };
 
   const handleDelete = (id) => {
-    setExams(exams.filter(ex => ex.id !== id));
+    setExams(exams.filter((ex) => ex.id !== id));
   };
 
   return (
@@ -48,99 +53,123 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
           onClick={() => {
             setShowForm(!showForm);
             setEditingExam(null);
-            setFormData({ name: '', date: '', time: '', duration: '', students: [] });
+            setFormData({
+              name: "",
+              date: "",
+              time: "",
+              duration: "",
+              students: [],
+            });
             setSelectedStudents([]);
           }}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>  Exam</span>
+          <span> Exam</span>
         </button>
       </div>
 
-        <Modal isOpen={showForm} onClose={() => setShowForm(false)}
-            title={editingExam ? "Edit Exam" : <div className="flex items-center font-bold gap-2 text-4xl "><Calendar1 size={36} /> Exam</div>}
-        >
-            <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label htmlFor="">Course
-              <input
-                type="text"
-                placeholder="Exam Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                required
-              />
+      <Modal
+        isOpen={showForm}
+        onClose={() => setShowForm(false)}
+        title={
+          editingExam ? (
+            "Edit Exam"
+          ) : (
+            <div className="flex items-center font-bold gap-2 text-4xl ">
+              <Calendar1 size={36} /> Exam
+            </div>
+          )
+        }
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="selectOption">
+                Choose Option
               </label>
-              <label htmlFor="">Date
+
+              <Select />
+            </div>
+
+            <label htmlFor="">
+              Date
               <input
                 type="date"
                 value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, date: e.target.value })
+                }
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 required
               />
-              </label>
-              <label htmlFor="">Type
-              <input
-                type="time"
-                value={formData.time}
-                onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                required
-              />
-              </label>
-              <label htmlFor="">Duration
+            </label>
+            <label htmlFor="">
+              Type
+              <Select options={[{ label: "Midterm", value: "midterm" }, { label: "Final", value: "final" }]} value={formData.type} onChange={(value) => setFormData({ ...formData, type: value })} />
+            </label>
+            <label htmlFor="">
+              Duration
               <input
                 type="text"
                 placeholder="Duration (e.g., 2 hours)"
                 value={formData.duration}
-                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, duration: e.target.value })
+                }
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 required
               />
-              </label>
-            </div>
+            </label>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Select Students ({selectedStudents.length} selected)
-              </label>
-                <input type="file" name="students" id="students" className='border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500' />
-            </div>
+          <div className="flex flex-col">
+            <label>Select Students ({selectedStudents.length} selected)</label>
+            <label
+              htmlFor="fileInput"
+              className="bg-white text-indigo-600 border-indigo-600 border px-4 py-2 rounded-lg font-medium cursor-pointer hover:bg-indigo-200 transition"
+            >
+              Choose File
+            </label>
 
-            <div className="flex space-x-3">
-              <button
-                type="submit"
-                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
-              >
-                {editingExam ? 'Update' : 'Schedule'} Exam
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowForm(false);
-                  setEditingExam(null);
-                }}
-                className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </Modal>
+            <input type="file" id="fileInput" className="hidden" />
+          </div>
+
+          <div className="flex space-x-3">
+            <button
+              type="submit"
+              className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
+            >
+              {editingExam ? "Update" : "Schedule"} Exam
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setShowForm(false);
+                setEditingExam(null);
+              }}
+              className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </Modal>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {exams.map(exam => (
+        {exams.map((exam) => (
           <div key={exam.id} className="bg-white rounded-lg shadow-md p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-xl font-semibold text-gray-800">{exam.name}</h3>
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {exam.name}
+                </h3>
                 <p className="text-gray-500 text-sm mt-1">
                   {exam.date} at {exam.time}
                 </p>
-                <p className="text-gray-500 text-sm">Duration: {exam.duration}</p>
+                <p className="text-gray-500 text-sm">
+                  Duration: {exam.duration}
+                </p>
               </div>
               <div className="flex space-x-2">
                 <button
@@ -162,10 +191,13 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
                 Enrolled Students: {exam.students.length}
               </p>
               <div className="flex flex-wrap gap-2">
-                {exam.students.slice(0, 5).map(studentId => {
-                  const student = students.find(s => s.id === studentId);
+                {exam.students.slice(0, 5).map((studentId) => {
+                  const student = students.find((s) => s.id === studentId);
                   return student ? (
-                    <span key={studentId} className="bg-white px-3 py-1 rounded-full text-xs">
+                    <span
+                      key={studentId}
+                      className="bg-white px-3 py-1 rounded-full text-xs"
+                    >
                       {student.name}
                     </span>
                   ) : null;
