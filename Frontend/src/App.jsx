@@ -1,38 +1,22 @@
-import { useEffect, useState } from "react";
-import { getCounter, incrementCounter, decrementCounter } from "./utils/api";
-
-function App() {
-  const [counter, setCounter] = useState(0);
-
-  // Fetch counter value on mount
-  useEffect(() => {
-    const fetchCounter = async () => {
-      const data = await getCounter();
-      if (data) setCounter(data.value);
-    };
-    fetchCounter();
-  }, []);
-
-  const handleIncrement = async () => {
-    const data = await incrementCounter();
-    if (data) setCounter(data.value);
-  };
-
-  const handleDecrement = async () => {
-    const data = await decrementCounter();
-    if (data) setCounter(data.value);
-  };
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import SeatingPlanPage from './pages/Seating.jsx';
+import Navigation from './components/Navigation.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import StudentsPage from './pages/Students.jsx';
+import RoomsPage from './pages/Rooms.jsx';
+import ExamsPage from './pages/Exams.jsx';
+const App = () => {
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Counter App</h1>
-      <h2>{counter}</h2>
-      <button onClick={handleIncrement} style={{ margin: "10px", padding: "10px 20px" }}>
-        Increment
-      </button>
-      <button onClick={handleDecrement} style={{ margin: "10px", padding: "10px 20px" }}>
-        Decrement
-      </button>
+    <div className="grid grid-cols-[75px_1fr] min-h-screen bg-[#F2F4F0] w-screen">
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/students" element={<StudentsPage />} />
+        <Route path="/rooms" element={<RoomsPage />} />
+        <Route path="/exams" element={<ExamsPage />} />
+        <Route path="/seating" element={<SeatingPlanPage />} />
+      </Routes>
     </div>
   );
 }
