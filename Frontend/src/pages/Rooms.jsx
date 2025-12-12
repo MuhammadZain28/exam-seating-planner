@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { PlusCircle, Edit2, Trash2 } from 'lucide-react';
+import { PlusCircle, Edit2, Trash2, Building, Building2 } from 'lucide-react';
+import Modal from '../components/Modal';
 const RoomsPage = ({ rooms = [], setRooms }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingRoom, setEditingRoom] = useState(null);
@@ -55,13 +56,18 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
           <span>  Room</span>
         </button>
       </div>
-
-      {showForm && (
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4">
-            {editingRoom ? 'Edit Room' : '  New Room'}
-          </h2>
+        <Modal isOpen={showForm} onClose={() => setShowForm(false)}
+          title={
+          editingRoom ? (
+            "Edit Exam"
+          ) : (
+            <div className="flex items-center font-bold gap-2 text-4xl ">
+              <Building2 size={36} /> Room
+            </div>
+          )
+        }>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label htmlFor="">Room
             <input
               type="text"
               placeholder="Room Name"
@@ -70,6 +76,8 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
+            </label>
+            <label htmlFor="">Capacity
             <input
               type="number"
               placeholder="Capacity"
@@ -78,6 +86,8 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
+            </label>
+            <label htmlFor="">Rows
             <input
               type="number"
               placeholder="Number of Rows"
@@ -86,6 +96,8 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
+            </label>
+            <label htmlFor="">Columns
             <input
               type="number"
               placeholder="Number of Columns"
@@ -94,6 +106,7 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
             />
+            </label>
             <div className="md:col-span-2 flex space-x-3">
               <button
                 type="submit"
@@ -113,9 +126,7 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
               </button>
             </div>
           </form>
-        </div>
-      )}
-
+        </Modal>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {rooms.map(room => (
           <div key={room.id} className="bg-white rounded-lg shadow-md p-6">

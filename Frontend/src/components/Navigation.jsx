@@ -16,13 +16,13 @@ const Navigation = () => {
   ];
 
   return (
-    <div className="flex bg-w">
+    <div className="flex">
 
       {/* Sidebar */}
       <Motion.aside
         animate={{ width: isOpen ? 240 : 75 }}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="h-screen bg-[#F9FAFB] border-r border-slate-200 shadow-sm fixed left-0 top-0 z-40"
+        className="h-screen bg-white border-r border-black/20 shadow-lg fixed left-0 top-0 z-40"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 h-16 border-b border-slate-400">
