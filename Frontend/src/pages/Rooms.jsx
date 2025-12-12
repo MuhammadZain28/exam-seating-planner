@@ -10,6 +10,7 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
     rows: '',
     columns: ''
   });
+  // const [layout, setLayout] = useState([[]])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,6 +108,19 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
               required
             />
             </label>
+            {/* <div>
+              {formData.rows > 0 && formData.columns > 0 && (
+                <div className='flex flex-col gap-0.5 w-64 h-64 border border-gray-300 rounded'>
+                  {Array.from({ length: formData.rows}).map((_, rowIndex) => (
+                    <div key={rowIndex} className="flex gap-0.5 w-full h-full">
+                      {Array.from({length: formData.columns}).map((_, colIndex) => (
+                        <div key={colIndex} className="bg-indigo-200 rounded-sm w-full h-full hover:bg-slate-400"></div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div> */}
             <div className="md:col-span-2 flex space-x-3">
               <button
                 type="submit"

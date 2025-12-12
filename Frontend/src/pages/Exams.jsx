@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusCircle, Edit2, Trash2, Calendar1 } from "lucide-react";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
+import { getExams } from "../utils/api";
 
-const ExamsPage = ({ exams = [], setExams, students = [] }) => {
+const ExamsPage = ({ students = [] }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingExam, setEditingExam] = useState(null);
+  const [exams, setExams] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     date: "",
@@ -15,6 +17,18 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
   });
   const [selectedStudents, setSelectedStudents] = useState([]);
 
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const res = await getExams();
+        console.log("Fetched exams:");
+        if (res) setExams(res);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+    fetchStudents();
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     const examData = { ...formData, students: selectedStudents };
@@ -86,10 +100,18 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="selectOption">
-                Choose Option
+                Course
+                <input
+                  type="text"
+                  placeholder="Course Name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  required
+                />
               </label>
-
-              <Select />
             </div>
 
             <label htmlFor="">
@@ -106,7 +128,14 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
             </label>
             <label htmlFor="">
               Type
-              <Select options={[{ label: "Midterm", value: "midterm" }, { label: "Final", value: "final" }]} value={formData.type} onChange={(value) => setFormData({ ...formData, type: value })} />
+              <Select
+                options={[
+                  { label: "Midterm", value: "midterm" },
+                  { label: "Final", value: "final" },
+                ]}
+                value={formData.type}
+                onChange={(value) => setFormData({ ...formData, type: value })}
+              />
             </label>
             <label htmlFor="">
               Duration
@@ -124,15 +153,20 @@ const ExamsPage = ({ exams = [], setExams, students = [] }) => {
           </div>
 
           <div className="flex flex-col">
-            <label>Select Students ({selectedStudents.length} selected)</label>
+            <label>Students List</label>
             <label
               htmlFor="fileInput"
-              className="bg-white text-indigo-600 border-indigo-600 border px-4 py-2 rounded-lg font-medium cursor-pointer hover:bg-indigo-200 transition"
+              className="bg-white text-indigo-600 border-indigo-600 border-2 px-4 py-2 rounded-lg font-medium cursor-pointer hover:bg-indigo-200 transition"
             >
               Choose File
             </label>
 
-            <input type="file" id="fileInput" className="hidden" />
+            <input
+              type="file"
+              id="fileInput"
+              accept=".csv"
+              className="hidden"
+            />
           </div>
 
           <div className="flex space-x-3">

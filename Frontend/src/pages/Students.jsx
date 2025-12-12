@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { PlusCircle, Edit2, Trash2, Search, User2 } from "lucide-react";
+import {
+  PlusCircle,
+  Edit2,
+  Trash2,
+  Search,
+  User2,
+  Link,
+  FilePlusIcon,
+} from "lucide-react";
 import Modal from "../components/Modal";
 
 const StudentsPage = ({ students = [], setStudents }) => {
@@ -51,29 +59,56 @@ const StudentsPage = ({ students = [], setStudents }) => {
         <h1 className="text-3xl font-bold text-gray-800">
           Students Management
         </h1>
-        <button
-          onClick={() => {
-            setShowModal(true);
-            setEditingStudent(null);
-            setFormData({
-              name: "",
-              rollNo: "",
-              department: "",
-              semester: "",
-            });
-          }}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700"
-        >
-          <PlusCircle className="w-4 h-4" />
-          <span> Student</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <div className="flex">
+            <label
+              htmlFor="fileInput"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium cursor-pointer bg-indigo-600 transition"
+            >
+              <FilePlusIcon className="w-4 h-4" />
+              <span> Students List</span>
+            </label>
+
+            <input
+              type="file"
+              id="fileInput"
+              accept=".csv"
+              className="hidden"
+            />
+          </div>
+          <button
+            onClick={() => {
+              setShowModal(true);
+              setEditingStudent(null);
+              setFormData({
+                name: "",
+                rollNo: "",
+                department: "",
+                semester: "",
+              });
+            }}
+            className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700"
+          >
+            <PlusCircle className="w-4 h-4" />
+            <span> Student</span>
+          </button>
+        </div>
       </div>
 
       {/* Modal Form */}
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
-        title={editingStudent ? "Edit Student" : <div className="flex items-center font-bold gap-2 text-4xl "><User2 size={32} />Student</div>}
+        title={
+          editingStudent ? (
+            "Edit Student"
+          ) : (
+            <div className="flex items-center font-bold gap-2 text-4xl ">
+              <User2 size={32} />
+              Student
+            </div>
+          )
+        }
       >
         <form
           onSubmit={handleSubmit}
@@ -144,7 +179,12 @@ const StudentsPage = ({ students = [], setStudents }) => {
               type="submit"
               className="flex items-center bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
             >
-              {editingStudent ? "Update" : <PlusCircle className="w-4 h-4 inline-block mr-2" />} Student
+              {editingStudent ? (
+                "Update"
+              ) : (
+                <PlusCircle className="w-4 h-4 inline-block mr-2" />
+              )}{" "}
+              Student
             </button>
             <button
               type="button"

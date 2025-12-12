@@ -3,9 +3,9 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 
-export const getCounter = async () => {
+export const getExams = async () => {
   try {
-    const response = await axios.get(`${API_URL}/counter/`);
+    const response = await axios.get(`${API_URL}/exam/`);
     return response.data;
   } catch (error) {
     console.error("Error fetching counters:", error);

@@ -9,7 +9,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
   ];
 
   return (
-    <div className="p-6 w-full bg-[#F2F4F7] min-h-screen">
+    <div className="p-6 w-full min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat, idx) => {
@@ -18,8 +18,8 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
             <div key={idx} className="bg-white rounded-lg shadow-md p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm">{stat.label}</p>
-                  <p className="text-3xl font-bold mt-2">{stat.value}</p>
+                  <p className="text-black font-bold text-sm">{stat.label}</p>
+                  <p className="text-3xl font-bold mt-2 text-black">{stat.value}</p>
                 </div>
                 <div className={`${stat.color} p-3 rounded-full`}>
                   <Icon className="w-6 h-6 text-white" />
@@ -32,7 +32,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Recent Exams</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">Recent Exams</h2>
           {exams.length > 0 ? (
             <div className="space-y-3">
               {exams.slice(0, 5).map(exam => (
@@ -53,7 +53,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Room Capacity</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">Room Capacity</h2>
           {rooms.length > 0 ? (
             <div className="space-y-3">
               {rooms.map(room => (

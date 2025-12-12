@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Download, CircleCheckBig } from 'lucide-react';
+import Select from '../components/Select';
 
 // Seating Plan Component
 const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans = [], setSeatingPlans }) => {
@@ -56,26 +57,8 @@ const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans =
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Generate Seating Plan</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <select
-            value={selectedExam}
-            onChange={(e) => setSelectedExam(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Select Exam</option>
-            {exams.map(exam => (
-              <option key={exam.id} value={exam.id}>{exam.name} ({exam.date})</option>
-            ))}
-          </select>
-          <select
-            value={selectedRoom}
-            onChange={(e) => setSelectedRoom(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Select Room</option>
-            {rooms.map(room => (
-              <option key={room.id} value={room.id}>{room.name} (Capacity: {room.capacity})</option>
-            ))}
-          </select>
+          <Select value={selectedExam} onChange={(opt) => setSelectedExam(opt)} options={[{label: "Select Exam", value: "select"}]} />
+          <Select value={selectedRoom} onChange={(opt) => setSelectedRoom(opt)} options={[{label: "Select Room", value: "select"}]} />
           <button
             onClick={generateSeatingPlan}
             className="flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"

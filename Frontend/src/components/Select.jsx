@@ -8,7 +8,7 @@ export default function Select({ options = [], onChange, value }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative text-black">
       {/* Selected Box */}
       <div
         onClick={() => setOpen(!open)}

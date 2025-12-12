@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
 
-const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(true);
+const Navigation = ({isOpen, setIsOpen}) => {
   const [currentPage, setCurrentPage] = useState("dashboard");
 
   const pages = [
@@ -32,7 +31,7 @@ const Navigation = () => {
               <Motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-lg font-semibold text-slate-800 whitespace-nowrap"
+                className="text-lg font-bold text-indigo-600 whitespace-nowrap"
               >
                 Exam Planner
               </Motion.span>
@@ -43,7 +42,7 @@ const Navigation = () => {
           <Motion.button
             animate={{ rotate: isOpen ? 0 : 180 }}
             transition={{ duration: 0.3 }}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={(e) => {setIsOpen(!isOpen); e.stopPropagation()}}
             className="p-2 rounded-lg hover:bg-indigo-100 hover:text-indigo-700 transition bg-indigo-600"
           >
             <Menu className="w-5 h-5" />
