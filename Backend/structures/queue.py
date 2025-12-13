@@ -43,16 +43,57 @@ class Queue:
         return True
     def count(self):
         return self.size
-    
+
     def display(self):
         curr = self.tail
         while curr:
             print(curr.data, end=" -> ")
             curr = curr.prev
 
+class PriorityQueue:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, data, priority):
+        self.heap.append((priority, data))
+        self.heapify_up(len(self.heap) - 1)
+
+    def pop(self):
+        self.heap[0], self.heap[len(self.heap) - 1] = self.heap[len(self.heap) - 1], self.heap[0]
+        priority, item = self.heap.pop()
+        self.heapify_down(0)
+
+        return f"{item} ({priority})"
+    def heapify_up(self, index):
+        parent = (index - 1) // 2
+        if index > 0 and self.heap[index][0] > self.heap[parent][0]:
+            self.heap[parent], self.heap[index] = self.heap[index], self.heap[parent]
+            self.heapify_up(parent)
+
+    def heapify_down(self, index):
+        smallest = index
+        left = 2 * index + 1
+        right = 2 * index + 2
+        if left < len(self.heap) and self.heap[left][0] > self.heap[smallest][0]:
+            smallest = left
+        if right < len(self.heap) and self.heap[right][0] > self.heap[smallest][0]:
+            smallest = right
+
+        if smallest != index:
+            self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+            self.heapify_down(smallest)
+
+    def __str__(self):
+        return str([f"{item} ({priority})" for priority, item in self.heap])
+
 if __name__ == "__main__":
-    q = Queue()
-    q.enqueue(10)
-    q.enqueue(20)
-    q.dequeue()
-    q.display()
+    pq = PriorityQueue()
+    pq.push(10, 2)
+    pq.push(20, 1)
+    pq.push(30, 3)
+    pq.push(40, 0)
+    print(pq)
+    print(pq.pop())
+    print(pq.pop())
+    print(pq.pop())
+    print(pq.pop())

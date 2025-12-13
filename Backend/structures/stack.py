@@ -25,7 +25,7 @@ class Stack:
         self.head = self.head.next
 
         return data
-    
+
     def isEmpty(self):
         if self.head is None:
             return True
