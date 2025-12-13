@@ -12,15 +12,15 @@ class Queue:
 
     def enqueue(self, data):
         node = Node(data)
-        self.size += 1
+
         if self.head is None:
             self.head = self.tail = node
-            return
+        else:
+            node.prev = self.tail
+            self.tail.next = node
+            self.tail = node
 
-        node.prev = self.tail
-        self.tail.next = node
-        self.tail = node
-
+        self.size += 1
 
     def dequeue(self):
         if self.size == 0:
@@ -29,15 +29,21 @@ class Queue:
         data = self.head.data
 
         if self.head == self.tail:
-            self.head = None
-            self.tail = None
+            self.head = self.tail = None
         else:
             self.head = self.head.next
             self.head.prev = None
-        self.size -= 1
 
+        self.size -= 1
         return data
 
+    def isEmpty(self):
+        if self.head is None:
+            return False
+        return True
+    def count(self):
+        return self.size
+    
     def display(self):
         curr = self.tail
         while curr:

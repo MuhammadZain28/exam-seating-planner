@@ -3,6 +3,9 @@ class Node:
         self.data = data
         self.next = None
 
+    def __repr__(self):
+        return f"{self.data}"
+
 class Stack:
     def __init__(self):
         self.head = None
@@ -22,6 +25,11 @@ class Stack:
         self.head = self.head.next
 
         return data
+    
+    def isEmpty(self):
+        if self.head is None:
+            return True
+        return False
 
     def display(self):
         curr = self.head

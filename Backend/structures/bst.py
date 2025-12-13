@@ -1,9 +1,12 @@
-from collections import deque
+from Queue import Queue
 class Node:
     def __init__(self, data):
         self.data = data
         self.left = None
         self.right = None
+
+    def __repr__(self):
+        return f"{self.data}"
 
 class BST:
     def __init__(self):
@@ -58,15 +61,15 @@ class BST:
         self.inorder(node.right)
 
     def levelOrder(self):
-        levels = deque()
-        levels.append(self.root)
-        while levels:
-            node = levels.popleft()
+        levels = Queue()
+        levels.enqueue(self.root)
+        while levels.isEmpty():
+            node = levels.dequeue()
             print(node.data)
             if node.left:
-                levels.append(node.left)
+                levels.enqueue(node.left)
             if node.right:
-                levels.append(node.right)
+                levels.enqueue(node.right)
 
 
 
@@ -75,6 +78,5 @@ if __name__ == "__main__":
     tree.insert(10)
     tree.insert(20)
     tree.insert(30)
-    tree.inorder(tree.root)
     tree.levelOrder()
 
