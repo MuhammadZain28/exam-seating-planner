@@ -71,7 +71,15 @@ class Exams:
         i = 0
         while self.table[index] is not None:
             if self.table[index].course == exam.course:
-                self.table[index] = exam
+                updated_exam = Exam(
+                    course=exam.course,
+                    date=exam.date,
+                    type=exam.type,
+                    duration=exam.duration,
+                    students=self.table[index].students
+                )
+                self.table[index] = updated_exam
+                self.save()
                 return
 
             index = (index + steps) % self.size

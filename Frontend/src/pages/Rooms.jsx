@@ -52,6 +52,8 @@ const RoomsPage = () => {
   };
 
   const handleDelete = (id) => {
+    const roomInstance = new Room();
+    roomInstance.deleteRoom(id);
     setRooms(rooms.filter(r => r.id !== id));
   };
 
@@ -62,6 +64,7 @@ const RoomsPage = () => {
         <button
           onClick={() => {
             setShowForm(!showForm);
+            setEditingRoom(null);
           }}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700"
         >
@@ -91,14 +94,8 @@ const RoomsPage = () => {
             />
             </label>
             <label htmlFor="">Capacity
-            <input
-              type="number"
-              placeholder="Capacity"
-              value={formData.capacity}
-              onChange={(e) => setFormData({ ...formData, capacity: e.target.value })}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
+              <p className="border border-gray-300 bg-[#f9f9f9] rounded-lg px-4 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >{formData.rows * formData.columns}</p>
             </label>
             <label htmlFor="">Rows
             <input
@@ -169,20 +166,20 @@ const RoomsPage = () => {
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => handleDelete(room.id)}
+                  onClick={() => handleDelete(room.name)}
                   className="text-red-600 hover:text-red-800 bg-indigo-100"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             </div>
-            <div className="bg-gray-50 rounded p-4">
               <p className="text-sm text-gray-600">Layout: {room.rows} × {room.columns}</p>
-              <div className="mt-3 grid gap-1" style={{ 
-                gridTemplateColumns: `repeat(${Math.min(room.columns, 10)}, 1fr)` 
+            <div className="bg-gray-50 rounded p-4 w-80 h-80">
+              <div className="grid gap-1 w-full h-full" style={{
+                gridTemplateColumns: `repeat(${Math.min(room.columns, 10)}, 1fr)`
               }}>
-                {Array.from({ length: Math.min(room.rows * room.columns, 50) }).map((_, i) => (
-                  <div key={i} className="bg-indigo-200 aspect-square rounded-sm"></div>
+                {Array.from({ length: Math.min(room.rows * room.columns, 100) }).map((_, i) => (
+                  <div key={i} className="bg-indigo-200 rounded-sm w-full h-full"></div>
                 ))}
               </div>
             </div>

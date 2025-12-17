@@ -2,13 +2,12 @@ from fastapi import APIRouter, Form, UploadFile, File
 from ..model.exam import Exams, Exam
 from pydantic import BaseModel
 import pandas as pd
-from ..structures.Queue import Queue
-from ..model.students import Student, Students
+from ..model.students import Student
+from .student import insert_student, delete_students
 
 router = APIRouter()
 
 exams = Exams()
-studentTable = Students()
 exams.load()
 class ExamBase(BaseModel):
     course: str
@@ -33,9 +32,8 @@ async def insert(
 
     students = [Student(record["name"], record["reg"], course) for record in df.to_dict(orient='records')]
     exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=len(students))
-    for student in students:
-        studentTable.insert(student)
     exams.insert(exam)
+    insert_student(students)
     print(f"Inserted exam for course: {course} with {len(students)} students.")
 
     return {"rows": len(df), "columns": list(df.columns)}
@@ -43,6 +41,7 @@ async def insert(
 @router.delete("/delete/{course}")
 def delete(course: str):
     print("Deleting course:", course)
+    delete_students(course)
     return exams.delete(course)
 @router.post("/update")
 def update(exam: ExamBase):

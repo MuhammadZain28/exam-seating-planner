@@ -27,14 +27,9 @@ const ExamsPage = () => {
     e.preventDefault();
 
     const examInstance = new Exam()
-    console.log("Updating exam:", formData);
     if (editingExam) {
+      console.log("Updating exam:", formData);
       examInstance.updateExam(formData)
-      setExams(
-        exams.map((ex) =>
-          ex.id === editingExam.id ? { ...formData, id: ex.id } : ex
-        )
-      );
     } else {
       examInstance.insertExam(formData)
       setExams([...exams, { ...formData, id: Date.now() }]);
@@ -144,7 +139,7 @@ const ExamsPage = () => {
             </label>
           </div>
 
-          <div className="flex flex-col">
+          { !editingExam && <div className="flex flex-col">
             <p>{formData.student ? formData.student.name : "No file chosen"}</p>
             <label>Students List</label>
             <label
@@ -163,7 +158,7 @@ const ExamsPage = () => {
                 setFormData({ ...formData, student: e.target.files[0] });
               }}
             />
-          </div>
+          </div>}
 
           <div className="flex space-x-3">
             <button
@@ -195,7 +190,7 @@ const ExamsPage = () => {
                   {exam.course}
                 </h3>
                 <p className="text-black">
-                  Type: {exam.type.charAt(0).toUpperCase() + exam.type.slice(1)}
+                  {exam.type.charAt(0).toUpperCase() + exam.type.slice(1)}
                 </p>
               </div>
               <div className="flex space-x-2">

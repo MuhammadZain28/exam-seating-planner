@@ -11,12 +11,18 @@ class Room:
             "columns": self.columns,
             "rows": self.rows
         }
-    
+
 class Rooms:
     def __init__(self):
         self.rooms = []
     def add_room(self, room):
         self.rooms.append(room)
+    def delete_room(self, room_id):
+            i = self.rooms.index(next((r for r in self.rooms if r.name == room_id), -1))
+            print(i)
+            if i != -1:
+                return self.rooms.pop(i)
+            return None
     def to_list(self):
         result = []
         for room in self.rooms:

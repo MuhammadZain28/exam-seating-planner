@@ -13,7 +13,7 @@ class Student:
         }
 
 class Students:
-    def __init__(self, size = 10):
+    def __init__(self, size = 100):
         self.table = [None] * size
         self.size = size
         self.elements = 0
@@ -27,6 +27,7 @@ class Students:
             index = (index + steps) % self.size
             i += 1
             if i > self.size:
+                print("Hash table is full, cannot insert student:", student.reg)
                 return  # Table is full
         self.table[index] = student
         self.elements += 1
@@ -64,7 +65,19 @@ class Students:
             result.append(student.to_dict())
             count += 1
         return result
-    
+
+    def delete_course(self, course_id):
+        deleted_students = []
+        for i in range(self.size):
+            student = self.table[i]
+            if student is not None and student != -1 and student.course == course_id:
+                deleted_students.append(student)
+                self.table[i] = -1  # Mark as deleted
+                self.elements -= 1
+        if deleted_students:
+            self.save_students()
+        return deleted_students
+
     def save_students(self):
         students = self.to_list()
         print("Saving students data:", students)
@@ -79,7 +92,7 @@ class Students:
         with open("students.json", "r", encoding="utf-8") as f:
             student = json.load(f)
             print("Loading students table of size:", student)
-            self.size = int(student["size"])
+            self.elements = int(student["size"])
             self.table = [None] * self.size
             for record in student["students"]:
                 print("Loading student:", record)

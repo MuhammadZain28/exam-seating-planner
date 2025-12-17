@@ -87,7 +87,7 @@ const StudentsPage = () => {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {filteredStudents.map((student) => (
-                <tr key={student.reg} className="hover:bg-gray-50">
+                <tr key={student.reg + student.course} className="hover:bg-gray-50">
                   <td className="px-6 py-4 text-black">{student.name}</td>
                   <td className="px-6 py-4 text-black">{student.reg}</td>
                   <td className="px-6 py-4 text-black">{student.course}</td>

@@ -18,10 +18,15 @@ def get_rooms():
 @router.post("/insert")
 def add_room(room_data: RoomModel):
     room = Room(
-        room_number=room_data.name,
-        row=room_data.rows,
-        column=room_data.columns
+        name=room_data.name,
+        rows=room_data.rows,
+        columns=room_data.columns
     )
     rooms.add_room(room)
     rooms.save()
     return {"message": "Room added successfully"}
+@router.delete("/delete/{room_id}")
+def delete_room(room_id: str):
+    rooms.delete_room(room_id)
+    rooms.save()
+    return {"message": "Room deleted successfully"}
