@@ -29,7 +29,6 @@ class Exams:
         self.table[index] = exam
         self.elements += 1
         self.save()
-        self.save_students()
 
     def delete(self, course):
         key = sum(ord(c) for c in course)
@@ -41,6 +40,7 @@ class Exams:
             if self.table[index].course == course:
                 self.table[index] = -1
                 self.elements -= 1
+                self.save()
                 return
 
             index = (index + steps) % self.size
@@ -98,54 +98,41 @@ class Exams:
                 break
             if exam is None or exam == -1:
                 continue
-            result.append(exam.exam_info())
-        return result
-
-    def get_students(self):
-        result = []
-        count = 0
-        for i, exam in enumerate(self.table):
-            if count > self.elements:
-                break
-            if exam is None or exam == -1:
-                continue
-            std = exam.students.to_list()
-            result.append(std)
+            result.append(exam.to_dict())
         return result
 
     def save(self):
-        data = self.get_table()
+        data = {
+            "size": self.size,
+            "exams": self.get()
+        }
         with open("exams.json", "w", encoding="utf-8") as f:
             json.dump(data, f)
 
-    def save_students(self):
-        with open("students.json", "w", encoding="utf-8") as f:
-            json.dump(self.get_students(), f, indent=4)
 
-
-    def load(filename):
-        with open(filename, "r", encoding="utf-8") as f:
-            return json.load(f)
+    def load(self):
+        with open("exams.json", "r", encoding="utf-8") as f:
+            exam = json.load(f)
+            print("Loading exams table of size:", exam)
+            self.size = int(exam["size"])
+            self.table = [None] * self.size
+            for record in exam["exams"]:
+                print("Loading exam:", record)
+                exam = Exam(**record)
+                self.insert(exam)
 
 class Exam:
-    def __init__(self, course, date, type, duration):
+    def __init__(self, course, date, type, duration, students):
         self.course = course
         self.date = date
         self.type = type
         self.duration = duration
-        self.students = Queue()
+        self.students = students
     def to_dict(self):
         return {
             "course": self.course,
             "date": self.date,
             "type": self.type,
             "duration": self.duration,
-            "students": self.students.count()
-        }
-    def exam_info(self):
-        return {
-            "course": self.course,
-            "date": self.date,
-            "type": self.type,
-            "duration": self.duration,
+            "students": self.students
         }

@@ -13,9 +13,9 @@ class Student:
         }
 
 class Students:
-    def __init__(self):
-        self.table = []
-        self.size = 10
+    def __init__(self, size = 10):
+        self.table = [None] * size
+        self.size = size
         self.elements = 0
 
     def insert(self, student):
@@ -30,6 +30,7 @@ class Students:
                 return  # Table is full
         self.table[index] = student
         self.elements += 1
+        self.save_students()
 
     def hash_1(self, key):
         return key % self.size
@@ -63,14 +64,24 @@ class Students:
             result.append(student.to_dict())
             count += 1
         return result
+    
+    def save_students(self):
+        students = self.to_list()
+        print("Saving students data:", students)
+        data = {
+            "size": self.size,
+            "students": students
+        }
+        with open("students.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
 
     def load(self):
         with open("students.json", "r", encoding="utf-8") as f:
             student = json.load(f)
-            self.size = len(student) * 2
+            print("Loading students table of size:", student)
+            self.size = int(student["size"])
             self.table = [None] * self.size
-            for data in student:
-                for record in data:
-                    print("Loading student:", record)
-                    student = Student(**record)
-                    self.insert(student)
+            for record in student["students"]:
+                print("Loading student:", record)
+                student = Student(**record)
+                self.insert(student)

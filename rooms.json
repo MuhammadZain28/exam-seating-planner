@@ -1,0 +1,9 @@
+{
+    "rooms": [
+        {
+            "name": "Room A",
+            "columns": 6,
+            "rows": 5
+        }
+    ]
+}

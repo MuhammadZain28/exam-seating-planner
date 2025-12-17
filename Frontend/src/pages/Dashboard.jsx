@@ -1,4 +1,4 @@
-import { Layout, Users, Building2, Calendar } from "lucide-react";
+import { Layout, Users, Building2, Calendar, Building2Icon } from "lucide-react";
 
 const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] }) => {
   const stats = [
@@ -10,7 +10,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
 
   return (
     <div className="p-6 w-full min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-black">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat, idx) => {
           const Icon = stat.icon;
@@ -32,7 +32,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Recent Exams</h2>
+          <h2 className="text-xl font-bold mb-4 text-black flex items-center gap-2"><Calendar />Upcoming Exams</h2>
           {exams.length > 0 ? (
             <div className="space-y-3">
               {exams.slice(0, 5).map(exam => (
@@ -53,7 +53,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Room Capacity</h2>
+          <h2 className="text-xl font-bold mb-4 text-black flex items-center gap-2"><Building2Icon />Available Rooms</h2>
           {rooms.length > 0 ? (
             <div className="space-y-3">
               {rooms.map(room => (

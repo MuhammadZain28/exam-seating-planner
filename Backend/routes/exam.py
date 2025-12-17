@@ -3,11 +3,13 @@ from ..model.exam import Exams, Exam
 from pydantic import BaseModel
 import pandas as pd
 from ..structures.Queue import Queue
-from ..model.students import Student
+from ..model.students import Student, Students
 
 router = APIRouter()
 
 exams = Exams()
+studentTable = Students()
+exams.load()
 class ExamBase(BaseModel):
     course: str
     date: str
@@ -29,10 +31,10 @@ async def insert(
     contents = await file.read()
     df = pd.read_csv(pd.io.common.BytesIO(contents))
 
-    students = [Student(record.name, record.reg, course) for record in df.to_dict(orient='records')]
-    exam = Exam(course=course, date=date, type=exam_type, duration=duration)
+    students = [Student(record["name"], record["reg"], course) for record in df.to_dict(orient='records')]
+    exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=len(students))
     for student in students:
-        exam.students.enqueue(student)
+        studentTable.insert(student)
     exams.insert(exam)
     print(f"Inserted exam for course: {course} with {len(students)} students.")
 

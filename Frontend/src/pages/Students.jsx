@@ -14,32 +14,8 @@ import Student from "../utils/student";
 
 const StudentsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [editingStudent, setEditingStudent] = useState(null);
-  const [formData, setFormData] = useState(new Student());
   const [students, setStudents] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editingStudent) {
-      setStudents(
-        students.map((s) =>
-          s.id === editingStudent.id ? { ...formData, id: s.id } : s
-        )
-      );
-    } else {
-      setStudents([...students, { ...formData, id: new Date().getTime() }]);
-    }
-    setFormData({ name: "", rollNo: "", department: "", semester: "" });
-    setEditingStudent(null);
-    setShowModal(false);
-  };
-
-  const handleEdit = (student) => {
-    setEditingStudent(student);
-    setFormData(student);
-    setShowModal(true);
-  };
 
   const handleDelete = (id) => {
     setStudents(students.filter((s) => s.id !== id));
@@ -69,146 +45,11 @@ const StudentsPage = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
+        <h1 className="text-3xl font-bold text-black">
           Students Management
         </h1>
-        <div className="flex items-center gap-2">
-          <div className="flex">
-            <label
-              htmlFor="fileInput"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium cursor-pointer bg-indigo-600 transition"
-            >
-              <FilePlusIcon className="w-4 h-4" />
-              <span> Students List</span>
-            </label>
-
-            <input
-              type="file"
-              id="fileInput"
-              accept=".csv"
-              className="hidden"
-            />
-          </div>
-          <button
-            onClick={() => {
-              setShowModal(true);
-              setEditingStudent(null);
-              setFormData({
-                name: "",
-                rollNo: "",
-                department: "",
-                semester: "",
-              });
-            }}
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700"
-          >
-            <PlusCircle className="w-4 h-4" />
-            <span> Student</span>
-          </button>
-        </div>
       </div>
 
-      {/* Modal Form */}
-      <Modal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        title={
-          editingStudent ? (
-            "Edit Student"
-          ) : (
-            <div className="flex items-center font-bold gap-2 text-4xl ">
-              <User2 size={32} />
-              Student
-            </div>
-          )
-        }
-      >
-        <form
-          onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
-        >
-          <div>
-            <label htmlFor="name">Student</label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="name">Registration No</label>
-            <input
-              type="text"
-              value={formData.rollNo}
-              onChange={(e) =>
-                setFormData({ ...formData, rollNo: e.target.value })
-              }
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="department">Department</label>
-            <input
-              type="text"
-              value={formData.department}
-              onChange={(e) =>
-                setFormData({ ...formData, department: e.target.value })
-              }
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="semester">Semester</label>
-            <input
-              type="text"
-              value={formData.semester}
-              onChange={(e) =>
-                setFormData({ ...formData, semester: e.target.value })
-              }
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <div className="col-span-2">
-            <label htmlFor="department">Course</label>
-            <input
-              type="text"
-              value={formData.course}
-              onChange={(e) =>
-                setFormData({ ...formData, course: e.target.value })
-              }
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            />
-          </div>
-          <div className="md:col-span-2 flex space-x-3">
-            <button
-              type="submit"
-              className="flex items-center bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
-            >
-              {editingStudent ? (
-                "Update"
-              ) : (
-                <PlusCircle className="w-4 h-4 inline-block mr-2" />
-              )}{" "}
-              Student
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowModal(false)}
-              className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </Modal>
 
       {/* Search + Table */}
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -225,21 +66,21 @@ const StudentsPage = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-indigo-100">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Roll No
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Department
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Semester
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Actions
                 </th>
               </tr>
@@ -253,14 +94,8 @@ const StudentsPage = () => {
                   <td className="px-6 py-4 text-black">{student.semester}</td>
                   <td className="px-6 py-4 flex space-x-2">
                     <button
-                      onClick={() => handleEdit(student)}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
                       onClick={() => handleDelete(student.id)}
-                      className="text-red-600 hover:text-red-800"
+                      className="text-red-600 hover:text-red-800 bg-indigo-100"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

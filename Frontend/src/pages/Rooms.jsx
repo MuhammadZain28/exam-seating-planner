@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusCircle, Edit2, Trash2, Building, Building2 } from 'lucide-react';
 import Modal from '../components/Modal';
-const RoomsPage = ({ rooms = [], setRooms }) => {
+import Room from '../utils/room';
+const RoomsPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingRoom, setEditingRoom] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    capacity: '',
-    rows: '',
-    columns: ''
-  });
+  const [formData, setFormData] = useState(new Room());
+  const [rooms, setRooms] = useState([]);
   // const [layout, setLayout] = useState([[]])
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const roomInstance = new Room();
+      const data = await roomInstance.getRooms();
+      console.log("Fetched Rooms:", data);
+      if (data) {
+        setRooms(data);
+      } else {
+        setRooms([]);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const roomData = {
       ...formData,
@@ -24,9 +35,12 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
     if (editingRoom) {
       setRooms(rooms.map(r => r.id === editingRoom.id ? { ...roomData, id: r.id } : r));
     } else {
+      const roomInstance = new Room();
+      const res = await roomInstance.insertRoom(roomData);
+      console.log("Insert Room Response:", res);
       setRooms([...rooms, { ...roomData, id: Date.now() }]);
     }
-    setFormData({ name: '', capacity: '', rows: '', columns: '' });
+    setFormData(new Room());
     setShowForm(false);
     setEditingRoom(null);
   };
@@ -48,8 +62,6 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
         <button
           onClick={() => {
             setShowForm(!showForm);
-            setEditingRoom(null);
-            setFormData({ name: '', capacity: '', rows: '', columns: '' });
           }}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700"
         >
@@ -147,18 +159,18 @@ const RoomsPage = ({ rooms = [], setRooms }) => {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-xl font-semibold text-gray-800">{room.name}</h3>
-                <p className="text-gray-500 text-sm mt-1">Capacity: {room.capacity} seats</p>
+                <p className="text-gray-500 text-sm mt-1">Capacity: {room.columns * room.rows} seats</p>
               </div>
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleEdit(room)}
-                  className="text-blue-600 hover:text-blue-800"
+                  className="text-blue-600 hover:text-blue-800 bg-indigo-100"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleDelete(room.id)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-red-600 hover:text-red-800 bg-indigo-100"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

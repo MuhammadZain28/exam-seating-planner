@@ -1,5 +1,6 @@
-[
-    [
+{
+    "size": 10,
+    "students": [
         {
             "name": "Ali Khan",
             "reg": "CS-2023-001",
@@ -26,4 +27,4 @@
             "course": "ABC"
         }
     ]
-]
+}
