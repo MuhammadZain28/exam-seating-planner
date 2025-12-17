@@ -50,6 +50,15 @@ class Queue:
             print(curr.data, end=" -> ")
             curr = curr.prev
 
+    def to_list(self):
+        result = []
+        curr = self.head
+        while curr:
+            q = curr.data.to_dict()
+            result.append(q)
+            curr = curr.next
+        return result
+
 class PriorityQueue:
     def __init__(self):
         self.heap = []

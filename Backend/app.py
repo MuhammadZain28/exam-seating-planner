@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from Backend.routes.exam import router as exam
+from .routes.exam import router as exam
+from .routes.student import router as student
 # Create FastAPI instance
 app = FastAPI(title="Exam Seating Planner Backend")
 
@@ -14,3 +15,4 @@ app.add_middleware(
 )
 
 app.include_router(exam, prefix="/exam")
+app.include_router(student, prefix="/students")

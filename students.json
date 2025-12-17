@@ -1,0 +1,29 @@
+[
+    [
+        {
+            "name": "Ali Khan",
+            "reg": "CS-2023-001",
+            "course": "ABC"
+        },
+        {
+            "name": "Sara Ahmed",
+            "reg": "CS-2023-002",
+            "course": "ABC"
+        },
+        {
+            "name": "Usman Raza",
+            "reg": "CS-2023-003",
+            "course": "ABC"
+        },
+        {
+            "name": "Ayesha Malik",
+            "reg": "CS-2023-004",
+            "course": "ABC"
+        },
+        {
+            "name": "Hassan Ali",
+            "reg": "CS-2023-005",
+            "course": "ABC"
+        }
+    ]
+]
