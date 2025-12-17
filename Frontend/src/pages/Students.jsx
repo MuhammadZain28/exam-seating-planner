@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect} from "react";
 import {
   PlusCircle,
   Edit2,
@@ -9,17 +9,15 @@ import {
   FilePlusIcon,
 } from "lucide-react";
 import Modal from "../components/Modal";
+import Student from "../utils/student";
 
-const StudentsPage = ({ students = [], setStudents }) => {
+
+const StudentsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    rollNo: "",
-    department: "",
-    semester: "",
-  });
+  const [formData, setFormData] = useState(new Student());
+  const [students, setStudents] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +50,21 @@ const StudentsPage = ({ students = [], setStudents }) => {
       s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       s.rollNo.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const studentInstance = new Student();
+      const data = await studentInstance.getStudentData();
+      console.log("Fetched Students:", data);
+      if (data) {
+        setStudents(data);
+      } else {
+        setStudents([]);
+      }
+    };
+
+    fetchStudents();
+  }, []);
 
   return (
     <div className="p-6">
@@ -166,9 +179,9 @@ const StudentsPage = ({ students = [], setStudents }) => {
             <label htmlFor="department">Course</label>
             <input
               type="text"
-              value={formData.department}
+              value={formData.course}
               onChange={(e) =>
-                setFormData({ ...formData, department: e.target.value })
+                setFormData({ ...formData, course: e.target.value })
               }
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
@@ -233,11 +246,11 @@ const StudentsPage = ({ students = [], setStudents }) => {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {filteredStudents.map((student) => (
-                <tr key={student.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">{student.name}</td>
-                  <td className="px-6 py-4">{student.rollNo}</td>
-                  <td className="px-6 py-4">{student.department}</td>
-                  <td className="px-6 py-4">{student.semester}</td>
+                <tr key={student.reg} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-black">{student.name}</td>
+                  <td className="px-6 py-4 text-black">{student.reg}</td>
+                  <td className="px-6 py-4 text-black">{student.course}</td>
+                  <td className="px-6 py-4 text-black">{student.semester}</td>
                   <td className="px-6 py-4 flex space-x-2">
                     <button
                       onClick={() => handleEdit(student)}
