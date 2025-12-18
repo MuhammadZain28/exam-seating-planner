@@ -5,17 +5,70 @@ import Dashboard from './pages/Dashboard.jsx';
 import StudentsPage from './pages/Students.jsx';
 import RoomsPage from './pages/Rooms.jsx';
 import ExamsPage from './pages/Exams.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Exam from './utils/exam.js';
+import Student from './utils/student.js';
+import Room from './utils/room.js';
+
+
 const App = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [exams, setExams] = useState([])
+  const [students, setStudents] = useState([])
+  const [rooms, setRooms] = useState([])
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const examInstance = new Exam()
+      try {
+        const res = await examInstance.getExams();
+        console.log("Fetched exams:", res);
+        if (res) setExams(res);
+      } catch (error) {
+        console.error("Error fetching students:", error);
+      }
+    };
+    fetchStudents();
+  }, []);
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const studentInstance = new Student();
+      const data = await studentInstance.getStudentData();
+      console.log("Fetched Students:", data);
+      if (data) {
+        setStudents(data);
+      } else {
+        setStudents([]);
+      }
+    };
+
+    fetchStudents();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const roomInstance = new Room();
+      const data = await roomInstance.getRooms();
+      console.log("Fetched Rooms:", data);
+      if (data) {
+        setRooms(data);
+      } else {
+        setRooms([]);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
   return (
     <div className="grid grid-cols-[75px_1fr] min-h-screen bg-[#F2F4F0] w-screen" onClick={() => setIsOpen(false)}>
       <Navigation isOpen={isOpen} setIsOpen={setIsOpen} />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/students" element={<StudentsPage />} />
-        <Route path="/rooms" element={<RoomsPage />} />
-        <Route path="/exams" element={<ExamsPage />} />
+        <Route path="/" element={<Dashboard students={students} exams={exams} rooms={rooms} />} />
+        <Route path="/students" element={<StudentsPage students={students} setStudents={setStudents} />} />
+        <Route path="/rooms" element={<RoomsPage rooms={rooms} setRooms={setRooms} />} />
+        <Route path="/exams" element={<ExamsPage exams={exams} setExams={setExams} />} />
         <Route path="/seating" element={<SeatingPlanPage />} />
       </Routes>
     </div>

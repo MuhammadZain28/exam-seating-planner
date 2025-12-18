@@ -1,28 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { PlusCircle, Edit2, Trash2, Building2 } from 'lucide-react';
 import Modal from '../components/Modal';
 import Room from '../utils/room';
-const RoomsPage = () => {
+const RoomsPage = ({rooms, setRooms}) => {
   const [showForm, setShowForm] = useState(false);
   const [editingRoom, setEditingRoom] = useState(null);
   const [formData, setFormData] = useState(new Room());
-  const [rooms, setRooms] = useState([]);
   // const [layout, setLayout] = useState([[]])
 
-  useEffect(() => {
-    const fetchRooms = async () => {
-      const roomInstance = new Room();
-      const data = await roomInstance.getRooms();
-      console.log("Fetched Rooms:", data);
-      if (data) {
-        setRooms(data);
-      } else {
-        setRooms([]);
-      }
-    };
-
-    fetchRooms();
-  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const roomData = {

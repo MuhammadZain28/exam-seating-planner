@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from "react";
+import{ useState } from "react";
 import { PlusCircle, Edit2, Trash2, Calendar1 } from "lucide-react";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
 import Exam from "../utils/exam";
 
-const ExamsPage = () => {
+const ExamsPage = ({ exams, setExams }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingExam, setEditingExam] = useState(null);
-  const [exams, setExams] = useState([]);
   const [formData, setFormData] = useState(new Exam());
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      const examInstance = new Exam()
-      try {
-        const res = await examInstance.getExams();
-        console.log("Fetched exams:", res);
-        if (res) setExams(res);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-    };
-    fetchStudents();
-  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,10 +31,10 @@ const ExamsPage = () => {
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (exam) => {
     const examInstance = new Exam()
-    const response = await examInstance.deleteExam(id)
-    console.log("Response: ", response, "ID: ", id)
+    const response = await examInstance.deleteExam(exam.course, exam.date)
+    console.log("Response: ", response, "Exam: ", exam)
   };
 
 
@@ -201,7 +187,7 @@ const ExamsPage = () => {
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => handleDelete(exam.course)}
+                  onClick={() => handleDelete(exam)}
                   className="text-red-600 hover:text-red-800 bg-indigo-100 p-2 rounded-lg"
                 >
                   <Trash2 className="w-4 h-4" />

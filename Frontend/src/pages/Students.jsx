@@ -1,20 +1,16 @@
-import { useState, useEffect} from "react";
-import {
-  Trash2,
-  Search,
-} from "lucide-react";
+import { useState } from "react";
+import { Trash2, Search } from "lucide-react";
 import Student from "../utils/student";
 
 
-const StudentsPage = () => {
+const StudentsPage = ({students, setStudents}) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [students, setStudents] = useState([]);
 
 
-  const handleDelete = (reg, course) => {
+  const handleDelete = (student) => {
     const studentInstance = new Student();
-    studentInstance.deleteStudent(reg, course);
-    setStudents(students.filter((s) => s.reg !== reg || s.course !== course));
+    studentInstance.deleteStudent(student.reg, student.course, student.date);
+    setStudents(students.filter((s) => s.reg !== student.reg || s.course !== student.course || s.date !== student.date));
   };
 
   const filteredStudents = students.filter(
@@ -23,23 +19,8 @@ const StudentsPage = () => {
       s.rollNo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      const studentInstance = new Student();
-      const data = await studentInstance.getStudentData();
-      console.log("Fetched Students:", data);
-      if (data) {
-        setStudents(data);
-      } else {
-        setStudents([]);
-      }
-    };
-
-    fetchStudents();
-  }, []);
-
   return (
-    <div className="p-6">
+    <div className="p-6 w-full min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-black">
           Students Management
@@ -90,7 +71,7 @@ const StudentsPage = () => {
                   <td className="px-6 py-4 text-black">{student.semester}</td>
                   <td className="px-6 py-4 flex space-x-2">
                     <button
-                      onClick={() => handleDelete(student.reg, student.course)}
+                      onClick={() => handleDelete(student)}
                       className="text-red-600 hover:text-red-800 bg-indigo-100"
                     >
                       <Trash2 className="w-4 h-4" />
