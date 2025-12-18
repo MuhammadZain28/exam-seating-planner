@@ -36,7 +36,6 @@ class AVL:
 
         return node
 
-    
     def getHeight(self, node):
         if not node:
             return 0
@@ -50,7 +49,7 @@ class AVL:
     def left_rotation(self, x):
         y = x.right
         T2 = y.left
-        y.left = x  
+        y.left = x
         x.right = T2
 
         return y

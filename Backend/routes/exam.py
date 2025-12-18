@@ -37,14 +37,14 @@ async def insert(
 
     return {"rows": len(df), "columns": list(df.columns)}
 
-@router.delete("/delete/{course}")
-def delete(course: str):
+@router.delete("/{course}/{date}")
+def delete(course: str, date: str):
     print("Deleting course:", course)
-    return exams.delete(course)
+    return exams.delete(course, date)
 
-@router.delete("/{reg}/{course}/")
-def delete_student(reg: str, course: str):
-    result = exams.delete_students(course=course, reg=reg)
+@router.delete("/{reg}/{course}/{date}")
+def delete_student(reg: str, course: str, date: str):
+    result = exams.delete_students(course=course, reg=reg, date=date)
     if result:
         studentInstance.delete(reg)
         return {"message": "Student deleted successfully"}

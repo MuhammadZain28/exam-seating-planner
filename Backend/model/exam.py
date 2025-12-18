@@ -1,34 +1,42 @@
 import json
-
+from ..structures.RB_Tree import RB_Tree
+from dataclasses import dataclass
+@dataclass(order=True)
+class Key:
+    date: str
+    course: str
 class Exams:
     _instance = None
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Exams, cls).__new__(cls)
-            cls._instance.exams = []
+            cls._instance.exams = RB_Tree()
             cls._instance.load()
         return cls._instance
 
     def insert(self, exam):
-        self.exams.append(exam)
+        key = Key(date=exam.date, course=exam.course)
+        self.exams.insert(key, exam)
         self.save()
 
-    def delete(self, course):
-        self.exams = [exam for exam in self.exams if exam.course != course]
+    def delete(self, course, date):
+        key = Key(date=date, course=course)
+        self.exams.delete(key)
         self.save()
 
-    def delete_students(self, course, reg):
-        for exam in self.exams:
-            if exam.course == course:
-                exam.students = [s for s in exam.students if s["reg"] != reg]
-                self.save()
-                return True
+    def delete_students(self, course, reg, date):
+        key = Key(date=date, course=course)
+        exam = self.search(key)
+        if exam:
+            exam.students = [s for s in exam.students if s["reg"] != reg]
+            self.save()
+            return True
         return False
 
     def search(self, exam):
-        for ex in self.exams:
-            if ex.course == exam.course:
-                return ex
+        exam_node = self.exams.search(self.exams.root, exam)
+        if exam_node:
+            return exam_node.data
         return None
 
     def update(self, exam):
@@ -46,10 +54,8 @@ class Exams:
                 return
 
     def get(self):
-        result = []
-        for exam in self.exams:
-            result.append(exam.to_dict())
-        return result
+        result = self.exams.inorder()
+        return [node.to_dict() for node in result]
 
     def save(self):
         data = {
