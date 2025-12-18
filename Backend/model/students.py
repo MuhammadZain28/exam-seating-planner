@@ -1,4 +1,7 @@
-import json
+from .exam import Exams
+
+examInstance = Exams()
+
 class Student:
     def __init__(self, name, reg, course):
         self.name = name
@@ -8,15 +11,24 @@ class Student:
     def to_dict(self):
         return {
             "name": self.name,
+            "reg": self.reg
+        }
+    def to_print(self):
+        return {
+            "name": self.name,
             "reg": self.reg,
             "course": self.course
         }
 
 class Students:
-    def __init__(self, size = 100):
-        self.table = [None] * size
-        self.size = size
-        self.elements = 0
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Students, cls).__new__(cls)
+            cls.table = [None] * 101
+            cls.size = 101
+            cls.elements = 0
+        return cls._instance
 
     def insert(self, student):
         key = sum(ord(c) for c in student.reg)
@@ -31,7 +43,6 @@ class Students:
                 return  # Table is full
         self.table[index] = student
         self.elements += 1
-        self.save_students()
 
     def hash_1(self, key):
         return key % self.size
@@ -62,39 +73,35 @@ class Students:
                 break
             if student is None or student == -1:
                 continue
-            result.append(student.to_dict())
+            result.append(student.to_print())
             count += 1
         return result
 
-    def delete_course(self, course_id):
-        deleted_students = []
-        for i in range(self.size):
-            student = self.table[i]
-            if student is not None and student != -1 and student.course == course_id:
-                deleted_students.append(student)
-                self.table[i] = -1  # Mark as deleted
-                self.elements -= 1
-        if deleted_students:
-            self.save_students()
-        return deleted_students
 
-    def save_students(self):
-        students = self.to_list()
-        print("Saving students data:", students)
-        data = {
-            "size": self.size,
-            "students": students
-        }
-        with open("students.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
+    def delete(self, reg):
+        key = sum(ord(c) for c in reg)
+        index = self.hash_1(key)
+        steps = self.hash_2(key)
+
+        i = 0
+        while self.table[index] is not None:
+            if self.table[index] != -1 and self.table[index].reg == reg:
+                self.table[index] = -1  # Mark as deleted
+                self.elements -= 1
+                return True
+
+            index = (index + steps) % self.size
+            i += 1
+            if i > self.size:
+                return False
+        return False
+
 
     def load(self):
-        with open("students.json", "r", encoding="utf-8") as f:
-            student = json.load(f)
-            print("Loading students table of size:", student)
-            self.elements = int(student["size"])
-            self.table = [None] * self.size
-            for record in student["students"]:
-                print("Loading student:", record)
-                student = Student(**record)
+        exam = examInstance.get()
+        print("Loading students table of size:", exam)
+        for record in exam:
+            print("Loading exam:", record)
+            for s in record["students"]:
+                student = Student(name=s["name"], reg=s["reg"], course=record["course"])
                 self.insert(student)

@@ -1,14 +1,8 @@
 import { useState, useEffect} from "react";
 import {
-  PlusCircle,
-  Edit2,
   Trash2,
   Search,
-  User2,
-  Link,
-  FilePlusIcon,
 } from "lucide-react";
-import Modal from "../components/Modal";
 import Student from "../utils/student";
 
 
@@ -17,8 +11,10 @@ const StudentsPage = () => {
   const [students, setStudents] = useState([]);
 
 
-  const handleDelete = (id) => {
-    setStudents(students.filter((s) => s.id !== id));
+  const handleDelete = (reg, course) => {
+    const studentInstance = new Student();
+    studentInstance.deleteStudent(reg, course);
+    setStudents(students.filter((s) => s.reg !== reg || s.course !== course));
   };
 
   const filteredStudents = students.filter(
@@ -75,7 +71,7 @@ const StudentsPage = () => {
                   Roll No
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
-                  Department
+                  Course
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Semester
@@ -94,7 +90,7 @@ const StudentsPage = () => {
                   <td className="px-6 py-4 text-black">{student.semester}</td>
                   <td className="px-6 py-4 flex space-x-2">
                     <button
-                      onClick={() => handleDelete(student.id)}
+                      onClick={() => handleDelete(student.reg, student.course)}
                       className="text-red-600 hover:text-red-800 bg-indigo-100"
                     >
                       <Trash2 className="w-4 h-4" />

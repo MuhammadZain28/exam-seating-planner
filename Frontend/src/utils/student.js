@@ -28,4 +28,15 @@ export default class Student {
             return null;
         }
     };
+
+    deleteStudent = async (reg, course) => {
+        try {
+            const response = await axios.delete(`${API_URL}/exam/${reg}/${course}/`);
+            console.log("Delete Student Response:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Error deleting student:", error);
+            return null;
+        }
+    };
 }

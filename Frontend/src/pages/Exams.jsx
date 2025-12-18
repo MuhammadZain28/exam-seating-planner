@@ -218,7 +218,7 @@ const ExamsPage = () => {
             </div>
             <div className="bg-indigo-50 rounded p-4">
               <p className="text-sm font-medium text-black mb-2">
-                Enrolled Students: {exam.students}
+                Enrolled Students: {Array.isArray(exam.students) ? exam.students.length : 0}
               </p>
             </div>
           </div>

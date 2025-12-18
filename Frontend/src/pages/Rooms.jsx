@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { PlusCircle, Edit2, Trash2, Building, Building2 } from 'lucide-react';
+import { PlusCircle, Edit2, Trash2, Building2 } from 'lucide-react';
 import Modal from '../components/Modal';
 import Room from '../utils/room';
 const RoomsPage = () => {
@@ -34,6 +34,9 @@ const RoomsPage = () => {
 
     if (editingRoom) {
       setRooms(rooms.map(r => r.id === editingRoom.id ? { ...roomData, id: r.id } : r));
+      const roomInstance = new Room();
+      const res = await roomInstance.updateRoom(formData);
+      console.log("Update Room Response:", res);
     } else {
       const roomInstance = new Room();
       const res = await roomInstance.insertRoom(roomData);
@@ -152,7 +155,7 @@ const RoomsPage = () => {
         </Modal>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {rooms.map(room => (
-          <div key={room.id} className="bg-white rounded-lg shadow-md p-6">
+          <div key={room.name} className="bg-white rounded-lg shadow-md p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-xl font-semibold text-gray-800">{room.name}</h3>

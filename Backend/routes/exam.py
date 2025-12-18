@@ -2,13 +2,13 @@ from fastapi import APIRouter, Form, UploadFile, File
 from ..model.exam import Exams, Exam
 from pydantic import BaseModel
 import pandas as pd
-from ..model.students import Student
-from .student import insert_student, delete_students
+from ..model.students import Students
 
 router = APIRouter()
 
 exams = Exams()
-exams.load()
+studentInstance = Students()
+
 class ExamBase(BaseModel):
     course: str
     date: str
@@ -30,10 +30,9 @@ async def insert(
     contents = await file.read()
     df = pd.read_csv(pd.io.common.BytesIO(contents))
 
-    students = [Student(record["name"], record["reg"], course) for record in df.to_dict(orient='records')]
-    exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=len(students))
+    students = [record for record in df.to_dict(orient='records')]
+    exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students)
     exams.insert(exam)
-    insert_student(students)
     print(f"Inserted exam for course: {course} with {len(students)} students.")
 
     return {"rows": len(df), "columns": list(df.columns)}
@@ -41,8 +40,16 @@ async def insert(
 @router.delete("/delete/{course}")
 def delete(course: str):
     print("Deleting course:", course)
-    delete_students(course)
     return exams.delete(course)
+
+@router.delete("/{reg}/{course}/")
+def delete_student(reg: str, course: str):
+    result = exams.delete_students(course=course, reg=reg)
+    if result:
+        studentInstance.delete(reg)
+        return {"message": "Student deleted successfully"}
+    return {"message": "Student not found"}
+
 @router.post("/update")
 def update(exam: ExamBase):
     return exams.update(exam)

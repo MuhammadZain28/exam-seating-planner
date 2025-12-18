@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion as Motion } from "framer-motion";
 
 const Navigation = ({isOpen, setIsOpen}) => {
-  const [currentPage, setCurrentPage] = useState("dashboard");
+  const [currentPage, setCurrentPage] = useState(window.location.pathname.slice(1) || "dashboard");
 
   const pages = [
     { id: "dashboard", name: "Dashboard", icon: Layout },

@@ -52,11 +52,11 @@ export default class Room {
         rows: Number(room.rows) || 0,
         columns: Number(room.columns) || 0
       }
-      const response = await axios.put(`${API_URL}/room/update/${encodeURIComponent(room.id)}`, payload)
+      const response = await axios.put(`${API_URL}/room/update/${encodeURIComponent(room.name)}`, payload)
       return response.data
     } catch (error) {
       console.error("Error updating room:", error);
       return null
     }
   }
-}   
+}

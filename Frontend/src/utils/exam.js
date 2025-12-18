@@ -3,12 +3,12 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default class Exam {
-  constructor(course = "ABC", date = new Date().toISOString().split("T")[0], type = "Midterm", duration = 90, student = null) {
+  constructor(course = "ABC", date = new Date().toISOString().split("T")[0], type = "Midterm", duration = 90, student = []) {
     this.course = course
     this.date = date
     this.type = type
     this.duration = duration
-    this.student = student || null
+    this.student = student
   }
 
   insertExam = async (exam) => {
@@ -44,6 +44,7 @@ export default class Exam {
   deleteExam = async (course) => {
     try {
       const response = await axios.delete(`${API_URL}/exam/delete/${encodeURIComponent(course)}`)
+      console.log("Delete Response:", response.data)
       return response.data
     } catch (error) {
       console.error(error)
