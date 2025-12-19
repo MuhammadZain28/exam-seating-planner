@@ -1,4 +1,12 @@
 import json
+from ..structures.RB_Tree import RB_Tree
+from dataclasses import dataclass
+
+@dataclass(order=True)
+class Key:
+    capacity: int
+    name: str
+
 class Room:
     def __init__(self, name: str, columns: int, rows: int):
         self.name = name
@@ -13,21 +21,20 @@ class Room:
         }
 
 class Rooms:
-    def __init__(self):
-        self.rooms = []
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Rooms, cls).__new__(cls)
+            cls._instance.rooms = RB_Tree()
+        return cls._instance
     def add_room(self, room):
-        self.rooms.append(room)
-    def delete_room(self, room_id):
-            i = self.rooms.index(next((r for r in self.rooms if r.name == room_id), -1))
-            print(i)
-            if i != -1:
-                return self.rooms.pop(i)
-            return None
+        key = Key(capacity=room.rows * room.columns, name=room.name)
+        self.rooms.insert(key, room)
+    def delete_room(self, room_id, capacity):
+        key = Key(capacity=capacity, name=room_id)
+        self.rooms.delete(key)
     def to_list(self):
-        result = []
-        for room in self.rooms:
-            result.append(room.to_dict())
-        return result
+        return self.rooms.inorder()
     def load(self):
         import json
         with open("rooms.json", "r", encoding="utf-8") as f:

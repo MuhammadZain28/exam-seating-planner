@@ -9,35 +9,6 @@
             "students": [
                 {
                     "name": "Ali Khan",
-                    "reg": "CS-2024-001"
-                },
-                {
-                    "name": "Sara Ahmed",
-                    "reg": "CS-2024-002"
-                },
-                {
-                    "name": "Usman Raza",
-                    "reg": "CS-2024-003"
-                },
-                {
-                    "name": "Ayesha Malik",
-                    "reg": "CS-2024-004"
-                },
-                {
-                    "name": "Hassan Ali",
-                    "reg": "CS-2024-005"
-                }
-            ]
-        },
-        {
-            "course": "XYZ",
-            "date": "2025-12-19",
-            "time": "TBD",
-            "type": "midterm",
-            "duration": 90,
-            "students": [
-                {
-                    "name": "Ali Khan",
                     "reg": "CS-2023-001"
                 },
                 {

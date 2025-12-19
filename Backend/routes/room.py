@@ -25,14 +25,14 @@ def add_room(room_data: RoomModel):
     rooms.add_room(room)
     rooms.save()
     return {"message": "Room added successfully"}
-@router.delete("/delete/{room_id}")
-def delete_room(room_id: str):
-    rooms.delete_room(room_id)
+@router.delete("/delete/{room_id}/{capacity}/")
+def delete_room(room_id: str, capacity: int):
+    rooms.delete_room(room_id, capacity)
     rooms.save()
     return {"message": "Room deleted successfully"}
-@router.put("/update/{room_id}")
-def update_room(room_id: str, room_data: RoomModel):
-    rooms.delete_room(room_id)
+@router.put("/update/{room_id}/{capacity}/")
+def update_room(room_id: str, capacity: int, room_data: RoomModel):
+    print(rooms.delete_room(room_id, capacity))
     room = Room(
         name=room_data.name,
         rows=room_data.rows,

@@ -1,5 +1,5 @@
 import json
-from ..structures.RB_Tree import RB_Tree
+from ..structures.LinkList import LinkList
 from dataclasses import dataclass
 @dataclass(order=True)
 class Key:
@@ -10,52 +10,53 @@ class Exams:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Exams, cls).__new__(cls)
-            cls._instance.exams = RB_Tree()
+            cls._instance.exams = LinkList()
             cls._instance.load()
         return cls._instance
 
     def insert(self, exam):
-        key = Key(date=exam.date, course=exam.course)
-        self.exams.insert(key, exam)
+        self.exams.push(exam)
         self.save()
 
-    def delete(self, course, date):
-        key = Key(date=date, course=course)
-        self.exams.delete(key)
+    def delete(self, course):
+        self.exams.delete(course)
         self.save()
 
-    def delete_students(self, course, reg, date):
-        key = Key(date=date, course=course)
-        exam = self.search(key)
+    def delete_students(self, course, reg):
+        exam = self.search(course)
         if exam:
             exam.students = [s for s in exam.students if s["reg"] != reg]
             self.save()
             return True
         return False
 
-    def search(self, exam):
-        exam_node = self.exams.search(self.exams.root, exam)
+    def search(self, course):
+        exam_node = self.exams.search(course)
         if exam_node:
             return exam_node.data
         return None
 
     def update(self, exam):
-        for i, ex in enumerate(self.exams):
-            if ex.course == exam.course:
-                updated_exam = Exam(
-                    course=exam.course,
-                    date=exam.date,
-                    type=exam.type,
-                    duration=exam.duration,
-                    students=ex.students
-                )
-                self.exams[i] = updated_exam
-                self.save()
-                return
+        exam_node = self.exams.search(exam.course)
+        if exam_node:
+            ex = Exam(
+                course=exam.course,
+                date=exam.date,
+                type=exam.type,
+                duration=exam.duration,
+                students=exam_node.data.students
+            )
+            exam_node.data = ex
+            self.save()
+            return True
+        return False
 
     def get(self):
-        result = self.exams.inorder()
-        return [node.to_dict() for node in result]
+        result = self.exams.mergeSort(self.exams.head)
+        self.exams.head = result
+        if result is None:
+            return []
+        return self.exams.get_list()
 
     def save(self):
         data = {

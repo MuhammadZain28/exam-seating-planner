@@ -38,7 +38,6 @@ const StudentsPage = ({students, setStudents}) => {
         <div className="mb-4 relative w-full">
           <SearchIcon className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
           {students.length > 0 ?  <Search data={students} onSelect={(data) => setFilteredStudents(data)} /> : null}
-          <CrossIcon className="absolute right-3 top-3 w-5 h-5 text-red-600 rotate-45" fill="rgb(255, 0, 0)" onClick={() => setFilteredStudents(students)} />
         </div>
 
         <div className="overflow-x-auto">

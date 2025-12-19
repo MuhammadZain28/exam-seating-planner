@@ -2,8 +2,8 @@
     "rooms": [
         {
             "name": "Room A",
-            "columns": 6,
-            "rows": 5
+            "columns": 11,
+            "rows": 11
         }
     ]
 }

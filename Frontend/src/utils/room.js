@@ -35,16 +35,16 @@ export default class Room {
     }
   };
 
-  deleteRoom = async (id) => {
+  deleteRoom = async (id, capacity) => {
     try {
-      const response = await axios.delete(`${API_URL}/room/delete/${encodeURIComponent(id)}`)
+      const response = await axios.delete(`${API_URL}/room/delete/${encodeURIComponent(id)}/${capacity}`)
       return response.data
     } catch (error) {
       console.error(error)
       return null
     }
   }
-  updateRoom = async (room) => {
+  updateRoom = async (room, prevCapacity) => {
     try {
       const payload = {
         name: room.name || "",   // default empty string
@@ -52,7 +52,7 @@ export default class Room {
         rows: Number(room.rows) || 0,
         columns: Number(room.columns) || 0
       }
-      const response = await axios.put(`${API_URL}/room/update/${encodeURIComponent(room.name)}`, payload)
+      const response = await axios.put(`${API_URL}/room/update/${encodeURIComponent(room.name)}/${prevCapacity}/`, payload)
       return response.data
     } catch (error) {
       console.error("Error updating room:", error);

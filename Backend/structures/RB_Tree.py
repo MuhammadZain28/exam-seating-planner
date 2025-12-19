@@ -136,7 +136,7 @@ class RB_Tree:
     def inorder_helper(self, node, result):
         if node != self.NIL:
             self.inorder_helper(node.left, result)
-            result.append(node.data)
+            result.append(node.data.to_dict())
             self.inorder_helper(node.right, result)
     def delete(self, key):
         z = self.search(self.root, key)

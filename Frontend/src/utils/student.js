@@ -29,9 +29,9 @@ export default class Student {
         }
     };
 
-    deleteStudent = async (reg, course, date) => {
+    deleteStudent = async (reg, course) => {
         try {
-            const response = await axios.delete(`${API_URL}/exam/${reg}/${course}/${date}/`);
+            const response = await axios.delete(`${API_URL}/exam/${reg}/${course}/`);
             console.log("Delete Student Response:", response.data);
             return response.data;
         } catch (error) {

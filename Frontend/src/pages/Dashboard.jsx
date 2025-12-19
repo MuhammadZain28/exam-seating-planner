@@ -35,14 +35,14 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
           <h2 className="text-xl font-bold mb-4 text-black flex items-center gap-2"><Calendar />Upcoming Exams</h2>
           {exams.length > 0 ? (
             <div className="space-y-3">
-              {exams.slice(0, 5).map(exam => (
+              {exams.slice(0, 4).map(exam => (
                 <div key={exam.course} className="flex justify-between items-center p-3 bg-gray-50 rounded">
                   <div>
                     <p className="font-medium text-black">{exam.course}</p>
                     <p className="text-sm text-gray-700">{exam.date} at {exam.time || "TBD"}</p>
                   </div>
                   <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">
-                    {Array.isArray(exam.student) ? exam.students.length : 0} students
+                    {Array.isArray(exam.students) ? exam.students.length : 0} students
                   </span>
                 </div>
               ))}
@@ -56,7 +56,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
           <h2 className="text-xl font-bold mb-4 text-black flex items-center gap-2"><Building2Icon />Available Rooms</h2>
           {rooms.length > 0 ? (
             <div className="space-y-3">
-              {rooms.map(room => (
+              {rooms.slice(0, 4).map(room => (
                 <div key={room.name} className="p-3 bg-gray-50 rounded">
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-medium text-black">{room.name}</span>

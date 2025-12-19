@@ -20,7 +20,7 @@ const RoomsPage = ({rooms, setRooms}) => {
     if (editingRoom) {
       setRooms(rooms.map(r => r.id === editingRoom.id ? { ...roomData, id: r.id } : r));
       const roomInstance = new Room();
-      const res = await roomInstance.updateRoom(formData);
+      const res = await roomInstance.updateRoom(formData, editingRoom.rows * editingRoom.columns);
       console.log("Update Room Response:", res);
     } else {
       const roomInstance = new Room();
@@ -39,10 +39,10 @@ const RoomsPage = ({rooms, setRooms}) => {
     setShowForm(true);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (room) => {
     const roomInstance = new Room();
-    roomInstance.deleteRoom(id);
-    setRooms(rooms.filter(r => r.id !== id));
+    roomInstance.deleteRoom(room.name, room.rows * room.columns);
+    setRooms(rooms.filter(r => r.name !== room.name));
   };
 
   return (
@@ -154,7 +154,7 @@ const RoomsPage = ({rooms, setRooms}) => {
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => handleDelete(room.name)}
+                  onClick={() => handleDelete(room)}
                   className="text-red-600 hover:text-red-800 bg-indigo-100"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -164,9 +164,9 @@ const RoomsPage = ({rooms, setRooms}) => {
               <p className="text-sm text-gray-600">Layout: {room.rows} × {room.columns}</p>
             <div className="bg-gray-50 rounded p-4 w-80 h-80">
               <div className="grid gap-1 w-full h-full" style={{
-                gridTemplateColumns: `repeat(${Math.min(room.columns, 10)}, 1fr)`
+                gridTemplateColumns: `repeat(${room.columns}, 1fr)`
               }}>
-                {Array.from({ length: Math.min(room.rows * room.columns, 100) }).map((_, i) => (
+                {Array.from({ length: Math.min(room.rows * room.columns, 150) }).map((_, i) => (
                   <div key={i} className="bg-indigo-200 rounded-sm w-full h-full"></div>
                 ))}
               </div>

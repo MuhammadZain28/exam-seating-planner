@@ -3,11 +3,10 @@ from .exam import Exams
 examInstance = Exams()
 
 class Student:
-    def __init__(self, name, reg, course, date):
+    def __init__(self, name, reg, course):
         self.name = name
         self.reg = reg
         self.course = course
-        self.date = date
 
     def to_dict(self):
         return {
@@ -19,7 +18,6 @@ class Student:
             "name": self.name,
             "reg": self.reg,
             "course": self.course,
-            "date": self.date
         }
 
 class Students:
@@ -105,5 +103,5 @@ class Students:
         for record in exam:
             print("Loading exam:", record)
             for s in record["students"]:
-                student = Student(name=s["name"], reg=s["reg"], course=record["course"], date=record["date"])
+                student = Student(name=s["name"], reg=s["reg"], course=record["course"])
                 self.insert(student)

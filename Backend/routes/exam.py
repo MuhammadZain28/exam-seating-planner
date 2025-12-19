@@ -34,21 +34,21 @@ async def insert(
     students = [record for record in df.to_dict(orient='records')]
     exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
     for student in students:
-        std = Student(reg=student["reg"], name=student["name"], course=course, date=date)
+        std = Student(reg=student["reg"], name=student["name"], course=course)
         studentInstance.insert(std)
     exams.insert(exam)
     print(f"Inserted exam for course: {course} with {len(students)} students.")
 
     return {"rows": len(df), "columns": list(df.columns)}
 
-@router.delete("/{course}/{date}")
-def delete(course: str, date: str):
+@router.delete("/{course}/")
+def delete(course: str):
     print("Deleting course:", course)
-    return exams.delete(course, date)
+    return exams.delete(course)
 
-@router.delete("/{reg}/{course}/{date}")
-def delete_student(reg: str, course: str, date: str):
-    result = exams.delete_students(course=course, reg=reg, date=date)
+@router.delete("/{reg}/{course}/")
+def delete_student(reg: str, course: str):
+    result = exams.delete_students(course=course, reg=reg)
     if result:
         studentInstance.delete(reg)
         return {"message": "Student deleted successfully"}
