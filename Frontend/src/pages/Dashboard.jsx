@@ -42,7 +42,7 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
                     <p className="text-sm text-gray-700">{exam.date} at {exam.time || "TBD"}</p>
                   </div>
                   <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">
-                    {exam.students.length} students
+                    {Array.isArray(exam.student) ? exam.students.length : 0} students
                   </span>
                 </div>
               ))}

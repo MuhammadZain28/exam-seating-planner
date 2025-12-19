@@ -1,15 +1,17 @@
 class Node:
-    def __init__(self, key, data, color='red'):
+    RED = "red"
+    BLACK = "black"
+    def __init__(self, key, data, color=RED):
         self.key = key
         self.data = data
-        self.color = color  # 'red' or 'black'
+        self.color = color  # Node.RED or Node.BLACK
         self.left = None
         self.right = None
         self.parent = None
 
 class RB_Tree:
     def __init__(self):
-        self.NIL = Node(key=None, data=None, color='black')
+        self.NIL = Node(key=None, data=None, color=Node.BLACK)
         self.root = self.NIL
 
     def insert(self, key, data):
@@ -36,40 +38,40 @@ class RB_Tree:
         else:
             parent.right = new_node
 
-        new_node.color = 'red'
+        new_node.color = Node.RED
         self.fix_insert(new_node)
 
     def fix_insert(self, node):
-        while node != self.root and node.parent.color == 'red':
+        while node != self.root and node.parent.color == Node.RED:
             if node.parent == node.parent.parent.left:
                 uncle = node.parent.parent.right
-                if uncle.color == 'red':
-                    node.parent.color = 'black'
-                    uncle.color = 'black'
-                    node.parent.parent.color = 'red'
+                if uncle.color == Node.RED:
+                    node.parent.color = Node.BLACK
+                    uncle.color = Node.BLACK
+                    node.parent.parent.color = Node.RED
                     node = node.parent.parent
                 else:
                     if node == node.parent.right:
                         node = node.parent
                         self.left_rotate(node)
-                    node.parent.color = 'black'
-                    node.parent.parent.color = 'red'
+                    node.parent.color = Node.BLACK
+                    node.parent.parent.color = Node.RED
                     self.right_rotate(node.parent.parent)
             else:
                 uncle = node.parent.parent.left
-                if uncle.color == 'red':
-                    node.parent.color = 'black'
-                    uncle.color = 'black'
-                    node.parent.parent.color = 'red'
+                if uncle.color == Node.RED:
+                    node.parent.color = Node.BLACK
+                    uncle.color = Node.BLACK
+                    node.parent.parent.color = Node.RED
                     node = node.parent.parent
                 else:
                     if node == node.parent.left:
                         node = node.parent
                         self.right_rotate(node)
-                    node.parent.color = 'black'
-                    node.parent.parent.color = 'red'
+                    node.parent.color = Node.BLACK
+                    node.parent.parent.color = Node.RED
                     self.left_rotate(node.parent.parent)
-        self.root.color = 'black'
+        self.root.color = Node.BLACK
 
     def left_rotate(self, x):
         y = x.right
@@ -169,61 +171,61 @@ class RB_Tree:
             y.left.parent = y
             y.color = z.color
 
-        if y_original_color == "BLACK":
+        if y_original_color == Node.BLACK:
             self.delete_fix(x)
 
     def delete_fix(self, x):
-        while x != self.root and x.color == "BLACK":
+        while x != self.root and x.color == Node.BLACK:
             if x == x.parent.left:
                 w = x.parent.right
 
-                if w.color == "RED":
-                    w.color = "BLACK"
-                    x.parent.color = "RED"
+                if w.color == Node.RED:
+                    w.color = Node.BLACK
+                    x.parent.color = Node.RED
                     self.left_rotate(x.parent)
                     w = x.parent.right
 
-                if w.left.color == "BLACK" and w.right.color == "BLACK":
-                    w.color = "RED"
+                if w.left.color == Node.BLACK and w.right.color == Node.BLACK:
+                    w.color = Node.RED
                     x = x.parent
                 else:
-                    if w.right.color == "BLACK":
-                        w.left.color = "BLACK"
-                        w.color = "RED"
+                    if w.right.color == Node.BLACK:
+                        w.left.color = Node.BLACK
+                        w.color = Node.RED
                         self.right_rotate(w)
                         w = x.parent.right
 
                     w.color = x.parent.color
-                    x.parent.color = "BLACK"
-                    w.right.color = "BLACK"
+                    x.parent.color = Node.BLACK
+                    w.right.color = Node.BLACK
                     self.left_rotate(x.parent)
                     x = self.root
             else:
                 w = x.parent.left
 
-                if w.color == "RED":
-                    w.color = "BLACK"
-                    x.parent.color = "RED"
+                if w.color == Node.RED:
+                    w.color = Node.BLACK
+                    x.parent.color = Node.RED
                     self.right_rotate(x.parent)
                     w = x.parent.left
 
-                if w.right.color == "BLACK" and w.left.color == "BLACK":
-                    w.color = "RED"
+                if w.right.color == Node.BLACK and w.left.color == Node.BLACK:
+                    w.color = Node.RED
                     x = x.parent
                 else:
-                    if w.left.color == "BLACK":
-                        w.right.color = "BLACK"
-                        w.color = "RED"
+                    if w.left.color == Node.BLACK:
+                        w.right.color = Node.BLACK
+                        w.color = Node.RED
                         self.left_rotate(w)
                         w = x.parent.left
 
                     w.color = x.parent.color
-                    x.parent.color = "BLACK"
-                    w.left.color = "BLACK"
+                    x.parent.color = Node.BLACK
+                    w.left.color = Node.BLACK
                     self.right_rotate(x.parent)
                     x = self.root
 
-        x.color = "BLACK"
+        x.color = Node.BLACK
 
 
 if __name__ == "__main__":

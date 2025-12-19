@@ -1,24 +1,29 @@
-import { useState } from "react";
-import { Trash2, Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Trash2, Search as SearchIcon, Cross, Crosshair, CrossIcon } from "lucide-react";
 import Student from "../utils/student";
+import Search from "../components/Search";
 
 
 const StudentsPage = ({students, setStudents}) => {
-  const [searchTerm, setSearchTerm] = useState("");
 
-
+  const [filteredStudents, setFilteredStudents] = useState(students);
+  
+  useEffect(() => {
+    setFilteredStudents(students);
+  }, [students]);
   const handleDelete = (student) => {
     const studentInstance = new Student();
     studentInstance.deleteStudent(student.reg, student.course, student.date);
     setStudents(students.filter((s) => s.reg !== student.reg || s.course !== student.course || s.date !== student.date));
   };
 
-  const filteredStudents = students.filter(
-    (s) =>
-      s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.rollNo.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+  if (!filteredStudents.length) {
+    return (
+      <div className="p-6 w-full min-h-screen">
+        No Student Found
+      </div>
+    );
+  }
   return (
     <div className="p-6 w-full min-h-screen">
       <div className="flex justify-between items-center mb-6">
@@ -30,15 +35,10 @@ const StudentsPage = ({students, setStudents}) => {
 
       {/* Search + Table */}
       <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="mb-4 relative">
-          <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+        <div className="mb-4 relative w-full">
+          <SearchIcon className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+          {students.length > 0 ?  <Search data={students} onSelect={(data) => setFilteredStudents(data)} /> : null}
+          <CrossIcon className="absolute right-3 top-3 w-5 h-5 text-red-600 rotate-45" fill="rgb(255, 0, 0)" onClick={() => setFilteredStudents(students)} />
         </div>
 
         <div className="overflow-x-auto">

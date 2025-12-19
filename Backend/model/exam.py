@@ -83,16 +83,18 @@ class Exams:
 
 
 class Exam:
-    def __init__(self, course, date, type, duration, students):
+    def __init__(self, course, date, type, duration, students, time="TBD"):
         self.course = course
         self.date = date
         self.type = type
         self.duration = duration
         self.students = students
+        self.time = time
     def to_dict(self):
         return {
             "course": self.course,
             "date": self.date,
+            "time": self.time,
             "type": self.type,
             "duration": self.duration,
             "students": self.students

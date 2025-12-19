@@ -3,9 +3,10 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default class Exam {
-  constructor(course = "ABC", date = new Date().toISOString().split("T")[0], type = "Midterm", duration = 90, student = []) {
+  constructor(course = "ABC", date = new Date().toISOString().split("T")[0], time = "TBD", type = "Midterm", duration = 90, student = []) {
     this.course = course
     this.date = date
+    this.time = time
     this.type = type
     this.duration = duration
     this.student = student
@@ -16,6 +17,7 @@ export default class Exam {
       const form = new FormData();
       form.append("course", exam.course);
       form.append("date", exam.date);
+      form.append("time", exam.time)
       form.append("exam_type", exam.type);
       form.append("duration", exam.duration);
       form.append("file", exam.student);

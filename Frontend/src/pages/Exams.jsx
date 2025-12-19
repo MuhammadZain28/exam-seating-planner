@@ -199,7 +199,7 @@ const ExamsPage = ({ exams, setExams }) => {
                 Duration: {exam.duration} mins
               </p>
               <p className="text-black text-sm">
-                Date: {exam.date}
+                {exam.date} at {exam.time}
               </p>
             </div>
             <div className="bg-indigo-50 rounded p-4">

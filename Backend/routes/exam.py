@@ -2,7 +2,7 @@ from fastapi import APIRouter, Form, UploadFile, File
 from ..model.exam import Exams, Exam
 from pydantic import BaseModel
 import pandas as pd
-from ..model.students import Students
+from ..model.students import Students, Student
 
 router = APIRouter()
 
@@ -23,6 +23,7 @@ def get_exam():
 async def insert(
     course: str = Form(...),
     date: str = Form(...),
+    time: str = Form(...),
     exam_type: str = Form(...),
     duration: int = Form(...),
     file: UploadFile = File(...)
@@ -31,7 +32,10 @@ async def insert(
     df = pd.read_csv(pd.io.common.BytesIO(contents))
 
     students = [record for record in df.to_dict(orient='records')]
-    exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students)
+    exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
+    for student in students:
+        std = Student(reg=student["reg"], name=student["name"], course=course, date=date)
+        studentInstance.insert(std)
     exams.insert(exam)
     print(f"Inserted exam for course: {course} with {len(students)} students.")
 
