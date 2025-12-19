@@ -36,10 +36,11 @@ async def insert(
     for student in students:
         std = Student(reg=student["reg"], name=student["name"], course=course)
         studentInstance.insert(std)
-    exams.insert(exam)
-    print(f"Inserted exam for course: {course} with {len(students)} students.")
+    result = exams.insert(exam)
+    if not result:
+        return {"Error": "Exam with this course already exists"}
 
-    return {"rows": len(df), "columns": list(df.columns)}
+    return {"Success": "Exam is Saved Successfully!"}
 
 @router.delete("/{course}/")
 def delete(course: str):

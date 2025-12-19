@@ -15,8 +15,12 @@ class Exams:
         return cls._instance
 
     def insert(self, exam):
+        is_exist = self.search(exam.course)
+        if is_exist:
+            return False
         self.exams.push(exam)
         self.save()
+        return True
 
     def delete(self, course):
         self.exams.delete(course)

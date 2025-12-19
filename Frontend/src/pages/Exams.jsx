@@ -1,15 +1,17 @@
 import{ useState } from "react";
-import { PlusCircle, Edit2, Trash2, Calendar1 } from "lucide-react";
+import { PlusCircle, Edit2, Trash2, Calendar1, MessageCircleX } from "lucide-react";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
 import Exam from "../utils/exam";
+import { useAlertBox } from "../components/Alerts";
 
 const ExamsPage = ({ exams, setExams }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingExam, setEditingExam] = useState(null);
   const [formData, setFormData] = useState(new Exam());
+  const { alertBox } = useAlertBox();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const examInstance = new Exam()
@@ -17,8 +19,13 @@ const ExamsPage = ({ exams, setExams }) => {
       console.log("Updating exam:", formData);
       examInstance.updateExam(formData)
     } else {
-      examInstance.insertExam(formData)
-      setExams([...exams, { ...formData, id: Date.now() }]);
+      const res = await examInstance.insertExam(formData)
+      if (res.Error) {
+        alertBox(res.Error, "Error Scheduling Exam", <MessageCircleX />);
+      } else {
+        alertBox("Exam scheduled successfully!");
+        setExams([...exams, { ...formData, id: Date.now() }]);
+      }
     }
     setFormData(new Exam());
     setShowForm(false);
