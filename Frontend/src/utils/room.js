@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default class Room {
-  constructor(name = "Room A", capacity = 30, rows = 5, columns = 6) {
+  constructor(name = "N1", capacity = 64, rows = 8, columns = 8) {
     this.name = name
     this.capacity = capacity
     this.rows = rows
@@ -35,16 +35,16 @@ export default class Room {
     }
   };
 
-  deleteRoom = async (id, capacity) => {
+  deleteRoom = async (id) => {
     try {
-      const response = await axios.delete(`${API_URL}/room/delete/${encodeURIComponent(id)}/${capacity}`)
+      const response = await axios.delete(`${API_URL}/room/delete/${encodeURIComponent(id)}/`)
       return response.data
     } catch (error) {
       console.error(error)
       return null
     }
   }
-  updateRoom = async (room, prevCapacity) => {
+  updateRoom = async (room) => {
     try {
       const payload = {
         name: room.name || "",   // default empty string
@@ -52,7 +52,7 @@ export default class Room {
         rows: Number(room.rows) || 0,
         columns: Number(room.columns) || 0
       }
-      const response = await axios.put(`${API_URL}/room/update/${encodeURIComponent(room.name)}/${prevCapacity}/`, payload)
+      const response = await axios.put(`${API_URL}/room/update/${encodeURIComponent(room.name)}/`, payload)
       return response.data
     } catch (error) {
       console.error("Error updating room:", error);

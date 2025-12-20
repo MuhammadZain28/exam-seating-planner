@@ -9,7 +9,7 @@ export function AlertProvider({ children }) {
     message: "",
     resolve: null,
     title: "Alert",
-    icon: <MessageCircleWarningIcon />,
+    icon: <MessageCircleWarningIcon />
   });
 
   function alertBox(message, title = "Alert", icon = <MessageCircleWarningIcon />) {
@@ -19,7 +19,12 @@ export function AlertProvider({ children }) {
   }
 
   function handleOk() {
-    alertState.resolve?.(); // return control back
+    alertState.resolve?.(true); // return control back
+    setAlertState({ ...alertState, open: false });
+  }
+
+  function handleCancel() {
+    alertState.resolve?.(false);
     setAlertState({ ...alertState, open: false });
   }
 
@@ -32,8 +37,9 @@ export function AlertProvider({ children }) {
         title={alertState.title}
         message={alertState.message}
         icon={alertState.icon}
-        hideCloseButton={true}
+        hideCloseButton={alertState.title === "Success"}
         onOk={handleOk}
+        onCancel={handleCancel}
       />
     </AlertContext.Provider>
   );

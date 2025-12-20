@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
-import { Trash2, Search as SearchIcon, Cross, Crosshair, CrossIcon } from "lucide-react";
+import { Trash2, MessageCircleX, CircleCheckBigIcon } from "lucide-react";
 import Student from "../utils/student";
 import Search from "../components/Search";
-
+import { useAlertBox } from "../components/Alerts";
 
 const StudentsPage = ({students, setStudents}) => {
-
   const [filteredStudents, setFilteredStudents] = useState(students);
-  
+  const { alertBox } = useAlertBox();
+
   useEffect(() => {
     setFilteredStudents(students);
   }, [students]);
-  const handleDelete = (student) => {
+  const handleDelete = async (student) => {
+    const confirm = await alertBox(`Do you want to delete student ${student.name}?`, "Delete", <MessageCircleX />, null, "Delete", "Cancel");
+    if (!confirm) return;
     const studentInstance = new Student();
-    studentInstance.deleteStudent(student.reg, student.course, student.date);
+    const response = await studentInstance.deleteStudent(student.reg, student.course, student.date);
+    if (response.Error) {
+      alertBox(response.Error, "Error", <MessageCircleX />);
+    } else {
+      alertBox("Student deleted successfully!", "Success", <CircleCheckBigIcon />);
+    }
     setStudents(students.filter((s) => s.reg !== student.reg || s.course !== student.course || s.date !== student.date));
   };
 
-  if (!filteredStudents.length) {
-    return (
-      <div className="p-6 w-full min-h-screen">
-        No Student Found
-      </div>
-    );
-  }
   return (
     <div className="p-6 w-full min-h-screen">
       <div className="flex justify-between items-center mb-6">
@@ -36,7 +36,6 @@ const StudentsPage = ({students, setStudents}) => {
       {/* Search + Table */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <div className="mb-4 relative w-full">
-          <SearchIcon className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
           {students.length > 0 ?  <Search data={students} onSelect={(data) => setFilteredStudents(data)} /> : null}
         </div>
 

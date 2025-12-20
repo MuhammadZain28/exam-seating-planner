@@ -1,33 +1,3 @@
 {
-    "exams": [
-        {
-            "course": "ABC",
-            "date": "2025-12-18",
-            "time": "TBD",
-            "type": "midterm",
-            "duration": 90,
-            "students": [
-                {
-                    "name": "Ali Khan",
-                    "reg": "CS-2023-001"
-                },
-                {
-                    "name": "Sara Ahmed",
-                    "reg": "CS-2023-002"
-                },
-                {
-                    "name": "Usman Raza",
-                    "reg": "CS-2023-003"
-                },
-                {
-                    "name": "Ayesha Malik",
-                    "reg": "CS-2023-004"
-                },
-                {
-                    "name": "Hassan Ali",
-                    "reg": "CS-2023-005"
-                }
-            ]
-        }
-    ]
+    "exams": []
 }

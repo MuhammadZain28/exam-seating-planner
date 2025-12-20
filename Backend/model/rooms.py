@@ -28,11 +28,17 @@ class Rooms:
             cls._instance.rooms = RB_Tree()
         return cls._instance
     def add_room(self, room):
-        key = Key(capacity=room.rows * room.columns, name=room.name)
-        self.rooms.insert(key, room)
-    def delete_room(self, room_id, capacity):
-        key = Key(capacity=capacity, name=room_id)
-        self.rooms.delete(key)
+        key = room.name
+        if (self.rooms.insert(key, room)):
+            return True
+        return False
+
+    def delete_room(self, room_id):
+        key = room_id
+        if self.rooms.delete(key):
+            return True
+        return False
+
     def to_list(self):
         return self.rooms.inorder()
     def load(self):

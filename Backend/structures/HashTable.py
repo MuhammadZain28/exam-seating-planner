@@ -21,7 +21,7 @@ class HashTable:
 
             if i > self.size:
                 raise Exception("Hash Table is Full")
-            
+
         self.table[index] = data
 
     def search(self, data):

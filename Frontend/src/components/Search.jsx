@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Trie from "../utils/Trie";
-import { CrossIcon } from "lucide-react";
+import { PlusIcon, Search as SearchIcon } from "lucide-react";
 
 
 export default function Search({ data, onSelect }) {
@@ -47,6 +47,7 @@ export default function Search({ data, onSelect }) {
 
   return (
     <div className="w-full">
+      <SearchIcon className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
       <input
         type="text"
         placeholder="Search student..."
@@ -56,7 +57,7 @@ export default function Search({ data, onSelect }) {
         onBlur={() => setTimeout(() => setOpen(false), 500)}
         className="w-full px-10"
       />
-      {query && <CrossIcon className="absolute right-3 top-3 w-5 h-5 text-red-600 rotate-45" fill="rgb(255, 0, 0)" onClick={handleClear} />}
+      {query && <PlusIcon className="absolute right-3 top-3 w-5 h-5 text-red-600 rotate-45" fill="rgb(255, 0, 0)" onClick={handleClear} />}
 
       {open && <ul className="absolute bg-white w-full rounded-lg border border-black/30 mt-2 px-2 shadow-lg shadow-black/20 max-h-[405px] overflow-y-auto z-10">
         {results.map(student => (

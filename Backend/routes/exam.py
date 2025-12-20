@@ -33,19 +33,19 @@ async def insert(
 
     students = [record for record in df.to_dict(orient='records')]
     exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
-    for student in students:
-        std = Student(reg=student["reg"], name=student["name"], course=course)
-        studentInstance.insert(std)
     result = exams.insert(exam)
     if not result:
         return {"Error": "Exam with this course already exists"}
-
+    for student in students:
+        std = Student(reg=student["reg"], name=student["name"], course=course)
+        studentInstance.insert(std)
     return {"Success": "Exam is Saved Successfully!"}
 
 @router.delete("/{course}/")
 def delete(course: str):
-    print("Deleting course:", course)
-    return exams.delete(course)
+    if exams.delete(course):
+        return {"Success": "Exam deleted successfully"}
+    return {"Error": "Exam not found"}
 
 @router.delete("/{reg}/{course}/")
 def delete_student(reg: str, course: str):
@@ -57,4 +57,6 @@ def delete_student(reg: str, course: str):
 
 @router.post("/update")
 def update(exam: ExamBase):
-    return exams.update(exam)
+    if exams.update(exam):
+        return {"Success": "Exam updated successfully"}
+    return {"Error": "Exam not found"}

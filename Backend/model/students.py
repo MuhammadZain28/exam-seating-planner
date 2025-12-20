@@ -40,9 +40,10 @@ class Students:
             i += 1
             if i > self.size:
                 print("Hash table is full, cannot insert student:", student.reg)
-                return  # Table is full
+                return  False
         self.table[index] = student
         self.elements += 1
+        return True
 
     def hash_1(self, key):
         return key % self.size

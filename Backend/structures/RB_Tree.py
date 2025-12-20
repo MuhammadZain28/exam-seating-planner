@@ -4,7 +4,7 @@ class Node:
     def __init__(self, key, data, color=RED):
         self.key = key
         self.data = data
-        self.color = color  # Node.RED or Node.BLACK
+        self.color = color
         self.left = None
         self.right = None
         self.parent = None
@@ -26,8 +26,10 @@ class RB_Tree:
             parent = current
             if new_node.key < current.key:
                 current = current.left
-            else:
+            elif new_node.key > current.key:
                 current = current.right
+            else:
+                return False
 
         new_node.parent = parent
 
@@ -40,6 +42,7 @@ class RB_Tree:
 
         new_node.color = Node.RED
         self.fix_insert(new_node)
+        return True
 
     def fix_insert(self, node):
         while node != self.root and node.parent.color == Node.RED:
@@ -141,7 +144,7 @@ class RB_Tree:
     def delete(self, key):
         z = self.search(self.root, key)
         if z == self.NIL:
-            return
+            return False
 
         y = z
         y_original_color = y.color
@@ -173,6 +176,7 @@ class RB_Tree:
 
         if y_original_color == Node.BLACK:
             self.delete_fix(x)
+        return True
 
     def delete_fix(self, x):
         while x != self.root and x.color == Node.BLACK:

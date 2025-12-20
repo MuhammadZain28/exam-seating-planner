@@ -1,5 +1,5 @@
 import{ useState } from "react";
-import { PlusCircle, Edit2, Trash2, Calendar1, MessageCircleX } from "lucide-react";
+import { PlusCircle, Edit2, Trash2, Calendar1, MessageCircleX, CircleCheckBigIcon } from "lucide-react";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
 import Exam from "../utils/exam";
@@ -16,14 +16,22 @@ const ExamsPage = ({ exams, setExams }) => {
 
     const examInstance = new Exam()
     if (editingExam) {
-      console.log("Updating exam:", formData);
-      examInstance.updateExam(formData)
+      const res = await examInstance.updateExam(formData)
+      if (res.Error) {
+        alertBox(res.Error, "Error", <MessageCircleX />);
+      } else {
+        alertBox("Exam updated successfully!", "Success", <CircleCheckBigIcon />);
+        const updatedExams = exams.map((exam) =>
+          exam.course === formData.course ? formData : exam
+        );
+        setExams(updatedExams);
+      }
     } else {
       const res = await examInstance.insertExam(formData)
       if (res.Error) {
-        alertBox(res.Error, "Error Scheduling Exam", <MessageCircleX />);
+        alertBox(res.Error, "Error", <MessageCircleX />);
       } else {
-        alertBox("Exam scheduled successfully!");
+        alertBox("Exam scheduled successfully!", "Success", <CircleCheckBigIcon />);
         setExams([...exams, { ...formData, id: Date.now() }]);
       }
     }
@@ -39,9 +47,17 @@ const ExamsPage = ({ exams, setExams }) => {
   };
 
   const handleDelete = async (exam) => {
+    const confirm = await alertBox(`Do you want to delete exam for course ${exam.course}?`, "Delete", <Trash2 />, null, "Delete", "Cancel");
+    if (!confirm) return;
     const examInstance = new Exam()
-    const response = await examInstance.deleteExam(exam.course, exam.date)
-    console.log("Response: ", response, "Exam: ", exam)
+    const response = await examInstance.deleteExam(exam.course)
+    if (response.Error) {
+      alertBox(response.Error, "Error", <MessageCircleX />);
+    } else {
+      alertBox("Exam deleted successfully!", "Success", <CircleCheckBigIcon />);
+      const updatedExams = exams.filter((e) => e.course !== exam.course);
+      setExams(updatedExams);
+    }
   };
 
 
@@ -110,8 +126,8 @@ const ExamsPage = ({ exams, setExams }) => {
               Type
               <Select
                 options={[
-                  { label: "Midterm", value: "midterm" },
-                  { label: "Final", value: "final" },
+                  { label: "Midterm", value: "Midterm" },
+                  { label: "Final", value: "Final" },
                 ]}
                 value={formData.type}
                 onChange={(value) => setFormData({ ...formData, type: value })}
@@ -137,7 +153,7 @@ const ExamsPage = ({ exams, setExams }) => {
             <label>Students List</label>
             <label
               htmlFor="fileInput"
-              className="bg-white text-indigo-600 border-indigo-600 border-2 px-4 py-2 rounded-lg font-medium cursor-pointer hover:bg-indigo-200 transition"
+              className="bg-white text-black border-gray-300 border px-4 py-2 rounded-lg font-medium cursor-pointer hover:bg-indigo-200 transition"
             >
               Choose File
             </label>

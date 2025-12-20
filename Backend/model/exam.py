@@ -23,8 +23,10 @@ class Exams:
         return True
 
     def delete(self, course):
-        self.exams.delete(course)
-        self.save()
+        if self.exams.delete(course):
+            self.save()
+            return True
+        return False
 
     def delete_students(self, course, reg):
         exam = self.search(course)

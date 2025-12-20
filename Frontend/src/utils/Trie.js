@@ -29,13 +29,13 @@ export default class Trie {
       if (!node.children[ch]) return [];
       node = node.children[ch];
     }
-    return this._collect(node);
+    return this.dfs(node);
   }
 
-  _collect(node, results = []) {
+  dfs(node, results = []) {
     if (node.isEnd) results.push(node.student);
     for (let ch in node.children) {
-      this._collect(node.children[ch], results);
+      this.dfs(node.children[ch], results);
     }
     return results;
   }

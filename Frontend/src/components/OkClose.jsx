@@ -8,7 +8,8 @@ export default function ModalMessageBox({
   icon= <MessageCircleWarning />,
   message = "Your message goes here...",
   onOk = () => {},
-  onCancel = null,
+  onCancel = () => {},
+  hideCloseButton = true,
   okLabel = "OK",
   cancelLabel = "Cancel",
 }) {
@@ -23,7 +24,7 @@ export default function ModalMessageBox({
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-indigo-100 bg-opacity-40"
+            className="absolute inset-0 bg-indigo-200 bg-opacity-40"
             onClick={onCancel || onOk}
           />
 
@@ -33,10 +34,10 @@ export default function ModalMessageBox({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            className="relative w-full max-w-[370px] p-6 bg-white border-white/40 border shadow-white/5 rounded-2xl shadow-md z-10"
+            className="relative w-full max-w-[370px] p-6 bg-white border-white/40 border shadow-black/30 rounded-3xl shadow-lg z-10"
           >
             {/* Title */}
-              <h2 className={`flex items-center gap-2 text-xl font-semibold mb-3 ${title === "Success" ? "text-green-500" : "text-red-600"}`}>{icon}{title}</h2>
+              <h2 className={`flex items-center gap-2 text-2xl font-bold mb-3 ${title === "Success" ? "text-green-500" : "text-red-600"}`}>{icon}{title}</h2>
 
             {/* Message */}
             <p className=" mb-6 leading-relaxed">
@@ -45,10 +46,10 @@ export default function ModalMessageBox({
 
             {/* Buttons */}
             <div className="flex justify-end gap-3">
-              {onCancel && (
+              {!hideCloseButton && (
                 <button
                   onClick={onCancel}
-                  className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#0b0b0b] hover:brightness-95"
+                  className="px-4 py-2 rounded-xl border text-gray-800 bg-gray-300 hover:brightness-95"
                 >
                   {cancelLabel}
                 </button>

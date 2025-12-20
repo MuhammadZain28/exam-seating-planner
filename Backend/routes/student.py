@@ -12,8 +12,9 @@ def insert_student(studentsData):
     return {"message": "Student inserted successfully"}
 
 def delete_students(course: str):
-    students.delete_course(course)
-    return {"message": "Students saved successfully"}
+    if students.delete_course(course):
+        return {"Success": "Students deleted successfully"}
+    return {"Error": "Students not found"}
 
 @router.get("/")
 def get_students():

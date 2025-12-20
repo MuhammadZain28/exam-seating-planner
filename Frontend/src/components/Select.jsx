@@ -2,23 +2,21 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 export default function Select({ options = [], onChange, value }) {
-  const [selected, setSelected] = useState(value || "");
+  const [selected, setSelected] = useState(value || null);
 
 
   const [open, setOpen] = useState(false);
 
   return (
     <div className="relative text-black">
-      {/* Selected Box */}
       <div
         onClick={() => setOpen(!open)}
         className="flex items-center justify-between w-full bg-[#f9f9f9] border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
-        {selected ? options.find((o) => o.value === selected)?.label : "Select Option"}
+        {selected ? selected : "Select Option"}
         <ChevronDown />
       </div>
 
-      {/* Options menu */}
       {open && (
         <div className="absolute mt-1 w-full bg-white border border-gray-300 rounded-xl shadow-lg z-20 overflow-hidden">
           {options.map((opt) => {
@@ -28,7 +26,7 @@ export default function Select({ options = [], onChange, value }) {
               <div
                 key={opt.value}
                 onClick={() => {
-                  setSelected(opt.value);
+                  setSelected(opt.label);
                   setOpen(false);
                   onChange && onChange(opt.value);
                 }}

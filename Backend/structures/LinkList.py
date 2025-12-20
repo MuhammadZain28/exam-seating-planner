@@ -15,7 +15,6 @@ class LinkList:
             self.head = self.tail = node
             self.size += 1
             return
-        
         node.next = self.head
         self.head = node
 
@@ -36,18 +35,18 @@ class LinkList:
                 return current
             current = current.next
         return None
-    
+
     def delete(self, key):
         current = self.head
         while current:
             if current.data.course == key:
                 if current == self.head:
                     self.head = current.next
-                if current == self.tail:
-                    self.tail = current.prev
                 self.size -= 1
-                return
+                return True
             current = current.next
+        return False
+
     def get(self, index):
         node = self.head
         for i in range(0, index):
@@ -56,7 +55,7 @@ class LinkList:
             node = node.next
 
         return node.data
-    
+
     def set(self, index, data):
         node = self.head
         newNode = Node(data)

@@ -7,10 +7,10 @@ import { AlertProvider } from './components/Alerts.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AlertProvider>
+    <AlertProvider>
+      <BrowserRouter>
         <App />
-      </AlertProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AlertProvider>
   </StrictMode>,
 )

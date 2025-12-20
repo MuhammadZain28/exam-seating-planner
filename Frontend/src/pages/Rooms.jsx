@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { PlusCircle, Edit2, Trash2, Building2 } from 'lucide-react';
+import { PlusCircle, Edit2, Trash2, Building2, CheckCircleIcon, MessageCircleWarningIcon } from 'lucide-react';
 import Modal from '../components/Modal';
 import Room from '../utils/room';
+import { useAlertBox } from '../components/Alerts';
 const RoomsPage = ({rooms, setRooms}) => {
   const [showForm, setShowForm] = useState(false);
   const [editingRoom, setEditingRoom] = useState(null);
   const [formData, setFormData] = useState(new Room());
-  // const [layout, setLayout] = useState([[]])
+  const { alertBox } = useAlertBox();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,12 +21,20 @@ const RoomsPage = ({rooms, setRooms}) => {
     if (editingRoom) {
       setRooms(rooms.map(r => r.id === editingRoom.id ? { ...roomData, id: r.id } : r));
       const roomInstance = new Room();
-      const res = await roomInstance.updateRoom(formData, editingRoom.rows * editingRoom.columns);
-      console.log("Update Room Response:", res);
+      const res = await roomInstance.updateRoom(formData);
+      if (res.Error) {
+        alertBox(res.Error, "Error", <MessageCircleWarningIcon />);
+        return;
+      }
+      alertBox(res.Success, "Success", <CheckCircleIcon />);
     } else {
       const roomInstance = new Room();
       const res = await roomInstance.insertRoom(roomData);
-      console.log("Insert Room Response:", res);
+      if (res.Error) {
+        alertBox(res.Error, "Error", <MessageCircleWarningIcon />);
+        return;
+      }
+      alertBox(res.Success, "Success", <CheckCircleIcon />);
       setRooms([...rooms, { ...roomData, id: Date.now() }]);
     }
     setFormData(new Room());
@@ -39,9 +48,16 @@ const RoomsPage = ({rooms, setRooms}) => {
     setShowForm(true);
   };
 
-  const handleDelete = (room) => {
+  const handleDelete = async (room) => {
+    const confirm = await alertBox(`Do you want to delete room ${room.name}?`, "Delete", <Trash2 />, null, "Delete", "Cancel");
+    if (!confirm) return;
     const roomInstance = new Room();
-    roomInstance.deleteRoom(room.name, room.rows * room.columns);
+    const res = await roomInstance.deleteRoom(room.name);
+    if (res.Error) {
+      await alertBox(res.Error, "Error", <MessageCircleWarningIcon />);
+      return;
+    }
+    await alertBox("The room has been deleted successfully", "Success", <CheckCircleIcon />);
     setRooms(rooms.filter(r => r.name !== room.name));
   };
 
@@ -78,6 +94,7 @@ const RoomsPage = ({rooms, setRooms}) => {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              disabled={editingRoom !== null}
               required
             />
             </label>

@@ -1,5 +1,5 @@
 import { motion as Motion, AnimatePresence } from "framer-motion";
-import { ClosedCaptionIcon, Cross } from "lucide-react";
+import { ClosedCaptionIcon,  PlusIcon } from "lucide-react";
 import React, { useEffect } from "react";
 
 export default function Modal({ isOpen, onClose, title, children }) {
@@ -44,9 +44,9 @@ export default function Modal({ isOpen, onClose, title, children }) {
                 </h2>
                 <button
                   onClick={onClose}
-                  className="text-gray-100 bg-indigo-600 p-1 text-xl absolute top-2 right-2 rounded-full font-bold"
+                  className="text-black bg-white p-1 text-xl absolute top-2 right-2 rounded-full font-bold"
                 >
-                  <Cross className="rotate-45" />
+                  < PlusIcon className="rotate-45" />
                 </button>
               </div>
 
