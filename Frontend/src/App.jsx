@@ -13,9 +13,9 @@ import Room from './utils/room.js';
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [exams, setExams] = useState([])
-  const [students, setStudents] = useState([])
-  const [rooms, setRooms] = useState([])
+  const [exams, setExams] = useState(null)
+  const [students, setStudents] = useState(null)
+  const [rooms, setRooms] = useState(null)
   useEffect(() => {
     const fetchStudents = async () => {
       const examInstance = new Exam()
@@ -61,11 +61,15 @@ const App = () => {
     fetchRooms();
   }, []);
 
+  if (exams === null || students === null || rooms === null) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
   return (
     <div className="grid grid-cols-[75px_1fr] min-h-screen bg-[#F2F4F0] w-screen" onClick={() => setIsOpen(false)}>
       <Navigation isOpen={isOpen} setIsOpen={setIsOpen} />
       <Routes>
-        <Route path="/" element={<Dashboard students={students} exams={exams} rooms={rooms} />} />
+        <Route path="/" element={<Dashboard students={students} exams={exams} rooms={rooms} setRooms={setRooms} />} />
         <Route path="/students" element={<StudentsPage students={students} setStudents={setStudents} />} />
         <Route path="/rooms" element={<RoomsPage rooms={rooms} setRooms={setRooms} />} />
         <Route path="/exams" element={<ExamsPage exams={exams} setExams={setExams} />} />

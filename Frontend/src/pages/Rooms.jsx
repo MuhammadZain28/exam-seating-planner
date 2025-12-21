@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { PlusCircle, Edit2, Trash2, Building2, CheckCircleIcon, MessageCircleWarningIcon } from 'lucide-react';
+import { PlusCircle, Edit2, Trash2, Building2, CheckCircleIcon, MessageCircleWarningIcon, SortDescIcon } from 'lucide-react';
 import Modal from '../components/Modal';
 import Room from '../utils/room';
 import { useAlertBox } from '../components/Alerts';
+import radixSort from '../utils/Sort';
 const RoomsPage = ({rooms, setRooms}) => {
   const [showForm, setShowForm] = useState(false);
   const [editingRoom, setEditingRoom] = useState(null);
   const [formData, setFormData] = useState(new Room());
+  const [order, setOrder] = useState(true)
   const { alertBox } = useAlertBox();
 
   const handleSubmit = async (e) => {
@@ -122,25 +124,12 @@ const RoomsPage = ({rooms, setRooms}) => {
               required
             />
             </label>
-            {/* <div>
-              {formData.rows > 0 && formData.columns > 0 && (
-                <div className='flex flex-col gap-0.5 w-64 h-64 border border-gray-300 rounded'>
-                  {Array.from({ length: formData.rows}).map((_, rowIndex) => (
-                    <div key={rowIndex} className="flex gap-0.5 w-full h-full">
-                      {Array.from({length: formData.columns}).map((_, colIndex) => (
-                        <div key={colIndex} className="bg-indigo-200 rounded-sm w-full h-full hover:bg-slate-400"></div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div> */}
             <div className="md:col-span-2 flex space-x-3">
               <button
                 type="submit"
                 className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
               >
-                {editingRoom ? 'Update' : ' '} Room
+                {editingRoom ? 'Update' : ''} Room
               </button>
               <button
                 type="button"
@@ -155,6 +144,11 @@ const RoomsPage = ({rooms, setRooms}) => {
             </div>
           </form>
         </Modal>
+      <div className='flex items-center justify-end w-full mb-4'>
+        <button className='flex items-center bg-indigo-600 gap-2 px-2 py-1 rounded-lg' onClick={() => {setRooms(radixSort(rooms, order)); setOrder(!order)}}>
+          <SortDescIcon className={`${order ? "rotate-180" : "rotate-0"} transition-all`} />
+        </button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {rooms.map(room => (
           <div key={room.name} className="bg-white rounded-lg shadow-md p-6">

@@ -28,18 +28,20 @@ async def insert(
     duration: int = Form(...),
     file: UploadFile = File(...)
     ):
-    contents = await file.read()
-    df = pd.read_csv(pd.io.common.BytesIO(contents))
+    try:
+        contents = await file.read()
+        df = pd.read_csv(pd.io.common.BytesIO(contents))
 
-    students = [record for record in df.to_dict(orient='records')]
-    exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
-    result = exams.insert(exam)
-    if not result:
-        return {"Error": "Exam with this course already exists"}
-    for student in students:
-        std = Student(reg=student["reg"], name=student["name"], course=course)
-        studentInstance.insert(std)
-    return {"Success": "Exam is Saved Successfully!"}
+        students = [Student(reg=record["reg"], name=record["name"], course=course) for record in df.to_dict(orient='records')]
+        exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
+        result = exams.insert(exam)
+        if not result:
+            return {"Error": "Exam with this course already exists"}
+        for student in students:
+            studentInstance.insert(student)
+        return {"Success": "Exam is Saved Successfully!"}
+    except Exception as e:
+        return {"Error": str(e) + " not Found. Format of csv is incorrect"}
 
 @router.delete("/{course}/")
 def delete(course: str):

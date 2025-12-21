@@ -1,12 +1,20 @@
 import { Layout, Users, Building2, Calendar, Building2Icon } from "lucide-react";
+import radixSort from "../utils/Sort";
+import { useEffect } from "react";
 
-const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] }) => {
+const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [], setRooms }) => {
   const stats = [
     { label: 'Total Students', value: students.length, icon: Users, color: 'bg-blue-500' },
     { label: 'Available Rooms', value: rooms.length, icon: Building2, color: 'bg-green-500' },
     { label: 'Scheduled Exams', value: exams.length, icon: Calendar, color: 'bg-purple-500' },
     { label: 'Seating Plans', value: seatingPlans.length, icon: Layout, color: 'bg-orange-500' }
   ];
+
+  useEffect(() => {
+    if (rooms.length > 0) {
+      setRooms(radixSort(rooms));
+    }
+  }, []);
 
   return (
     <div className="p-6 w-full min-h-screen">
@@ -34,8 +42,8 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-bold mb-4 text-black flex items-center gap-2"><Calendar />Upcoming Exams</h2>
           {exams.length > 0 ? (
-            <div className="space-y-3">
-              {exams.slice(0, 4).map(exam => (
+            <div className="space-y-3 max-h-72 overflow-auto">
+              {exams.map(exam => (
                 <div key={exam.course} className="flex justify-between items-center p-3 bg-gray-50 rounded">
                   <div>
                     <p className="font-medium text-black">{exam.course}</p>
@@ -55,8 +63,8 @@ const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [] })
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-bold mb-4 text-black flex items-center gap-2"><Building2Icon />Available Rooms</h2>
           {rooms.length > 0 ? (
-            <div className="space-y-3">
-              {rooms.slice(0, 4).map(room => (
+            <div className="space-y-3 max-h-72 overflow-auto">
+              {rooms.map(room => (
                 <div key={room.name} className="p-3 bg-gray-50 rounded">
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-medium text-black">{room.name}</span>

@@ -1,5 +1,5 @@
 import{ useState } from "react";
-import { PlusCircle, Edit2, Trash2, Calendar1, MessageCircleX, CircleCheckBigIcon } from "lucide-react";
+import { PlusCircle, Edit2, Trash2, Calendar1, MessageCircleX, CircleCheckBigIcon, LinkIcon } from "lucide-react";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
 import Exam from "../utils/exam";
@@ -150,10 +150,14 @@ const ExamsPage = ({ exams, setExams }) => {
 
           { !editingExam && <div className="flex flex-col">
             <p>{formData.student ? formData.student.name : "No file chosen"}</p>
-            <label>Students List</label>
+            <label className="flex items-center justify-between">Students List
+              <div className="flex items-center gap-2 text-sm font-normal">File Format
+                <a href="/students.csv" download="students.csv" className="flex items-center gap-1 text-sm"><LinkIcon size={16} /> students.csv</a>
+              </div>
+            </label>
             <label
               htmlFor="fileInput"
-              className="bg-white text-black border-gray-300 border px-4 py-2 rounded-lg font-medium cursor-pointer hover:bg-indigo-200 transition"
+              className="bg-[#f9f9f9] text-black border-gray-300 border px-4 py-2 rounded-lg font-bold cursor-pointer hover:bg-gray-200 transition"
             >
               Choose File
             </label>
