@@ -14,7 +14,6 @@ conflictGraph = Conflicts()
 class ExamBase(BaseModel):
     course: str
     date: str
-    type: str
     duration: int
 
 
@@ -26,7 +25,6 @@ async def insert(
     course: str = Form(...),
     date: str = Form(...),
     time: str = Form(...),
-    exam_type: str = Form(...),
     duration: int = Form(...),
     file: UploadFile = File(...)
     ):
@@ -42,7 +40,7 @@ async def insert(
             return {"Alert" : f"{duplicate_count} students of this course already giving Exam on this day. Do you still want to schedule...?", "conflict": conflict_course}
         elif percentage > 0.3:
             return {"Error" : f"{duplicate_count} students of this course already giving Exam on this day. Cannot schedule Exam."}
-        exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
+        exam = Exam(course=course, date=date, duration=duration, students=students, time=time)
         result = exams.insert(exam)
         if not result:
             return {"Error": "Exam with this course already exists"}
@@ -58,7 +56,6 @@ async def insert(
     course: str = Form(...),
     date: str = Form(...),
     time: str = Form(...),
-    exam_type: str = Form(...),
     duration: int = Form(...),
     file: UploadFile = File(...),
     conflict: str = Form(...)
@@ -68,7 +65,7 @@ async def insert(
         df = pd.read_csv(pd.io.common.BytesIO(contents))
 
         students = df.to_dict(orient="records")
-        exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
+        exam = Exam(course=course, date=date, duration=duration, students=students, time=time)
         result = exams.insert(exam)
         if not result:
             return {"Error": "Exam with this course already exists"}

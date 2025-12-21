@@ -49,7 +49,6 @@ class Exams:
             ex = Exam(
                 course=exam.course,
                 date=exam.date,
-                type=exam.type,
                 duration=exam.duration,
                 students=exam_node.data.students
             )
@@ -83,7 +82,6 @@ class Exams:
                 exam = Exam(
                     course=record["course"],
                     date=record["date"],
-                    type=record["type"],
                     duration=record["duration"],
                     students=students
                 )
@@ -91,10 +89,9 @@ class Exams:
 
 
 class Exam:
-    def __init__(self, course, date, type, duration, students, time="TBD"):
+    def __init__(self, course, date, duration, students, time="TBD"):
         self.course = course
         self.date = date
-        self.type = type
         self.duration = duration
         self.students = students
         self.time = time
@@ -103,7 +100,6 @@ class Exam:
             "course": self.course,
             "date": self.date,
             "time": self.time,
-            "type": self.type,
             "duration": self.duration,
             "students": self.students
         }

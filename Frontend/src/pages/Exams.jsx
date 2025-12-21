@@ -1,5 +1,13 @@
-import{ useState } from "react";
-import { PlusCircle, Edit2, Trash2, Calendar1, MessageCircleX, CircleCheckBigIcon, LinkIcon } from "lucide-react";
+import { useState } from "react";
+import {
+  PlusCircle,
+  Edit2,
+  Trash2,
+  Calendar1,
+  MessageCircleX,
+  CircleCheckBigIcon,
+  LinkIcon,
+} from "lucide-react";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
 import Exam from "../utils/exam";
@@ -14,36 +22,51 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const examInstance = new Exam()
+    const examInstance = new Exam();
     if (editingExam) {
-      const res = await examInstance.updateExam(formData)
+      const res = await examInstance.updateExam(formData);
       if (res.Error) {
         alertBox(res.Error, "Error", <MessageCircleX />);
       } else {
-        alertBox("Exam updated successfully!", "Success", <CircleCheckBigIcon />);
+        alertBox(
+          "Exam updated successfully!",
+          "Success",
+          <CircleCheckBigIcon />
+        );
         const updatedExams = exams.map((exam) =>
           exam.course === formData.course ? formData : exam
         );
         setExams(updatedExams);
       }
     } else {
-      const res = await examInstance.insertExam(formData)
+      const res = await examInstance.insertExam(formData);
       if (res.Error) {
         await alertBox(res.Error, "Error", <MessageCircleX />);
       } else if (res.Alert) {
         const alertRes = await alertBox(res.Alert, "Alert", <MessageCircleX />);
         console.log("Alert Response:", res.conflict);
         if (!alertRes) return;
-        const conflictCourse = res.conflict
-        const confirmRes = await examInstance.confirmExam(formData, conflictCourse)
+        const conflictCourse = res.conflict;
+        const confirmRes = await examInstance.confirmExam(
+          formData,
+          conflictCourse
+        );
         if (confirmRes.Error) {
           await alertBox(confirmRes.Error, "Error", <MessageCircleX />);
         } else {
-          await alertBox("Exam scheduled successfully!", "Success", <CircleCheckBigIcon />);
+          await alertBox(
+            "Exam scheduled successfully!",
+            "Success",
+            <CircleCheckBigIcon />
+          );
           setExams([...exams, { ...formData, id: Date.now() }]);
         }
       } else {
-        await alertBox("Exam scheduled successfully!", "Success", <CircleCheckBigIcon />);
+        await alertBox(
+          "Exam scheduled successfully!",
+          "Success",
+          <CircleCheckBigIcon />
+        );
         setExams([...exams, { ...formData, id: Date.now() }]);
       }
       setReload(!reload);
@@ -60,10 +83,17 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
   };
 
   const handleDelete = async (exam) => {
-    const confirm = await alertBox(`Do you want to delete exam for course ${exam.course}?`, "Delete", <Trash2 />, null, "Delete", "Cancel");
+    const confirm = await alertBox(
+      `Do you want to delete exam for course ${exam.course}?`,
+      "Delete",
+      <Trash2 />,
+      null,
+      "Delete",
+      "Cancel"
+    );
     if (!confirm) return;
-    const examInstance = new Exam()
-    const response = await examInstance.deleteExam(exam.course)
+    const examInstance = new Exam();
+    const response = await examInstance.deleteExam(exam.course);
     if (response.Error) {
       alertBox(response.Error, "Error", <MessageCircleX />);
     } else {
@@ -72,7 +102,6 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
       setExams(updatedExams);
     }
   };
-
 
   return (
     <div className="p-6">
@@ -136,21 +165,10 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
               />
             </label>
             <label htmlFor="">
-              Type
-              <Select
-                options={[
-                  { label: "Midterm", value: "Midterm" },
-                  { label: "Final", value: "Final" },
-                ]}
-                value={formData.type}
-                onChange={(value) => setFormData({ ...formData, type: value })}
-              />
-            </label>
-            <label htmlFor="">
               Duration
               <input
-                type="text"
-                placeholder="Duration (e.g., 2 hours)"
+                type="number"
+                placeholder="minutes"
                 value={formData.duration}
                 onChange={(e) =>
                   setFormData({ ...formData, duration: e.target.value })
@@ -159,32 +177,43 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 required
               />
             </label>
-          </div>
+            {!editingExam && (
+              <div className="flex flex-col">
+                <p>
+                  {formData.student ? formData.student.name : "No file chosen"}
+                </p>
+                <label className="flex items-center justify-between">
+                  Students List
+                  <div className="flex items-center gap-2 text-sm font-normal">
+                    File Format
+                    <a
+                      href="/students.csv"
+                      download="students.csv"
+                      className="flex items-center gap-1 text-sm"
+                    >
+                      <LinkIcon size={16} /> students.csv
+                    </a>
+                  </div>
+                </label>
+                <label
+                  htmlFor="fileInput"
+                  className="bg-[#f9f9f9] text-black border-gray-300 border px-4 py-2 rounded-lg font-bold cursor-pointer hover:bg-gray-200 transition"
+                >
+                  Choose File
+                </label>
 
-          { !editingExam && <div className="flex flex-col">
-            <p>{formData.student ? formData.student.name : "No file chosen"}</p>
-            <label className="flex items-center justify-between">Students List
-              <div className="flex items-center gap-2 text-sm font-normal">File Format
-                <a href="/students.csv" download="students.csv" className="flex items-center gap-1 text-sm"><LinkIcon size={16} /> students.csv</a>
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept=".csv"
+                  className="hidden"
+                  onChange={(e) => {
+                    setFormData({ ...formData, student: e.target.files[0] });
+                  }}
+                />
               </div>
-            </label>
-            <label
-              htmlFor="fileInput"
-              className="bg-[#f9f9f9] text-black border-gray-300 border px-4 py-2 rounded-lg font-bold cursor-pointer hover:bg-gray-200 transition"
-            >
-              Choose File
-            </label>
-
-            <input
-              type="file"
-              id="fileInput"
-              accept=".csv"
-              className="hidden"
-              onChange={(e) => {
-                setFormData({ ...formData, student: e.target.files[0] });
-              }}
-            />
-          </div>}
+            )}
+          </div>
 
           <div className="flex space-x-3">
             <button
@@ -215,8 +244,12 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 <h3 className="text-xl font-semibold text-black mb-2">
                   {exam.course}
                 </h3>
-                <p className="text-black">
-                  {exam.type.charAt(0).toUpperCase() + exam.type.slice(1)}
+                <p className="text-black text-sm mb-2">
+                  <strong>Duration: </strong>
+                  {exam.duration} mins
+                </p>
+                <p className="text-black text-sm mb-4">
+                  <strong>{exam.date}</strong> at <strong>{exam.time}</strong>
                 </p>
               </div>
               <div className="flex space-x-2">
@@ -234,17 +267,10 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 </button>
               </div>
             </div>
-            <div className="flex w-full justify-between mb-4">
-              <p className="text-black text-sm">
-                Duration: {exam.duration} mins
-              </p>
-              <p className="text-black text-sm">
-                {exam.date} at {exam.time}
-              </p>
-            </div>
             <div className="bg-indigo-50 rounded p-4">
               <p className="text-sm font-medium text-black mb-2">
-                Enrolled Students: {Array.isArray(exam.students) ? exam.students.length : 0}
+                Enrolled Students:{" "}
+                {Array.isArray(exam.students) ? exam.students.length : 0}
               </p>
             </div>
           </div>

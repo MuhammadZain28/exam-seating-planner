@@ -4,12 +4,12 @@ import Select from '../components/Select';
 
 // Seating Plan Component
 const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans = [], setSeatingPlans }) => {
-  const [selectedExam, setSelectedExam] = useState('');
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedRoom, setSelectedRoom] = useState('');
   const [currentPlan, setCurrentPlan] = useState(null);
 
   const generateSeatingPlan = () => {
-    const exam = exams.find(e => e.id === parseInt(selectedExam));
+    const exam = exams.find(e => e.date === date);
     const room = rooms.find(r => r.id === parseInt(selectedRoom));
 
     if (!exam || !room) return;
@@ -17,7 +17,6 @@ const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans =
     const examStudents = students.filter(s => exam.students.includes(s.id));
     const shuffled = [...examStudents].sort(() => Math.random() - 0.5);
 
-    // const totalSeats = room.rows * room.columns;
     const seatingArrangement = [];
 
     for (let row = 0; row < room.rows; row++) {
@@ -56,9 +55,9 @@ const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans =
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Seating Plan Generation</h1>
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">Generate Seating Plan</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <Select value={selectedExam} onChange={(opt) => setSelectedExam(opt)} options={[{label: "Select Exam", value: "select"}]} />
-          <Select value={selectedRoom} onChange={(opt) => setSelectedRoom(opt)} options={[{label: "Select Room", value: "select"}]} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <input type="date" name="exam-date" id="exam-date" className='py-1 border' value={date} onChange={(e) => setDate(e.target.value)} />
+          {/* <Select value={selectedRoom} onChange={(opt) => setSelectedRoom(opt)} options={[{label: "Select Room", value: "select"}]} /> */}
           <button
             onClick={generateSeatingPlan}
             className="flex items-center justify-center gap-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
