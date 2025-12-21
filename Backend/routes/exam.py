@@ -3,11 +3,13 @@ from ..model.exam import Exams, Exam
 from pydantic import BaseModel
 import pandas as pd
 from ..model.students import Students, Student
+from ..model.conflict_graph import Conflicts
 
 router = APIRouter()
 
 exams = Exams()
 studentInstance = Students()
+conflictGraph = Conflicts()
 
 class ExamBase(BaseModel):
     course: str
@@ -28,26 +30,69 @@ async def insert(
     duration: int = Form(...),
     file: UploadFile = File(...)
     ):
-    try:
+    # try:
         contents = await file.read()
         df = pd.read_csv(pd.io.common.BytesIO(contents))
 
-        students = [Student(reg=record["reg"], name=record["name"], course=course) for record in df.to_dict(orient='records')]
+        students = df.to_dict(orient="records")
+        duplicate_count, conflict_course = studentInstance.check_duplicate(students)
+        print("Duplicate Count:", conflict_course)
+        percentage = (duplicate_count / len(students))
+        if percentage > 0 and percentage <= 0.3:
+            return {"Alert" : f"{duplicate_count} students of this course already giving Exam on this day. Do you still want to schedule...?", "conflict": conflict_course}
+        elif percentage > 0.3:
+            return {"Error" : f"{duplicate_count} students of this course already giving Exam on this day. Cannot schedule Exam."}
         exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
         result = exams.insert(exam)
         if not result:
             return {"Error": "Exam with this course already exists"}
         for student in students:
+            student = Student(name=student["name"], reg=student["reg"], course=course)
+            studentInstance.insert(student)
+        return {"Success": "Exam is Saved Successfully!"}
+    # except Exception as e:
+    #     return {"Error": str(e)}
+
+@router.post("/confirm")
+async def insert(
+    course: str = Form(...),
+    date: str = Form(...),
+    time: str = Form(...),
+    exam_type: str = Form(...),
+    duration: int = Form(...),
+    file: UploadFile = File(...),
+    conflict: str = Form(...)
+    ):
+    try:
+        contents = await file.read()
+        df = pd.read_csv(pd.io.common.BytesIO(contents))
+
+        students = df.to_dict(orient="records")
+        exam = Exam(course=course, date=date, type=exam_type, duration=duration, students=students, time=time)
+        result = exams.insert(exam)
+        if not result:
+            return {"Error": "Exam with this course already exists"}
+        conflictGraph.add_conflict(date, course, conflict)
+        for student in students:
+            student = Student(name=student["name"], reg=student["reg"], course=course)
             studentInstance.insert(student)
         return {"Success": "Exam is Saved Successfully!"}
     except Exception as e:
-        return {"Error": str(e) + " not Found. Format of csv is incorrect"}
+        return {"Error": str(e)}
 
 @router.delete("/{course}/")
 def delete(course: str):
-    if exams.delete(course):
-        return {"Success": "Exam deleted successfully"}
-    return {"Error": "Exam not found"}
+    try:
+        is_deleted, regs = exams.delete(course)
+        if is_deleted:
+            conflictGraph.graph = {date: {c: conflicts for c, conflicts in courses.items() if c != course} for date, courses in conflictGraph.graph.items() if date}
+            conflictGraph.save_graph()
+            for reg in regs:
+                studentInstance.delete(reg)
+            return {"Success": "Exam deleted successfully"}
+        return {"Error": "Exam not found"}
+    except Exception as e:
+        return {"Error": str(e)}
 
 @router.delete("/{reg}/{course}/")
 def delete_student(reg: str, course: str):

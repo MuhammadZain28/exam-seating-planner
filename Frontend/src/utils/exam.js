@@ -33,6 +33,28 @@ export default class Exam {
     }
   };
 
+  confirmExam = async (exam, conflictCourse) => {
+    try {
+      const form = new FormData();
+      form.append("course", exam.course);
+      form.append("date", exam.date);
+      form.append("time", exam.time)
+      form.append("exam_type", exam.type);
+      form.append("duration", exam.duration);
+      form.append("file", exam.student);
+      form.append("conflict", conflictCourse);
+      console.log("Form Data:", Array.from(form.entries()));
+      const response = await axios.post(`${API_URL}/exam/confirm`,
+        form,
+        { headers: {'Content-Type': 'multipart/form-data'} }
+      )
+      return response.data
+    } catch (error) {
+      console.log("Error Insert Course", error)
+      return null
+    }
+  };
+
   getExams = async () => {
     try {
       const response = await axios.get(`${API_URL}/exam/`);

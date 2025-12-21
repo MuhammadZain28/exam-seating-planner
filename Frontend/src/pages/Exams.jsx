@@ -5,7 +5,7 @@ import Select from "../components/Select";
 import Exam from "../utils/exam";
 import { useAlertBox } from "../components/Alerts";
 
-const ExamsPage = ({ exams, setExams }) => {
+const ExamsPage = ({ exams, setExams, reload, setReload }) => {
   const [showForm, setShowForm] = useState(false);
   const [editingExam, setEditingExam] = useState(null);
   const [formData, setFormData] = useState(new Exam());
@@ -29,11 +29,24 @@ const ExamsPage = ({ exams, setExams }) => {
     } else {
       const res = await examInstance.insertExam(formData)
       if (res.Error) {
-        alertBox(res.Error, "Error", <MessageCircleX />);
+        await alertBox(res.Error, "Error", <MessageCircleX />);
+      } else if (res.Alert) {
+        const alertRes = await alertBox(res.Alert, "Alert", <MessageCircleX />);
+        console.log("Alert Response:", res.conflict);
+        if (!alertRes) return;
+        const conflictCourse = res.conflict
+        const confirmRes = await examInstance.confirmExam(formData, conflictCourse)
+        if (confirmRes.Error) {
+          await alertBox(confirmRes.Error, "Error", <MessageCircleX />);
+        } else {
+          await alertBox("Exam scheduled successfully!", "Success", <CircleCheckBigIcon />);
+          setExams([...exams, { ...formData, id: Date.now() }]);
+        }
       } else {
-        alertBox("Exam scheduled successfully!", "Success", <CircleCheckBigIcon />);
+        await alertBox("Exam scheduled successfully!", "Success", <CircleCheckBigIcon />);
         setExams([...exams, { ...formData, id: Date.now() }]);
       }
+      setReload(!reload);
     }
     setFormData(new Exam());
     setShowForm(false);

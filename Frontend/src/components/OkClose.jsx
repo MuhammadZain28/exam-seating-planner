@@ -40,7 +40,7 @@ export default function ModalMessageBox({
               <h2 className={`flex items-center gap-2 text-2xl font-bold mb-3 ${title === "Success" ? "text-green-500" : "text-red-600"}`}>{icon}{title}</h2>
 
             {/* Message */}
-            <p className=" mb-6 leading-relaxed">
+            <p className=" mb-6 leading-relaxed text-sm">
               {message}
             </p>
 

@@ -16,6 +16,8 @@ const App = () => {
   const [exams, setExams] = useState(null)
   const [students, setStudents] = useState(null)
   const [rooms, setRooms] = useState(null)
+  const [reloadFlag, setReloadFlag] = useState(false);
+
   useEffect(() => {
     const fetchStudents = async () => {
       const examInstance = new Exam()
@@ -28,7 +30,7 @@ const App = () => {
       }
     };
     fetchStudents();
-  }, []);
+  }, [reloadFlag]);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -43,7 +45,7 @@ const App = () => {
     };
 
     fetchStudents();
-  }, []);
+  }, [reloadFlag]);
 
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const App = () => {
         <Route path="/" element={<Dashboard students={students} exams={exams} rooms={rooms} setRooms={setRooms} />} />
         <Route path="/students" element={<StudentsPage students={students} setStudents={setStudents} />} />
         <Route path="/rooms" element={<RoomsPage rooms={rooms} setRooms={setRooms} />} />
-        <Route path="/exams" element={<ExamsPage exams={exams} setExams={setExams} />} />
+        <Route path="/exams" element={<ExamsPage exams={exams} setExams={setExams} reload={reloadFlag} setReload={setReloadFlag} />} />
         <Route path="/seating" element={<SeatingPlanPage />} />
       </Routes>
     </div>

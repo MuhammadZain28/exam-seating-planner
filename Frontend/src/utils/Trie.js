@@ -33,6 +33,7 @@ export default class Trie {
   }
 
   dfs(node, results = []) {
+    if (results.length >= 10) return results;
     if (node.isEnd) results.push(node.student);
     for (let ch in node.children) {
       this.dfs(node.children[ch], results);

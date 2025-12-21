@@ -25,8 +25,8 @@ class Students:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Students, cls).__new__(cls)
-            cls.table = [None] * 101
-            cls.size = 101
+            cls.table = [None] * 1117
+            cls.size = 1117
             cls.elements = 0
         return cls._instance
 
@@ -52,13 +52,14 @@ class Students:
         return 2 + (key % (self.size - 1))
 
     def search(self, student):
-        key = sum(ord(c) for c in student.reg)
+        key = sum(ord(c) for c in student["reg"])
         index = self.hash_1(key)
         steps = self.hash_2(key)
 
         i = 0
         while self.table[index] is not None:
-            if self.table[index].reg == student.reg:
+            print("Searching at index:", i)
+            if self.table[index].reg == student["reg"]:
                 return self.table[index]
 
             index = (index + steps) % self.size
@@ -66,6 +67,20 @@ class Students:
             if i > self.size:
                 return None
 
+    def check_duplicate(self, students):
+        if self.elements == 0:
+            return 0, None
+        duplicates = 0
+        conflict = None
+        for student in students:
+            searched = self.search(student)
+            if searched is not None:
+                duplicates += 1
+                conflict = searched.to_print()
+        if duplicates == 0:
+            return 0, None
+        print(conflict)
+        return duplicates, conflict["course"]
     def to_list(self):
         result = []
         count = 0

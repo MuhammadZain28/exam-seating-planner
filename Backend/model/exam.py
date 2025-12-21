@@ -23,10 +23,11 @@ class Exams:
         return True
 
     def delete(self, course):
+        regs = [s["reg"] for s in self.search(course).students]
         if self.exams.delete(course):
             self.save()
-            return True
-        return False
+            return True, regs
+        return False, None
 
     def delete_students(self, course, reg):
         exam = self.search(course)

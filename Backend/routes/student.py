@@ -5,16 +5,11 @@ router = APIRouter()
 
 students = Students()
 students.load()
-
 def insert_student(studentsData):
     for student in studentsData:
         students.insert(student)
     return {"message": "Student inserted successfully"}
 
-def delete_students(course: str):
-    if students.delete_course(course):
-        return {"Success": "Students deleted successfully"}
-    return {"Error": "Students not found"}
 
 @router.get("/")
 def get_students():

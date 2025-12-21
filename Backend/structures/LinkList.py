@@ -65,7 +65,7 @@ class LinkList:
             node = node.next
 
         node.data = newNode.data
-        
+
     def get_list(self):
         node = self.head
         result = []
@@ -86,7 +86,7 @@ class LinkList:
         right = self.mergeSort(nextToMid)
         sortedList = self.merge(left, right)
         return sortedList
-    
+
     def getMiddle(self, head):
         if head is None:
             return head
@@ -101,14 +101,14 @@ class LinkList:
                 fast = fast.next
 
         return slow
-    
+
     def merge(self, left, right):
         if left is None:
             return right
         if right is None:
             return left
 
-        if left.data["date"] < right.data["date"]:
+        if left.data.date < right.data.date:
             list = left
             list.next = self.merge(left.next, right)
         else:
@@ -116,7 +116,7 @@ class LinkList:
             list.next = self.merge(left, right.next)
         return list
 
-    
+
 if __name__ == "__main__":
     ll = LinkList()
     ll.push_back({"date": "2024-12-01"})
