@@ -72,7 +72,7 @@ class PriorityQueue:
         priority, item = self.heap.pop()
         self.heapify_down(0)
 
-        return f"{item} ({priority})"
+        return item
     def heapify_up(self, index):
         parent = (index - 1) // 2
         if index > 0 and self.heap[index][0] > self.heap[parent][0]:
@@ -91,6 +91,9 @@ class PriorityQueue:
         if smallest != index:
             self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
             self.heapify_down(smallest)
+
+    def isEmpty(self):
+        return len(self.heap) == 0
 
     def __str__(self):
         return str([f"{item} ({priority})" for priority, item in self.heap])

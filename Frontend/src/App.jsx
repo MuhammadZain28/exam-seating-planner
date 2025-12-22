@@ -16,6 +16,7 @@ const App = () => {
   const [exams, setExams] = useState(null)
   const [students, setStudents] = useState(null)
   const [rooms, setRooms] = useState(null)
+  const [seatingPlans, setSeatingPlans] = useState([]);
   const [reloadFlag, setReloadFlag] = useState(false);
 
   useEffect(() => {
@@ -75,7 +76,7 @@ const App = () => {
         <Route path="/students" element={<StudentsPage students={students} setStudents={setStudents} />} />
         <Route path="/rooms" element={<RoomsPage rooms={rooms} setRooms={setRooms} />} />
         <Route path="/exams" element={<ExamsPage exams={exams} setExams={setExams} reload={reloadFlag} setReload={setReloadFlag} />} />
-        <Route path="/seating" element={<SeatingPlanPage />} />
+        <Route path="/seating" element={<SeatingPlanPage seatingPlans={seatingPlans} setSeatingPlans={setSeatingPlans} />} />
       </Routes>
     </div>
   );

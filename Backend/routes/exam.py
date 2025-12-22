@@ -34,7 +34,7 @@ async def insert(
 
         students = df.to_dict(orient="records")
         duplicate_count, conflict_course = studentInstance.check_duplicate(students)
-        print("Duplicate Count:", conflict_course)
+
         percentage = (duplicate_count / len(students))
         if percentage > 0 and percentage <= 0.3:
             return {"Alert" : f"{duplicate_count} students of this course already giving Exam on this day. Do you still want to schedule...?", "conflict": conflict_course}

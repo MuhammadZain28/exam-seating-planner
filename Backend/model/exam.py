@@ -75,9 +75,7 @@ class Exams:
     def load(self):
         with open("exams.json", "r", encoding="utf-8") as f:
             exam = json.load(f)
-            print("Loading exams table of size:", exam)
             for record in exam["exams"]:
-                print("Loading exam:", record)
                 students = [s for s in record["students"]]
                 exam = Exam(
                     course=record["course"],

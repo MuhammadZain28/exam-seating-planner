@@ -1,44 +1,22 @@
 import React, { useState } from 'react';
 import { Download, CircleCheckBig } from 'lucide-react';
-import Select from '../components/Select';
+import { fetchSeatingArrangement } from '../utils/seating';
+import Halls from '../components/Halls';
 
 // Seating Plan Component
-const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans = [], setSeatingPlans }) => {
+const SeatingPlanPage = ({ seatingPlans = [], setSeatingPlans }) => {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [selectedRoom, setSelectedRoom] = useState('');
   const [currentPlan, setCurrentPlan] = useState(null);
 
-  const generateSeatingPlan = () => {
-    const exam = exams.find(e => e.date === date);
-    const room = rooms.find(r => r.id === parseInt(selectedRoom));
-
-    if (!exam || !room) return;
-
-    const examStudents = students.filter(s => exam.students.includes(s.id));
-    const shuffled = [...examStudents].sort(() => Math.random() - 0.5);
-
-    const seatingArrangement = [];
-
-    for (let row = 0; row < room.rows; row++) {
-      const rowSeats = [];
-      for (let col = 0; col < room.columns; col++) {
-        const index = row * room.columns + col;
-        rowSeats.push(shuffled[index] || null);
-      }
-      seatingArrangement.push(rowSeats);
-    }
+  const generateSeatingPlan = async () => {
+    const seatingArrangement = await fetchSeatingArrangement(date);
 
     const plan = {
       id: Date.now(),
-      examId: exam.id,
-      roomId: room.id,
-      examName: exam.name,
-      roomName: room.name,
-      date: exam.date,
       arrangement: seatingArrangement,
       generatedAt: new Date().toLocaleString()
     };
-
+    console.log("Generated Seating Plan:", plan);
     setCurrentPlan(plan);
     setSeatingPlans([...seatingPlans, plan]);
   }
@@ -70,9 +48,8 @@ const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans =
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">Seating Plan for {currentPlan.examName} in {currentPlan.roomName}</h3>
             <div className="overflow-x-auto">
-              <table className="w-full table-auto border-collapse border border-gray-300">
-                <tbody>
-                  {currentPlan.arrangement.map((row, rowIndex) => (
+                  { currentPlan.arrangement && <Halls arrangement={currentPlan.arrangement} /> }
+                  {/* {currentPlan.arrangement.map((row, rowIndex) => (
                     <tr key={rowIndex}>
                       {row.map((seat, colIndex) => (
                         <td
@@ -90,9 +67,7 @@ const SeatingPlanPage = ({ exams = [], rooms = [], students = [], seatingPlans =
                         </td>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  ))} */}
               <button
                 onClick={() => downloadPlan(currentPlan)}
                 className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"

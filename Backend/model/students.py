@@ -115,9 +115,7 @@ class Students:
 
     def load(self):
         exam = examInstance.get()
-        print("Loading students table of size:", exam)
         for record in exam:
-            print("Loading exam:", record)
             for s in record["students"]:
                 student = Student(name=s["name"], reg=s["reg"], course=record["course"])
                 self.insert(student)
