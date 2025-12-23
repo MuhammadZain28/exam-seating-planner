@@ -50,7 +50,8 @@ class Exams:
                 course=exam.course,
                 date=exam.date,
                 duration=exam.duration,
-                students=exam_node.data.students
+                students=exam_node.data.students,
+                time=exam.time
             )
             exam_node.data = ex
             self.save()
@@ -66,7 +67,7 @@ class Exams:
 
     def save(self):
         data = {
-            "exams": self.get()
+            "exams": self.exams.get_list()
         }
         with open("exams.json", "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4)
@@ -81,13 +82,14 @@ class Exams:
                     course=record["course"],
                     date=record["date"],
                     duration=record["duration"],
-                    students=students
+                    students=students,
+                    time=record["time"]
                 )
                 self.insert(exam)
 
 
 class Exam:
-    def __init__(self, course, date, duration, students, time="TBD"):
+    def __init__(self, course, date, duration, students, time):
         self.course = course
         self.date = date
         self.duration = duration

@@ -25,8 +25,8 @@ class Students:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Students, cls).__new__(cls)
-            cls.table = [None] * 1117
-            cls.size = 1117
+            cls.table = [None] * 1091
+            cls.size = 1091
             cls.elements = 0
         return cls._instance
 

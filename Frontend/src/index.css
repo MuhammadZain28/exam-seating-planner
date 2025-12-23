@@ -148,3 +148,13 @@ select:disabled {
   background-color: #eaeaea;
   cursor: not-allowed;
 }
+
+@media print {
+  body {
+    grid-template-columns: 2;
+  }
+
+  button {
+    display: none;
+  }
+}

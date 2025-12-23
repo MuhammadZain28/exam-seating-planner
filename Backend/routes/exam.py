@@ -15,6 +15,7 @@ class ExamBase(BaseModel):
     course: str
     date: str
     duration: int
+    time: str
 
 
 @router.get("/")
@@ -33,13 +34,13 @@ async def insert(
         df = pd.read_csv(pd.io.common.BytesIO(contents))
 
         students = df.to_dict(orient="records")
-        duplicate_count, conflict_course = studentInstance.check_duplicate(students)
+        # duplicate_count, conflict_course = studentInstance.check_duplicate(students)
+        # percentage = (duplicate_count / len(students))
+        # if percentage > 0 and percentage <= 0.3:
+        #     return {"Alert" : f"{duplicate_count} students of this course already giving Exam on this day. Do you still want to schedule...?", "conflict": conflict_course}
+        # elif percentage > 0.3:
+        #     return {"Error" : f"{duplicate_count} students of this course already giving Exam on this day. Cannot schedule Exam."}
 
-        percentage = (duplicate_count / len(students))
-        if percentage > 0 and percentage <= 0.3:
-            return {"Alert" : f"{duplicate_count} students of this course already giving Exam on this day. Do you still want to schedule...?", "conflict": conflict_course}
-        elif percentage > 0.3:
-            return {"Error" : f"{duplicate_count} students of this course already giving Exam on this day. Cannot schedule Exam."}
         exam = Exam(course=course, date=date, duration=duration, students=students, time=time)
         result = exams.insert(exam)
         if not result:
@@ -82,8 +83,6 @@ def delete(course: str):
     try:
         is_deleted, regs = exams.delete(course)
         if is_deleted:
-            conflictGraph.graph = {date: {c: conflicts for c, conflicts in courses.items() if c != course} for date, courses in conflictGraph.graph.items() if date}
-            conflictGraph.save_graph()
             for reg in regs:
                 studentInstance.delete(reg)
             return {"Success": "Exam deleted successfully"}

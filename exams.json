@@ -1,3 +1,2772 @@
 {
-    "exams": []
+    "exams": [
+        {
+            "course": "CSC-104",
+            "date": "2025-12-22",
+            "time": "09:00",
+            "duration": 90,
+            "students": [
+                {
+                    "reg": "2024-CS-001",
+                    "name": "Allison Vasquez"
+                },
+                {
+                    "reg": "2024-CS-002",
+                    "name": "Christopher Johnson"
+                },
+                {
+                    "reg": "2024-CS-003",
+                    "name": "Karen Bradley"
+                },
+                {
+                    "reg": "2024-CS-004",
+                    "name": "Drew King"
+                },
+                {
+                    "reg": "2024-CS-005",
+                    "name": "William Bond"
+                },
+                {
+                    "reg": "2024-CS-006",
+                    "name": "Alex Stark"
+                },
+                {
+                    "reg": "2024-CS-007",
+                    "name": "Shannon Mckee"
+                },
+                {
+                    "reg": "2024-CS-008",
+                    "name": "Kelly Carlson"
+                },
+                {
+                    "reg": "2024-CS-009",
+                    "name": "Jason Wilson"
+                },
+                {
+                    "reg": "2024-CS-010",
+                    "name": "Tiffany Huff"
+                },
+                {
+                    "reg": "2024-CS-011",
+                    "name": "Patrick Weeks"
+                },
+                {
+                    "reg": "2024-CS-012",
+                    "name": "Jennifer Owens"
+                },
+                {
+                    "reg": "2024-CS-013",
+                    "name": "Michelle Mcdaniel"
+                },
+                {
+                    "reg": "2024-CS-014",
+                    "name": "Allison Martin"
+                },
+                {
+                    "reg": "2024-CS-015",
+                    "name": "Lisa Doyle"
+                },
+                {
+                    "reg": "2024-CS-016",
+                    "name": "Scott Davis"
+                },
+                {
+                    "reg": "2024-CS-017",
+                    "name": "Victoria Whitehead"
+                },
+                {
+                    "reg": "2024-CS-018",
+                    "name": "Lauren Powers"
+                },
+                {
+                    "reg": "2024-CS-019",
+                    "name": "Timothy Brooks"
+                },
+                {
+                    "reg": "2024-CS-020",
+                    "name": "Angela May"
+                },
+                {
+                    "reg": "2024-CS-021",
+                    "name": "Amy Hall"
+                },
+                {
+                    "reg": "2024-CS-022",
+                    "name": "Tyrone Fowler"
+                },
+                {
+                    "reg": "2024-CS-023",
+                    "name": "Lisa Carroll"
+                },
+                {
+                    "reg": "2024-CS-024",
+                    "name": "Chelsea Hoover"
+                },
+                {
+                    "reg": "2024-CS-025",
+                    "name": "Cassandra Combs"
+                },
+                {
+                    "reg": "2024-CS-026",
+                    "name": "John Fuentes"
+                },
+                {
+                    "reg": "2024-CS-027",
+                    "name": "Jeff Garcia"
+                },
+                {
+                    "reg": "2024-CS-028",
+                    "name": "Roberta Little"
+                },
+                {
+                    "reg": "2024-CS-029",
+                    "name": "Michael Hodge"
+                },
+                {
+                    "reg": "2024-CS-030",
+                    "name": "Dustin Franklin"
+                },
+                {
+                    "reg": "2024-CS-031",
+                    "name": "Thomas Carter"
+                },
+                {
+                    "reg": "2024-CS-032",
+                    "name": "Joshua Castillo"
+                },
+                {
+                    "reg": "2024-CS-033",
+                    "name": "Sabrina Anderson"
+                },
+                {
+                    "reg": "2024-CS-034",
+                    "name": "Brianna Armstrong"
+                },
+                {
+                    "reg": "2024-CS-035",
+                    "name": "William Ponce"
+                },
+                {
+                    "reg": "2024-CS-036",
+                    "name": "Jason Anderson"
+                },
+                {
+                    "reg": "2024-CS-037",
+                    "name": "Jason Smith"
+                },
+                {
+                    "reg": "2024-CS-038",
+                    "name": "Seth Wall"
+                },
+                {
+                    "reg": "2024-CS-039",
+                    "name": "Victor Smith"
+                },
+                {
+                    "reg": "2024-CS-040",
+                    "name": "Stacey Lloyd"
+                },
+                {
+                    "reg": "2024-CS-041",
+                    "name": "Richard Cox"
+                },
+                {
+                    "reg": "2024-CS-042",
+                    "name": "Diana Parker"
+                },
+                {
+                    "reg": "2024-CS-043",
+                    "name": "Kimberly Miller PhD"
+                },
+                {
+                    "reg": "2024-CS-044",
+                    "name": "Catherine Romero"
+                },
+                {
+                    "reg": "2024-CS-045",
+                    "name": "Donald Henry"
+                },
+                {
+                    "reg": "2024-CS-046",
+                    "name": "Sherri Stevenson"
+                },
+                {
+                    "reg": "2024-CS-047",
+                    "name": "Sarah Munoz"
+                },
+                {
+                    "reg": "2024-CS-048",
+                    "name": "Steven Stewart"
+                },
+                {
+                    "reg": "2024-CS-049",
+                    "name": "Crystal Mccoy"
+                },
+                {
+                    "reg": "2024-CS-050",
+                    "name": "David White"
+                },
+                {
+                    "reg": "2024-CS-051",
+                    "name": "Denise Bass"
+                },
+                {
+                    "reg": "2024-CS-052",
+                    "name": "Stacey Stephens"
+                },
+                {
+                    "reg": "2024-CS-053",
+                    "name": "Stephanie Macdonald"
+                },
+                {
+                    "reg": "2024-CS-054",
+                    "name": "Lindsey Fields"
+                },
+                {
+                    "reg": "2024-CS-055",
+                    "name": "Mrs. Bailey Reyes"
+                },
+                {
+                    "reg": "2024-CS-056",
+                    "name": "Robert Stafford"
+                },
+                {
+                    "reg": "2024-CS-057",
+                    "name": "Kylie Ochoa"
+                },
+                {
+                    "reg": "2024-CS-058",
+                    "name": "Jenny Kennedy"
+                },
+                {
+                    "reg": "2024-CS-059",
+                    "name": "Cindy Smith"
+                },
+                {
+                    "reg": "2024-CS-060",
+                    "name": "Cynthia Case"
+                },
+                {
+                    "reg": "2024-CS-061",
+                    "name": "Kevin Green"
+                },
+                {
+                    "reg": "2024-CS-062",
+                    "name": "Jeremy Drake"
+                },
+                {
+                    "reg": "2024-CS-063",
+                    "name": "Marcus Copeland"
+                },
+                {
+                    "reg": "2024-CS-064",
+                    "name": "Brian Hale"
+                },
+                {
+                    "reg": "2024-CS-065",
+                    "name": "Kelli Wong"
+                },
+                {
+                    "reg": "2024-CS-066",
+                    "name": "Angela Buck"
+                },
+                {
+                    "reg": "2024-CS-067",
+                    "name": "Sarah Martin"
+                },
+                {
+                    "reg": "2024-CS-068",
+                    "name": "Laura Baker DDS"
+                },
+                {
+                    "reg": "2024-CS-069",
+                    "name": "Karen Patterson"
+                },
+                {
+                    "reg": "2024-CS-070",
+                    "name": "Jonathan Rios"
+                },
+                {
+                    "reg": "2024-CS-071",
+                    "name": "Karen Wyatt"
+                },
+                {
+                    "reg": "2024-CS-072",
+                    "name": "Brian Bailey"
+                },
+                {
+                    "reg": "2024-CS-073",
+                    "name": "Karen Ortega"
+                },
+                {
+                    "reg": "2024-CS-074",
+                    "name": "Kendra Kline"
+                },
+                {
+                    "reg": "2024-CS-075",
+                    "name": "Susan Lowe"
+                },
+                {
+                    "reg": "2024-CS-076",
+                    "name": "Keith Caldwell"
+                },
+                {
+                    "reg": "2024-CS-077",
+                    "name": "Michelle Johnson"
+                },
+                {
+                    "reg": "2024-CS-078",
+                    "name": "Tara Mccoy"
+                },
+                {
+                    "reg": "2024-CS-079",
+                    "name": "James Ross"
+                },
+                {
+                    "reg": "2024-CS-080",
+                    "name": "Donald Smith"
+                },
+                {
+                    "reg": "2024-CS-081",
+                    "name": "Lawrence Murphy"
+                },
+                {
+                    "reg": "2024-CS-082",
+                    "name": "Tina Sanchez"
+                },
+                {
+                    "reg": "2024-CS-083",
+                    "name": "Jasmine Hernandez"
+                },
+                {
+                    "reg": "2024-CS-084",
+                    "name": "Julian Lewis"
+                },
+                {
+                    "reg": "2024-CS-085",
+                    "name": "Brian Salazar"
+                },
+                {
+                    "reg": "2024-CS-086",
+                    "name": "Lisa Lang"
+                },
+                {
+                    "reg": "2024-CS-087",
+                    "name": "Melissa Dawson"
+                },
+                {
+                    "reg": "2024-CS-088",
+                    "name": "Ashley Joyce"
+                },
+                {
+                    "reg": "2024-CS-089",
+                    "name": "Emily Davis"
+                },
+                {
+                    "reg": "2024-CS-090",
+                    "name": "James Castro"
+                },
+                {
+                    "reg": "2024-CS-091",
+                    "name": "Christopher Johnson"
+                },
+                {
+                    "reg": "2024-CS-092",
+                    "name": "Jason Gregory"
+                },
+                {
+                    "reg": "2024-CS-093",
+                    "name": "Cameron Whitaker"
+                },
+                {
+                    "reg": "2024-CS-094",
+                    "name": "Dana Torres"
+                },
+                {
+                    "reg": "2024-CS-095",
+                    "name": "Sharon Peterson"
+                },
+                {
+                    "reg": "2024-CS-096",
+                    "name": "Jackson Rogers"
+                },
+                {
+                    "reg": "2024-CS-097",
+                    "name": "Donald Horne"
+                },
+                {
+                    "reg": "2024-CS-098",
+                    "name": "Michael Simmons"
+                },
+                {
+                    "reg": "2024-CS-099",
+                    "name": "Victoria Klein"
+                },
+                {
+                    "reg": "2024-CS-100",
+                    "name": "Kimberly Powell"
+                },
+                {
+                    "reg": "2024-CS-101",
+                    "name": "Patty Krause"
+                },
+                {
+                    "reg": "2024-CS-102",
+                    "name": "Rachel Roberts"
+                },
+                {
+                    "reg": "2024-CS-103",
+                    "name": "Edwin Miller"
+                },
+                {
+                    "reg": "2024-CS-104",
+                    "name": "Elizabeth Martinez"
+                },
+                {
+                    "reg": "2024-CS-105",
+                    "name": "Dr. Anthony Baxter II"
+                },
+                {
+                    "reg": "2024-CS-106",
+                    "name": "Lisa Cabrera"
+                },
+                {
+                    "reg": "2024-CS-107",
+                    "name": "Lisa Ward"
+                },
+                {
+                    "reg": "2024-CS-108",
+                    "name": "Scott Martin"
+                },
+                {
+                    "reg": "2024-CS-109",
+                    "name": "Marilyn Lamb"
+                },
+                {
+                    "reg": "2024-CS-110",
+                    "name": "Stephanie Adams"
+                },
+                {
+                    "reg": "2024-CS-111",
+                    "name": "Audrey Dyer"
+                },
+                {
+                    "reg": "2024-CS-112",
+                    "name": "James Lyons"
+                },
+                {
+                    "reg": "2024-CS-113",
+                    "name": "Ashley Sanders"
+                },
+                {
+                    "reg": "2024-CS-114",
+                    "name": "John Smith"
+                },
+                {
+                    "reg": "2024-CS-115",
+                    "name": "Daniel Johnson"
+                },
+                {
+                    "reg": "2024-CS-116",
+                    "name": "Veronica Smith"
+                },
+                {
+                    "reg": "2024-CS-117",
+                    "name": "Jackie Matthews"
+                },
+                {
+                    "reg": "2024-CS-118",
+                    "name": "Lauren Gregory"
+                },
+                {
+                    "reg": "2024-CS-119",
+                    "name": "Sharon Vargas"
+                },
+                {
+                    "reg": "2024-CS-120",
+                    "name": "David Hall"
+                },
+                {
+                    "reg": "2024-CS-121",
+                    "name": "Kathryn Gaines DVM"
+                },
+                {
+                    "reg": "2024-CS-122",
+                    "name": "Jacqueline Mccarthy"
+                },
+                {
+                    "reg": "2024-CS-123",
+                    "name": "Ryan Brown"
+                },
+                {
+                    "reg": "2024-CS-124",
+                    "name": "Amy Hill"
+                },
+                {
+                    "reg": "2024-CS-125",
+                    "name": "William Johnson MD"
+                },
+                {
+                    "reg": "2024-CS-126",
+                    "name": "Ryan Jones"
+                },
+                {
+                    "reg": "2024-CS-127",
+                    "name": "Lauren Owens"
+                },
+                {
+                    "reg": "2024-CS-128",
+                    "name": "Lisa Mcclain"
+                },
+                {
+                    "reg": "2024-CS-129",
+                    "name": "Terry Taylor"
+                },
+                {
+                    "reg": "2024-CS-130",
+                    "name": "Tiffany Allen"
+                },
+                {
+                    "reg": "2024-CS-131",
+                    "name": "Michelle Harris"
+                },
+                {
+                    "reg": "2024-CS-132",
+                    "name": "Michael Davis"
+                },
+                {
+                    "reg": "2024-CS-133",
+                    "name": "Eric Singleton"
+                },
+                {
+                    "reg": "2024-CS-134",
+                    "name": "Randall Butler"
+                },
+                {
+                    "reg": "2024-CS-135",
+                    "name": "Benjamin Cervantes"
+                },
+                {
+                    "reg": "2024-CS-136",
+                    "name": "Brandon Buck"
+                },
+                {
+                    "reg": "2024-CS-137",
+                    "name": "Ryan Flores"
+                },
+                {
+                    "reg": "2024-CS-138",
+                    "name": "Kristina Brown"
+                },
+                {
+                    "reg": "2024-CS-139",
+                    "name": "Andrew Sanders"
+                },
+                {
+                    "reg": "2024-CS-140",
+                    "name": "Jesus Thompson"
+                },
+                {
+                    "reg": "2024-CS-141",
+                    "name": "Patricia Cantrell"
+                },
+                {
+                    "reg": "2024-CS-142",
+                    "name": "Kenneth Hahn"
+                },
+                {
+                    "reg": "2024-CS-143",
+                    "name": "David Lewis"
+                },
+                {
+                    "reg": "2024-CS-144",
+                    "name": "Jose Walker"
+                },
+                {
+                    "reg": "2024-CS-145",
+                    "name": "Annette Kirby"
+                },
+                {
+                    "reg": "2024-CS-146",
+                    "name": "Tammy Freeman"
+                },
+                {
+                    "reg": "2024-CS-147",
+                    "name": "Laura Wilson"
+                },
+                {
+                    "reg": "2024-CS-148",
+                    "name": "Charles Hawkins"
+                },
+                {
+                    "reg": "2024-CS-149",
+                    "name": "Ashley Powell"
+                },
+                {
+                    "reg": "2024-CS-150",
+                    "name": "Laura Warren"
+                },
+                {
+                    "reg": "2024-CS-151",
+                    "name": "Kathleen Cross"
+                },
+                {
+                    "reg": "2024-CS-152",
+                    "name": "Danielle Anderson"
+                },
+                {
+                    "reg": "2024-CS-153",
+                    "name": "Michael Hamilton"
+                },
+                {
+                    "reg": "2024-CS-154",
+                    "name": "Gerald Zimmerman"
+                },
+                {
+                    "reg": "2024-CS-155",
+                    "name": "Jesse Graham"
+                },
+                {
+                    "reg": "2024-CS-156",
+                    "name": "Karen Ellis"
+                },
+                {
+                    "reg": "2024-CS-157",
+                    "name": "Thomas Mata"
+                },
+                {
+                    "reg": "2024-CS-158",
+                    "name": "Justin Sullivan"
+                },
+                {
+                    "reg": "2024-CS-159",
+                    "name": "Karen Holland"
+                },
+                {
+                    "reg": "2024-CS-160",
+                    "name": "Caroline Holmes"
+                },
+                {
+                    "reg": "2024-CS-161",
+                    "name": "Samuel Young"
+                },
+                {
+                    "reg": "2024-CS-162",
+                    "name": "Kimberly Nelson"
+                },
+                {
+                    "reg": "2024-CS-163",
+                    "name": "Norma Conrad"
+                },
+                {
+                    "reg": "2024-CS-164",
+                    "name": "Jeffrey Haynes"
+                },
+                {
+                    "reg": "2024-CS-165",
+                    "name": "Michael Mitchell"
+                },
+                {
+                    "reg": "2024-CS-166",
+                    "name": "Kevin Ellis"
+                },
+                {
+                    "reg": "2024-CS-167",
+                    "name": "Amy Wilkinson"
+                },
+                {
+                    "reg": "2024-CS-168",
+                    "name": "Ryan Edwards"
+                },
+                {
+                    "reg": "2024-CS-169",
+                    "name": "Keith Jones"
+                },
+                {
+                    "reg": "2024-CS-170",
+                    "name": "Megan Harris"
+                },
+                {
+                    "reg": "2024-CS-171",
+                    "name": "Tracy Cruz"
+                },
+                {
+                    "reg": "2024-CS-172",
+                    "name": "Michael Andrews"
+                },
+                {
+                    "reg": "2024-CS-173",
+                    "name": "Kelly Clark"
+                },
+                {
+                    "reg": "2024-CS-174",
+                    "name": "Anthony Schwartz"
+                },
+                {
+                    "reg": "2024-CS-175",
+                    "name": "Christina Hill"
+                },
+                {
+                    "reg": "2024-CS-176",
+                    "name": "Perry Sparks"
+                },
+                {
+                    "reg": "2024-CS-177",
+                    "name": "Leslie Gibson"
+                },
+                {
+                    "reg": "2024-CS-178",
+                    "name": "Matthew Guzman"
+                },
+                {
+                    "reg": "2024-CS-179",
+                    "name": "Jeffrey Murray"
+                },
+                {
+                    "reg": "2024-CS-180",
+                    "name": "David Bell"
+                },
+                {
+                    "reg": "2024-CS-181",
+                    "name": "Melissa Hart"
+                },
+                {
+                    "reg": "2024-CS-182",
+                    "name": "Heather Jackson"
+                },
+                {
+                    "reg": "2024-CS-183",
+                    "name": "Craig Fry"
+                },
+                {
+                    "reg": "2024-CS-184",
+                    "name": "Christina Davis"
+                },
+                {
+                    "reg": "2024-CS-185",
+                    "name": "Adrian Reid"
+                },
+                {
+                    "reg": "2024-CS-186",
+                    "name": "Joshua May"
+                },
+                {
+                    "reg": "2024-CS-187",
+                    "name": "Derek Cortez"
+                }
+            ]
+        },
+        {
+            "course": "CSC-101",
+            "date": "2025-12-22",
+            "time": "09:00",
+            "duration": 90,
+            "students": [
+                {
+                    "reg": "2021-CS-001",
+                    "name": "Sheila Parks"
+                },
+                {
+                    "reg": "2021-CS-002",
+                    "name": "Matthew Harris"
+                },
+                {
+                    "reg": "2021-CS-003",
+                    "name": "John Sanders"
+                },
+                {
+                    "reg": "2021-CS-004",
+                    "name": "Nathan Perez"
+                },
+                {
+                    "reg": "2021-CS-005",
+                    "name": "Eric Wiley"
+                },
+                {
+                    "reg": "2021-CS-006",
+                    "name": "Susan Petersen"
+                },
+                {
+                    "reg": "2021-CS-007",
+                    "name": "Melinda Huang"
+                },
+                {
+                    "reg": "2021-CS-008",
+                    "name": "Ashley Oconnor"
+                },
+                {
+                    "reg": "2021-CS-009",
+                    "name": "Michael Thomas"
+                },
+                {
+                    "reg": "2021-CS-010",
+                    "name": "Katrina Smith"
+                },
+                {
+                    "reg": "2021-CS-011",
+                    "name": "Alexander Smith"
+                },
+                {
+                    "reg": "2021-CS-012",
+                    "name": "Emily Chapman"
+                },
+                {
+                    "reg": "2021-CS-013",
+                    "name": "Allison Vazquez"
+                },
+                {
+                    "reg": "2021-CS-014",
+                    "name": "Timothy Bennett"
+                },
+                {
+                    "reg": "2021-CS-015",
+                    "name": "Dawn Park"
+                },
+                {
+                    "reg": "2021-CS-016",
+                    "name": "Mark Shaw"
+                },
+                {
+                    "reg": "2021-CS-017",
+                    "name": "Stephanie Love"
+                },
+                {
+                    "reg": "2021-CS-018",
+                    "name": "Nancy Bender MD"
+                },
+                {
+                    "reg": "2021-CS-019",
+                    "name": "Jenny Cooke"
+                },
+                {
+                    "reg": "2021-CS-020",
+                    "name": "William Mcdaniel"
+                },
+                {
+                    "reg": "2021-CS-021",
+                    "name": "Shelby Morales"
+                },
+                {
+                    "reg": "2021-CS-022",
+                    "name": "Kimberly Navarro"
+                },
+                {
+                    "reg": "2021-CS-023",
+                    "name": "Randy Knapp"
+                },
+                {
+                    "reg": "2021-CS-024",
+                    "name": "Norman Bailey"
+                },
+                {
+                    "reg": "2021-CS-025",
+                    "name": "Reginald Lopez"
+                },
+                {
+                    "reg": "2021-CS-026",
+                    "name": "James Hernandez"
+                },
+                {
+                    "reg": "2021-CS-027",
+                    "name": "Stephen Wilson"
+                },
+                {
+                    "reg": "2021-CS-028",
+                    "name": "Michael Duncan"
+                },
+                {
+                    "reg": "2021-CS-029",
+                    "name": "Brenda Spears"
+                },
+                {
+                    "reg": "2021-CS-030",
+                    "name": "Steven Kennedy"
+                },
+                {
+                    "reg": "2021-CS-031",
+                    "name": "Rachel Guerrero"
+                },
+                {
+                    "reg": "2021-CS-032",
+                    "name": "Kathryn Russell"
+                },
+                {
+                    "reg": "2021-CS-033",
+                    "name": "Karen Rivera"
+                },
+                {
+                    "reg": "2021-CS-034",
+                    "name": "Megan Ortiz"
+                },
+                {
+                    "reg": "2021-CS-035",
+                    "name": "Debra Gomez"
+                },
+                {
+                    "reg": "2021-CS-036",
+                    "name": "Joshua Harvey"
+                },
+                {
+                    "reg": "2021-CS-037",
+                    "name": "Karen Brooks"
+                },
+                {
+                    "reg": "2021-CS-038",
+                    "name": "Jacqueline Nichols"
+                },
+                {
+                    "reg": "2021-CS-039",
+                    "name": "Kimberly Hansen"
+                },
+                {
+                    "reg": "2021-CS-040",
+                    "name": "Eric Mccall"
+                },
+                {
+                    "reg": "2021-CS-041",
+                    "name": "Holly Johnson"
+                },
+                {
+                    "reg": "2021-CS-042",
+                    "name": "George Dyer"
+                },
+                {
+                    "reg": "2021-CS-043",
+                    "name": "Julie Hess"
+                },
+                {
+                    "reg": "2021-CS-044",
+                    "name": "Mark Arnold"
+                },
+                {
+                    "reg": "2021-CS-045",
+                    "name": "Samantha Allen"
+                },
+                {
+                    "reg": "2021-CS-046",
+                    "name": "Jerry Craig"
+                },
+                {
+                    "reg": "2021-CS-047",
+                    "name": "Sheila Briggs"
+                },
+                {
+                    "reg": "2021-CS-048",
+                    "name": "John Ferguson"
+                },
+                {
+                    "reg": "2021-CS-049",
+                    "name": "Kimberly Nichols"
+                },
+                {
+                    "reg": "2021-CS-050",
+                    "name": "Tammy Mitchell"
+                },
+                {
+                    "reg": "2021-CS-051",
+                    "name": "Natalie Howell"
+                },
+                {
+                    "reg": "2021-CS-052",
+                    "name": "Austin Jackson"
+                },
+                {
+                    "reg": "2021-CS-053",
+                    "name": "Bryan Davis"
+                },
+                {
+                    "reg": "2021-CS-054",
+                    "name": "Stephanie Martin"
+                },
+                {
+                    "reg": "2021-CS-055",
+                    "name": "Rachel Zamora"
+                },
+                {
+                    "reg": "2021-CS-056",
+                    "name": "Renee Osborn"
+                },
+                {
+                    "reg": "2021-CS-057",
+                    "name": "Melissa Hill"
+                },
+                {
+                    "reg": "2021-CS-058",
+                    "name": "Meghan Smith"
+                },
+                {
+                    "reg": "2021-CS-059",
+                    "name": "Daniel Morris"
+                },
+                {
+                    "reg": "2021-CS-060",
+                    "name": "Benjamin Santos"
+                },
+                {
+                    "reg": "2021-CS-061",
+                    "name": "Ashlee Schneider"
+                },
+                {
+                    "reg": "2021-CS-062",
+                    "name": "John Gomez"
+                },
+                {
+                    "reg": "2021-CS-063",
+                    "name": "Jennifer Mcclain"
+                },
+                {
+                    "reg": "2021-CS-064",
+                    "name": "Robin Mccullough"
+                },
+                {
+                    "reg": "2021-CS-065",
+                    "name": "Angela Sanchez"
+                },
+                {
+                    "reg": "2021-CS-066",
+                    "name": "Justin Gardner"
+                },
+                {
+                    "reg": "2021-CS-067",
+                    "name": "Karen Carter"
+                },
+                {
+                    "reg": "2021-CS-068",
+                    "name": "Larry Boone"
+                },
+                {
+                    "reg": "2021-CS-069",
+                    "name": "Mary Brown"
+                },
+                {
+                    "reg": "2021-CS-070",
+                    "name": "Ruth Paul"
+                },
+                {
+                    "reg": "2021-CS-071",
+                    "name": "Mary Parks"
+                },
+                {
+                    "reg": "2021-CS-072",
+                    "name": "Alexander Anderson"
+                },
+                {
+                    "reg": "2021-CS-073",
+                    "name": "Sierra Nunez"
+                },
+                {
+                    "reg": "2021-CS-074",
+                    "name": "Christopher Moore"
+                },
+                {
+                    "reg": "2021-CS-075",
+                    "name": "Kendra Sharp"
+                },
+                {
+                    "reg": "2021-CS-076",
+                    "name": "Michael Thompson"
+                },
+                {
+                    "reg": "2021-CS-077",
+                    "name": "Regina Glenn"
+                },
+                {
+                    "reg": "2021-CS-078",
+                    "name": "James Prince"
+                },
+                {
+                    "reg": "2021-CS-079",
+                    "name": "Robert Anderson"
+                },
+                {
+                    "reg": "2021-CS-080",
+                    "name": "Wendy Reilly"
+                },
+                {
+                    "reg": "2021-CS-081",
+                    "name": "Tyler Buck"
+                },
+                {
+                    "reg": "2021-CS-082",
+                    "name": "Adam Rollins"
+                },
+                {
+                    "reg": "2021-CS-083",
+                    "name": "Stacey Hill"
+                },
+                {
+                    "reg": "2021-CS-084",
+                    "name": "Rebekah Ruiz"
+                },
+                {
+                    "reg": "2021-CS-085",
+                    "name": "Jorge Fisher"
+                },
+                {
+                    "reg": "2021-CS-086",
+                    "name": "Derek Brown"
+                },
+                {
+                    "reg": "2021-CS-087",
+                    "name": "Heather Martin"
+                },
+                {
+                    "reg": "2021-CS-088",
+                    "name": "Breanna Jones"
+                },
+                {
+                    "reg": "2021-CS-089",
+                    "name": "Madeline Mitchell MD"
+                },
+                {
+                    "reg": "2021-CS-090",
+                    "name": "Adam Jimenez"
+                },
+                {
+                    "reg": "2021-CS-091",
+                    "name": "Ann Chapman"
+                },
+                {
+                    "reg": "2021-CS-092",
+                    "name": "Louis Price"
+                },
+                {
+                    "reg": "2021-CS-093",
+                    "name": "Benjamin Martin"
+                },
+                {
+                    "reg": "2021-CS-094",
+                    "name": "Cheryl Navarro"
+                },
+                {
+                    "reg": "2021-CS-095",
+                    "name": "Mr. Jesus Taylor"
+                },
+                {
+                    "reg": "2021-CS-096",
+                    "name": "Dr. Adam Soto"
+                },
+                {
+                    "reg": "2021-CS-097",
+                    "name": "Patricia Zimmerman"
+                },
+                {
+                    "reg": "2021-CS-098",
+                    "name": "Shirley Montgomery"
+                },
+                {
+                    "reg": "2021-CS-099",
+                    "name": "Craig Harris"
+                },
+                {
+                    "reg": "2021-CS-100",
+                    "name": "Katie Brown"
+                },
+                {
+                    "reg": "2021-CS-101",
+                    "name": "Michael Kennedy"
+                },
+                {
+                    "reg": "2021-CS-102",
+                    "name": "April Price"
+                },
+                {
+                    "reg": "2021-CS-103",
+                    "name": "Nicole Smith"
+                },
+                {
+                    "reg": "2021-CS-104",
+                    "name": "Jennifer Nelson"
+                },
+                {
+                    "reg": "2021-CS-105",
+                    "name": "Brandon Peterson"
+                },
+                {
+                    "reg": "2021-CS-106",
+                    "name": "Lucas Wilson"
+                },
+                {
+                    "reg": "2021-CS-107",
+                    "name": "Richard Sanchez"
+                },
+                {
+                    "reg": "2021-CS-108",
+                    "name": "Ruben Robinson"
+                },
+                {
+                    "reg": "2021-CS-109",
+                    "name": "Alexis Mendoza"
+                },
+                {
+                    "reg": "2021-CS-110",
+                    "name": "Kathryn Long"
+                },
+                {
+                    "reg": "2021-CS-111",
+                    "name": "Michael Moon"
+                },
+                {
+                    "reg": "2021-CS-112",
+                    "name": "Brooke Pierce"
+                },
+                {
+                    "reg": "2021-CS-113",
+                    "name": "Brittany Myers"
+                },
+                {
+                    "reg": "2021-CS-114",
+                    "name": "Erica Wilson"
+                },
+                {
+                    "reg": "2021-CS-115",
+                    "name": "Anthony Perry"
+                },
+                {
+                    "reg": "2021-CS-116",
+                    "name": "Gerald Elliott"
+                },
+                {
+                    "reg": "2021-CS-117",
+                    "name": "Noah White"
+                },
+                {
+                    "reg": "2021-CS-118",
+                    "name": "Walter Jackson"
+                },
+                {
+                    "reg": "2021-CS-119",
+                    "name": "Rebecca Griffin"
+                },
+                {
+                    "reg": "2021-CS-120",
+                    "name": "Danny Luna"
+                },
+                {
+                    "reg": "2021-CS-121",
+                    "name": "Christian Mack"
+                },
+                {
+                    "reg": "2021-CS-122",
+                    "name": "Timothy Dean"
+                },
+                {
+                    "reg": "2021-CS-123",
+                    "name": "Alec Lara"
+                },
+                {
+                    "reg": "2021-CS-124",
+                    "name": "Roberto Bryant"
+                },
+                {
+                    "reg": "2021-CS-125",
+                    "name": "Karina Graham"
+                },
+                {
+                    "reg": "2021-CS-126",
+                    "name": "Cindy Ball PhD"
+                },
+                {
+                    "reg": "2021-CS-127",
+                    "name": "Shannon Johns"
+                },
+                {
+                    "reg": "2021-CS-128",
+                    "name": "Ashlee Barrett"
+                },
+                {
+                    "reg": "2021-CS-129",
+                    "name": "Melanie Chavez"
+                },
+                {
+                    "reg": "2021-CS-130",
+                    "name": "Jenna Garcia"
+                },
+                {
+                    "reg": "2021-CS-131",
+                    "name": "Michael Clark"
+                },
+                {
+                    "reg": "2021-CS-132",
+                    "name": "Sean Thomas"
+                },
+                {
+                    "reg": "2021-CS-133",
+                    "name": "Jason Sims"
+                },
+                {
+                    "reg": "2021-CS-134",
+                    "name": "Krystal Simmons"
+                },
+                {
+                    "reg": "2021-CS-135",
+                    "name": "Hector Freeman"
+                },
+                {
+                    "reg": "2021-CS-136",
+                    "name": "Megan Malone"
+                },
+                {
+                    "reg": "2021-CS-137",
+                    "name": "Anthony Alvarado"
+                },
+                {
+                    "reg": "2021-CS-138",
+                    "name": "Erica Walker"
+                },
+                {
+                    "reg": "2021-CS-139",
+                    "name": "Ashley Oneal"
+                },
+                {
+                    "reg": "2021-CS-140",
+                    "name": "Tiffany Miles"
+                },
+                {
+                    "reg": "2021-CS-141",
+                    "name": "Sarah Brown"
+                },
+                {
+                    "reg": "2021-CS-142",
+                    "name": "Sandra Leblanc"
+                },
+                {
+                    "reg": "2021-CS-143",
+                    "name": "Gregory Clark"
+                },
+                {
+                    "reg": "2021-CS-144",
+                    "name": "Lawrence Jones"
+                },
+                {
+                    "reg": "2021-CS-145",
+                    "name": "Jonathan Wyatt"
+                },
+                {
+                    "reg": "2021-CS-146",
+                    "name": "Jake Holland"
+                },
+                {
+                    "reg": "2021-CS-147",
+                    "name": "William Harmon"
+                }
+            ]
+        },
+        {
+            "course": "CSC-102",
+            "date": "2025-12-22",
+            "time": "09:00",
+            "duration": 90,
+            "students": [
+                {
+                    "reg": "2022-CS-001",
+                    "name": "Gary Vincent"
+                },
+                {
+                    "reg": "2022-CS-002",
+                    "name": "Christina Johnson"
+                },
+                {
+                    "reg": "2022-CS-003",
+                    "name": "Ethan Zimmerman"
+                },
+                {
+                    "reg": "2022-CS-004",
+                    "name": "Beverly Walker"
+                },
+                {
+                    "reg": "2022-CS-005",
+                    "name": "Micheal Brady"
+                },
+                {
+                    "reg": "2022-CS-006",
+                    "name": "Nicole Vega"
+                },
+                {
+                    "reg": "2022-CS-007",
+                    "name": "Thomas Wade"
+                },
+                {
+                    "reg": "2022-CS-008",
+                    "name": "Raymond Palmer"
+                },
+                {
+                    "reg": "2022-CS-009",
+                    "name": "Grace Johnson"
+                },
+                {
+                    "reg": "2022-CS-010",
+                    "name": "Sarah Harrington"
+                },
+                {
+                    "reg": "2022-CS-011",
+                    "name": "Angel Trujillo"
+                },
+                {
+                    "reg": "2022-CS-012",
+                    "name": "Jessica Ramirez"
+                },
+                {
+                    "reg": "2022-CS-013",
+                    "name": "William Jimenez"
+                },
+                {
+                    "reg": "2022-CS-014",
+                    "name": "Megan Baker"
+                },
+                {
+                    "reg": "2022-CS-015",
+                    "name": "James Washington"
+                },
+                {
+                    "reg": "2022-CS-016",
+                    "name": "Aimee Hanna"
+                },
+                {
+                    "reg": "2022-CS-017",
+                    "name": "Michael Erickson"
+                },
+                {
+                    "reg": "2022-CS-018",
+                    "name": "Sean Tran"
+                },
+                {
+                    "reg": "2022-CS-019",
+                    "name": "Laura Harmon"
+                },
+                {
+                    "reg": "2022-CS-020",
+                    "name": "Julie Lee"
+                },
+                {
+                    "reg": "2022-CS-021",
+                    "name": "Alicia Cardenas"
+                },
+                {
+                    "reg": "2022-CS-022",
+                    "name": "George Brennan"
+                },
+                {
+                    "reg": "2022-CS-023",
+                    "name": "Michael Michael"
+                },
+                {
+                    "reg": "2022-CS-024",
+                    "name": "Lisa Anderson"
+                },
+                {
+                    "reg": "2022-CS-025",
+                    "name": "Brett Osborne"
+                },
+                {
+                    "reg": "2022-CS-026",
+                    "name": "Dylan Bates"
+                },
+                {
+                    "reg": "2022-CS-027",
+                    "name": "Joshua Ellis"
+                },
+                {
+                    "reg": "2022-CS-028",
+                    "name": "Justin Wong"
+                },
+                {
+                    "reg": "2022-CS-029",
+                    "name": "Richard Brown"
+                },
+                {
+                    "reg": "2022-CS-030",
+                    "name": "Rachael Mcbride"
+                },
+                {
+                    "reg": "2022-CS-031",
+                    "name": "Jay Alexander"
+                },
+                {
+                    "reg": "2022-CS-032",
+                    "name": "Thomas Barron"
+                },
+                {
+                    "reg": "2022-CS-033",
+                    "name": "Connor Cohen"
+                },
+                {
+                    "reg": "2022-CS-034",
+                    "name": "Eric Ford"
+                },
+                {
+                    "reg": "2022-CS-035",
+                    "name": "Anne Garcia"
+                },
+                {
+                    "reg": "2022-CS-036",
+                    "name": "John Walker"
+                },
+                {
+                    "reg": "2022-CS-037",
+                    "name": "David Garcia"
+                },
+                {
+                    "reg": "2022-CS-038",
+                    "name": "James Fernandez"
+                },
+                {
+                    "reg": "2022-CS-039",
+                    "name": "Susan Smith"
+                },
+                {
+                    "reg": "2022-CS-040",
+                    "name": "Sara Escobar"
+                },
+                {
+                    "reg": "2022-CS-041",
+                    "name": "Lindsey Reynolds"
+                },
+                {
+                    "reg": "2022-CS-042",
+                    "name": "Scott Ford"
+                },
+                {
+                    "reg": "2022-CS-043",
+                    "name": "Kathy Walker"
+                },
+                {
+                    "reg": "2022-CS-044",
+                    "name": "Emily Glass"
+                },
+                {
+                    "reg": "2022-CS-045",
+                    "name": "David Gomez"
+                },
+                {
+                    "reg": "2022-CS-046",
+                    "name": "Jonathan Alexander"
+                },
+                {
+                    "reg": "2022-CS-047",
+                    "name": "Kaitlin Patel"
+                },
+                {
+                    "reg": "2022-CS-048",
+                    "name": "Joseph Woodward"
+                },
+                {
+                    "reg": "2022-CS-049",
+                    "name": "Bryan Rivera"
+                },
+                {
+                    "reg": "2022-CS-050",
+                    "name": "Kathleen James"
+                },
+                {
+                    "reg": "2022-CS-051",
+                    "name": "Stephanie Newman"
+                },
+                {
+                    "reg": "2022-CS-052",
+                    "name": "Dr. Joseph Brown DDS"
+                },
+                {
+                    "reg": "2022-CS-053",
+                    "name": "Ryan Smith"
+                },
+                {
+                    "reg": "2022-CS-054",
+                    "name": "Ryan Mason"
+                },
+                {
+                    "reg": "2022-CS-055",
+                    "name": "Kyle Martinez"
+                },
+                {
+                    "reg": "2022-CS-056",
+                    "name": "Barbara Brown"
+                },
+                {
+                    "reg": "2022-CS-057",
+                    "name": "Christopher Ward"
+                },
+                {
+                    "reg": "2022-CS-058",
+                    "name": "Amy Rice"
+                },
+                {
+                    "reg": "2022-CS-059",
+                    "name": "Brianna Martin"
+                },
+                {
+                    "reg": "2022-CS-060",
+                    "name": "Marisa Kim"
+                },
+                {
+                    "reg": "2022-CS-061",
+                    "name": "Antonio Moreno"
+                },
+                {
+                    "reg": "2022-CS-062",
+                    "name": "Mark Martinez"
+                },
+                {
+                    "reg": "2022-CS-063",
+                    "name": "Samuel Bell"
+                },
+                {
+                    "reg": "2022-CS-064",
+                    "name": "Betty Martin"
+                },
+                {
+                    "reg": "2022-CS-065",
+                    "name": "Andrew Carey"
+                },
+                {
+                    "reg": "2022-CS-066",
+                    "name": "Marcus Mcfarland"
+                },
+                {
+                    "reg": "2022-CS-067",
+                    "name": "Valerie Lewis"
+                },
+                {
+                    "reg": "2022-CS-068",
+                    "name": "Timothy Kline"
+                },
+                {
+                    "reg": "2022-CS-069",
+                    "name": "Jon Parrish"
+                },
+                {
+                    "reg": "2022-CS-070",
+                    "name": "John Alvarez"
+                },
+                {
+                    "reg": "2022-CS-071",
+                    "name": "Tony Hardin"
+                },
+                {
+                    "reg": "2022-CS-072",
+                    "name": "Rachel Carlson"
+                },
+                {
+                    "reg": "2022-CS-073",
+                    "name": "Zachary Shaw"
+                },
+                {
+                    "reg": "2022-CS-074",
+                    "name": "Ronnie Rodgers"
+                },
+                {
+                    "reg": "2022-CS-075",
+                    "name": "David Wood"
+                },
+                {
+                    "reg": "2022-CS-076",
+                    "name": "Terri Schwartz"
+                },
+                {
+                    "reg": "2022-CS-077",
+                    "name": "Amber Hernandez DDS"
+                },
+                {
+                    "reg": "2022-CS-078",
+                    "name": "Anthony Davis"
+                },
+                {
+                    "reg": "2022-CS-079",
+                    "name": "Gail Campbell"
+                },
+                {
+                    "reg": "2022-CS-080",
+                    "name": "Dan Mclaughlin"
+                },
+                {
+                    "reg": "2022-CS-081",
+                    "name": "Heather Palmer"
+                },
+                {
+                    "reg": "2022-CS-082",
+                    "name": "Brooke James"
+                },
+                {
+                    "reg": "2022-CS-083",
+                    "name": "Tyler Cruz"
+                },
+                {
+                    "reg": "2022-CS-084",
+                    "name": "Kevin Carpenter"
+                },
+                {
+                    "reg": "2022-CS-085",
+                    "name": "Kevin Miller"
+                },
+                {
+                    "reg": "2022-CS-086",
+                    "name": "Ann Maynard"
+                },
+                {
+                    "reg": "2022-CS-087",
+                    "name": "Julie Howard"
+                },
+                {
+                    "reg": "2022-CS-088",
+                    "name": "Brianna Moreno"
+                },
+                {
+                    "reg": "2022-CS-089",
+                    "name": "Ricardo Love"
+                },
+                {
+                    "reg": "2022-CS-090",
+                    "name": "Richard Frye"
+                },
+                {
+                    "reg": "2022-CS-091",
+                    "name": "Meagan Mitchell"
+                },
+                {
+                    "reg": "2022-CS-092",
+                    "name": "James Rodriguez"
+                },
+                {
+                    "reg": "2022-CS-093",
+                    "name": "John Horton"
+                },
+                {
+                    "reg": "2022-CS-094",
+                    "name": "Jonathan Freeman"
+                },
+                {
+                    "reg": "2022-CS-095",
+                    "name": "Kenneth West"
+                },
+                {
+                    "reg": "2022-CS-096",
+                    "name": "Teresa Daniels"
+                },
+                {
+                    "reg": "2022-CS-097",
+                    "name": "Nicholas Herrera"
+                },
+                {
+                    "reg": "2022-CS-098",
+                    "name": "Rebekah Kidd"
+                },
+                {
+                    "reg": "2022-CS-099",
+                    "name": "Richard Erickson"
+                },
+                {
+                    "reg": "2022-CS-100",
+                    "name": "Jessica Young"
+                },
+                {
+                    "reg": "2022-CS-101",
+                    "name": "Cynthia Campbell"
+                },
+                {
+                    "reg": "2022-CS-102",
+                    "name": "Kathleen Young"
+                },
+                {
+                    "reg": "2022-CS-103",
+                    "name": "Kyle Watkins"
+                },
+                {
+                    "reg": "2022-CS-104",
+                    "name": "John Smith"
+                },
+                {
+                    "reg": "2022-CS-105",
+                    "name": "Shelley White"
+                },
+                {
+                    "reg": "2022-CS-106",
+                    "name": "Jamie Wong"
+                },
+                {
+                    "reg": "2022-CS-107",
+                    "name": "Shane Campbell"
+                },
+                {
+                    "reg": "2022-CS-108",
+                    "name": "Ashley Gallagher"
+                },
+                {
+                    "reg": "2022-CS-109",
+                    "name": "Jose Mccormick"
+                },
+                {
+                    "reg": "2022-CS-110",
+                    "name": "Mark Simmons"
+                },
+                {
+                    "reg": "2022-CS-111",
+                    "name": "Laurie Webb"
+                },
+                {
+                    "reg": "2022-CS-112",
+                    "name": "William Holmes"
+                },
+                {
+                    "reg": "2022-CS-113",
+                    "name": "Abigail Weeks"
+                },
+                {
+                    "reg": "2022-CS-114",
+                    "name": "Mrs. Brenda Mendoza MD"
+                },
+                {
+                    "reg": "2022-CS-115",
+                    "name": "Theresa Smith"
+                },
+                {
+                    "reg": "2022-CS-116",
+                    "name": "Andrea Lewis"
+                },
+                {
+                    "reg": "2022-CS-117",
+                    "name": "Jessica Mccarthy"
+                },
+                {
+                    "reg": "2022-CS-118",
+                    "name": "Jeremy Diaz"
+                },
+                {
+                    "reg": "2022-CS-119",
+                    "name": "Scott Goodwin"
+                },
+                {
+                    "reg": "2022-CS-120",
+                    "name": "Patricia Burch"
+                },
+                {
+                    "reg": "2022-CS-121",
+                    "name": "Manuel Williams"
+                },
+                {
+                    "reg": "2022-CS-122",
+                    "name": "Elizabeth Morris"
+                },
+                {
+                    "reg": "2022-CS-123",
+                    "name": "Sandra Berger"
+                },
+                {
+                    "reg": "2022-CS-124",
+                    "name": "Sabrina Rivera"
+                },
+                {
+                    "reg": "2022-CS-125",
+                    "name": "Daniel Acosta"
+                },
+                {
+                    "reg": "2022-CS-126",
+                    "name": "Amy Myers"
+                },
+                {
+                    "reg": "2022-CS-127",
+                    "name": "Gail Cruz"
+                },
+                {
+                    "reg": "2022-CS-128",
+                    "name": "Molly Murphy"
+                },
+                {
+                    "reg": "2022-CS-129",
+                    "name": "Rebecca Harmon"
+                },
+                {
+                    "reg": "2022-CS-130",
+                    "name": "Cynthia Le"
+                },
+                {
+                    "reg": "2022-CS-131",
+                    "name": "Luis Krause"
+                },
+                {
+                    "reg": "2022-CS-132",
+                    "name": "Andre Ferguson"
+                },
+                {
+                    "reg": "2022-CS-133",
+                    "name": "Matthew Melton"
+                },
+                {
+                    "reg": "2022-CS-134",
+                    "name": "Gabriella Shepherd PhD"
+                },
+                {
+                    "reg": "2022-CS-135",
+                    "name": "Walter Thomas"
+                },
+                {
+                    "reg": "2022-CS-136",
+                    "name": "Timothy Phillips"
+                },
+                {
+                    "reg": "2022-CS-137",
+                    "name": "Cindy Hodges"
+                },
+                {
+                    "reg": "2022-CS-138",
+                    "name": "Michael Williams"
+                },
+                {
+                    "reg": "2022-CS-139",
+                    "name": "Mark Blair"
+                },
+                {
+                    "reg": "2022-CS-140",
+                    "name": "Nicholas Luna"
+                },
+                {
+                    "reg": "2022-CS-141",
+                    "name": "Philip Henry"
+                },
+                {
+                    "reg": "2022-CS-142",
+                    "name": "Theresa Hudson"
+                },
+                {
+                    "reg": "2022-CS-143",
+                    "name": "Anthony Mccall"
+                },
+                {
+                    "reg": "2022-CS-144",
+                    "name": "John Ali"
+                },
+                {
+                    "reg": "2022-CS-145",
+                    "name": "Marcus Hill"
+                },
+                {
+                    "reg": "2022-CS-146",
+                    "name": "Alan Rodriguez"
+                },
+                {
+                    "reg": "2022-CS-147",
+                    "name": "Erik Colon"
+                },
+                {
+                    "reg": "2022-CS-148",
+                    "name": "Ricky Scott"
+                },
+                {
+                    "reg": "2022-CS-149",
+                    "name": "Barbara Jordan"
+                },
+                {
+                    "reg": "2022-CS-150",
+                    "name": "Lisa Ferguson"
+                },
+                {
+                    "reg": "2022-CS-151",
+                    "name": "Amber Davis"
+                },
+                {
+                    "reg": "2022-CS-152",
+                    "name": "Bradley Dillon"
+                },
+                {
+                    "reg": "2022-CS-153",
+                    "name": "Elizabeth Cohen"
+                },
+                {
+                    "reg": "2022-CS-154",
+                    "name": "Angela Johnson"
+                },
+                {
+                    "reg": "2022-CS-155",
+                    "name": "William Wilson"
+                },
+                {
+                    "reg": "2022-CS-156",
+                    "name": "Amy Pearson"
+                },
+                {
+                    "reg": "2022-CS-157",
+                    "name": "Karen Mendez"
+                },
+                {
+                    "reg": "2022-CS-158",
+                    "name": "Donna Velez"
+                },
+                {
+                    "reg": "2022-CS-159",
+                    "name": "Melody Johnson"
+                },
+                {
+                    "reg": "2022-CS-160",
+                    "name": "Andrea Richard"
+                },
+                {
+                    "reg": "2022-CS-161",
+                    "name": "Jeremy Larson"
+                },
+                {
+                    "reg": "2022-CS-162",
+                    "name": "Jason Barnes"
+                },
+                {
+                    "reg": "2022-CS-163",
+                    "name": "Ellen Rodriguez"
+                },
+                {
+                    "reg": "2022-CS-164",
+                    "name": "Shannon Molina"
+                },
+                {
+                    "reg": "2022-CS-165",
+                    "name": "Jeremy Smith"
+                },
+                {
+                    "reg": "2022-CS-166",
+                    "name": "Lisa Salas"
+                },
+                {
+                    "reg": "2022-CS-167",
+                    "name": "Henry Armstrong"
+                },
+                {
+                    "reg": "2022-CS-168",
+                    "name": "David Parker"
+                },
+                {
+                    "reg": "2022-CS-169",
+                    "name": "Kathy Smith"
+                },
+                {
+                    "reg": "2022-CS-170",
+                    "name": "Melinda Williams"
+                },
+                {
+                    "reg": "2022-CS-171",
+                    "name": "Marie Brown"
+                }
+            ]
+        },
+        {
+            "course": "CSC-103",
+            "date": "2025-12-22",
+            "time": "09:00",
+            "duration": 90,
+            "students": [
+                {
+                    "reg": "2023-CS-001",
+                    "name": "Suzanne Farmer"
+                },
+                {
+                    "reg": "2023-CS-002",
+                    "name": "Madison Bennett"
+                },
+                {
+                    "reg": "2023-CS-003",
+                    "name": "Jared Baker"
+                },
+                {
+                    "reg": "2023-CS-004",
+                    "name": "Deanna Pollard"
+                },
+                {
+                    "reg": "2023-CS-005",
+                    "name": "Gabriel Atkins"
+                },
+                {
+                    "reg": "2023-CS-006",
+                    "name": "Sandra Briggs"
+                },
+                {
+                    "reg": "2023-CS-007",
+                    "name": "Cody Bradley"
+                },
+                {
+                    "reg": "2023-CS-008",
+                    "name": "Matthew Ortiz"
+                },
+                {
+                    "reg": "2023-CS-009",
+                    "name": "Nicole Jones MD"
+                },
+                {
+                    "reg": "2023-CS-010",
+                    "name": "Amanda Stewart"
+                },
+                {
+                    "reg": "2023-CS-011",
+                    "name": "Gregory Flores"
+                },
+                {
+                    "reg": "2023-CS-012",
+                    "name": "Victoria Rivers"
+                },
+                {
+                    "reg": "2023-CS-013",
+                    "name": "Maria Mason"
+                },
+                {
+                    "reg": "2023-CS-014",
+                    "name": "Amy Small"
+                },
+                {
+                    "reg": "2023-CS-015",
+                    "name": "Charlene Martinez"
+                },
+                {
+                    "reg": "2023-CS-016",
+                    "name": "Regina Davis"
+                },
+                {
+                    "reg": "2023-CS-017",
+                    "name": "Jeffery Lopez"
+                },
+                {
+                    "reg": "2023-CS-018",
+                    "name": "Eric Brown"
+                },
+                {
+                    "reg": "2023-CS-019",
+                    "name": "Melissa Evans"
+                },
+                {
+                    "reg": "2023-CS-020",
+                    "name": "Andrew Johnson"
+                },
+                {
+                    "reg": "2023-CS-021",
+                    "name": "Carla Colon"
+                },
+                {
+                    "reg": "2023-CS-022",
+                    "name": "Christopher Webster"
+                },
+                {
+                    "reg": "2023-CS-023",
+                    "name": "Elizabeth Wallace"
+                },
+                {
+                    "reg": "2023-CS-024",
+                    "name": "James Salazar"
+                },
+                {
+                    "reg": "2023-CS-025",
+                    "name": "Yvonne Miller"
+                },
+                {
+                    "reg": "2023-CS-026",
+                    "name": "Luke Cannon"
+                },
+                {
+                    "reg": "2023-CS-027",
+                    "name": "Jonathan Jordan"
+                },
+                {
+                    "reg": "2023-CS-028",
+                    "name": "Angela Roberts"
+                },
+                {
+                    "reg": "2023-CS-029",
+                    "name": "John Johns"
+                },
+                {
+                    "reg": "2023-CS-030",
+                    "name": "Raymond Chen"
+                },
+                {
+                    "reg": "2023-CS-031",
+                    "name": "Julia Cooper"
+                },
+                {
+                    "reg": "2023-CS-032",
+                    "name": "Joshua Hahn"
+                },
+                {
+                    "reg": "2023-CS-033",
+                    "name": "Michelle Chang"
+                },
+                {
+                    "reg": "2023-CS-034",
+                    "name": "Joshua Williamson"
+                },
+                {
+                    "reg": "2023-CS-035",
+                    "name": "Melissa Gibson"
+                },
+                {
+                    "reg": "2023-CS-036",
+                    "name": "Alfred Martin"
+                },
+                {
+                    "reg": "2023-CS-037",
+                    "name": "Donna Farley"
+                },
+                {
+                    "reg": "2023-CS-038",
+                    "name": "Jordan Kaiser"
+                },
+                {
+                    "reg": "2023-CS-039",
+                    "name": "Tina Hall"
+                },
+                {
+                    "reg": "2023-CS-040",
+                    "name": "Jennifer Moran"
+                },
+                {
+                    "reg": "2023-CS-041",
+                    "name": "Sheila Hanson"
+                },
+                {
+                    "reg": "2023-CS-042",
+                    "name": "Michael Hale"
+                },
+                {
+                    "reg": "2023-CS-043",
+                    "name": "Debra Sherman"
+                },
+                {
+                    "reg": "2023-CS-044",
+                    "name": "Benjamin Hogan"
+                },
+                {
+                    "reg": "2023-CS-045",
+                    "name": "Andrew Price"
+                },
+                {
+                    "reg": "2023-CS-046",
+                    "name": "Erin Wall"
+                },
+                {
+                    "reg": "2023-CS-047",
+                    "name": "Jessica Meadows"
+                },
+                {
+                    "reg": "2023-CS-048",
+                    "name": "Yvette Mercado"
+                },
+                {
+                    "reg": "2023-CS-049",
+                    "name": "Cheryl James"
+                },
+                {
+                    "reg": "2023-CS-050",
+                    "name": "Zachary Roberts"
+                },
+                {
+                    "reg": "2023-CS-051",
+                    "name": "Kimberly White"
+                },
+                {
+                    "reg": "2023-CS-052",
+                    "name": "Kendra Perry"
+                },
+                {
+                    "reg": "2023-CS-053",
+                    "name": "Tracy Clark"
+                },
+                {
+                    "reg": "2023-CS-054",
+                    "name": "Beth Cox"
+                },
+                {
+                    "reg": "2023-CS-055",
+                    "name": "Rachel Ramirez"
+                },
+                {
+                    "reg": "2023-CS-056",
+                    "name": "Charles Hoover"
+                },
+                {
+                    "reg": "2023-CS-057",
+                    "name": "Christopher Lambert"
+                },
+                {
+                    "reg": "2023-CS-058",
+                    "name": "Shannon Carpenter"
+                },
+                {
+                    "reg": "2023-CS-059",
+                    "name": "Michael Murray"
+                },
+                {
+                    "reg": "2023-CS-060",
+                    "name": "Debra Roberts"
+                },
+                {
+                    "reg": "2023-CS-061",
+                    "name": "Jeffrey Boyd"
+                },
+                {
+                    "reg": "2023-CS-062",
+                    "name": "Daniel Delgado"
+                },
+                {
+                    "reg": "2023-CS-063",
+                    "name": "Kathy Walker"
+                },
+                {
+                    "reg": "2023-CS-064",
+                    "name": "Bryan Myers"
+                },
+                {
+                    "reg": "2023-CS-065",
+                    "name": "Philip Grimes"
+                },
+                {
+                    "reg": "2023-CS-066",
+                    "name": "Vincent Briggs"
+                },
+                {
+                    "reg": "2023-CS-067",
+                    "name": "Michael Chan"
+                },
+                {
+                    "reg": "2023-CS-068",
+                    "name": "Todd Conrad"
+                },
+                {
+                    "reg": "2023-CS-069",
+                    "name": "Jessica Fields"
+                },
+                {
+                    "reg": "2023-CS-070",
+                    "name": "Eric Smith"
+                },
+                {
+                    "reg": "2023-CS-071",
+                    "name": "Michael Steele"
+                },
+                {
+                    "reg": "2023-CS-072",
+                    "name": "Earl Maynard"
+                },
+                {
+                    "reg": "2023-CS-073",
+                    "name": "Tara Kaiser"
+                },
+                {
+                    "reg": "2023-CS-074",
+                    "name": "Pedro Gilbert"
+                },
+                {
+                    "reg": "2023-CS-075",
+                    "name": "Tracey Bradley"
+                },
+                {
+                    "reg": "2023-CS-076",
+                    "name": "Kathleen Hendrix"
+                },
+                {
+                    "reg": "2023-CS-077",
+                    "name": "Mary Baldwin"
+                },
+                {
+                    "reg": "2023-CS-078",
+                    "name": "Miguel Jarvis"
+                },
+                {
+                    "reg": "2023-CS-079",
+                    "name": "Theresa Norman"
+                },
+                {
+                    "reg": "2023-CS-080",
+                    "name": "Maria Morris"
+                },
+                {
+                    "reg": "2023-CS-081",
+                    "name": "Sandra Roberts"
+                },
+                {
+                    "reg": "2023-CS-082",
+                    "name": "Jill Klein"
+                },
+                {
+                    "reg": "2023-CS-083",
+                    "name": "Michael Pittman"
+                },
+                {
+                    "reg": "2023-CS-084",
+                    "name": "Julie King"
+                },
+                {
+                    "reg": "2023-CS-085",
+                    "name": "Kimberly Christian"
+                },
+                {
+                    "reg": "2023-CS-086",
+                    "name": "Amanda Bradley"
+                },
+                {
+                    "reg": "2023-CS-087",
+                    "name": "Dustin Johnston"
+                },
+                {
+                    "reg": "2023-CS-088",
+                    "name": "Jessica Nelson"
+                },
+                {
+                    "reg": "2023-CS-089",
+                    "name": "Christopher Jenkins"
+                },
+                {
+                    "reg": "2023-CS-090",
+                    "name": "Jordan Farmer"
+                },
+                {
+                    "reg": "2023-CS-091",
+                    "name": "Alicia Stewart"
+                },
+                {
+                    "reg": "2023-CS-092",
+                    "name": "Brian Barry"
+                },
+                {
+                    "reg": "2023-CS-093",
+                    "name": "Adam Potter"
+                },
+                {
+                    "reg": "2023-CS-094",
+                    "name": "Jeffrey Sanchez"
+                },
+                {
+                    "reg": "2023-CS-095",
+                    "name": "John Walker"
+                },
+                {
+                    "reg": "2023-CS-096",
+                    "name": "Christina Collins"
+                },
+                {
+                    "reg": "2023-CS-097",
+                    "name": "Victoria Monroe"
+                },
+                {
+                    "reg": "2023-CS-098",
+                    "name": "Vicki Benitez"
+                },
+                {
+                    "reg": "2023-CS-099",
+                    "name": "Sarah Macdonald"
+                },
+                {
+                    "reg": "2023-CS-100",
+                    "name": "Benjamin Webb"
+                },
+                {
+                    "reg": "2023-CS-101",
+                    "name": "Jason Adams"
+                },
+                {
+                    "reg": "2023-CS-102",
+                    "name": "Monique Mcdowell"
+                },
+                {
+                    "reg": "2023-CS-103",
+                    "name": "Julia Olsen"
+                },
+                {
+                    "reg": "2023-CS-104",
+                    "name": "Katie Skinner"
+                },
+                {
+                    "reg": "2023-CS-105",
+                    "name": "Kelly Carter"
+                },
+                {
+                    "reg": "2023-CS-106",
+                    "name": "Peter Cox"
+                },
+                {
+                    "reg": "2023-CS-107",
+                    "name": "Evan Dawson"
+                },
+                {
+                    "reg": "2023-CS-108",
+                    "name": "Nicole Valdez"
+                },
+                {
+                    "reg": "2023-CS-109",
+                    "name": "Noah Smith"
+                },
+                {
+                    "reg": "2023-CS-110",
+                    "name": "Lisa Davis"
+                },
+                {
+                    "reg": "2023-CS-111",
+                    "name": "Stephanie Goodman"
+                },
+                {
+                    "reg": "2023-CS-112",
+                    "name": "Nancy Phelps"
+                },
+                {
+                    "reg": "2023-CS-113",
+                    "name": "Allen Tate"
+                },
+                {
+                    "reg": "2023-CS-114",
+                    "name": "Ariel Walter"
+                },
+                {
+                    "reg": "2023-CS-115",
+                    "name": "Gary Mendoza"
+                },
+                {
+                    "reg": "2023-CS-116",
+                    "name": "Molly Harris"
+                },
+                {
+                    "reg": "2023-CS-117",
+                    "name": "Christine Roach"
+                },
+                {
+                    "reg": "2023-CS-118",
+                    "name": "Nathaniel Massey"
+                },
+                {
+                    "reg": "2023-CS-119",
+                    "name": "Ashley Snyder DDS"
+                },
+                {
+                    "reg": "2023-CS-120",
+                    "name": "Jason Brown"
+                },
+                {
+                    "reg": "2023-CS-121",
+                    "name": "Frank Robinson"
+                },
+                {
+                    "reg": "2023-CS-122",
+                    "name": "Crystal Jones"
+                },
+                {
+                    "reg": "2023-CS-123",
+                    "name": "Scott Underwood"
+                },
+                {
+                    "reg": "2023-CS-124",
+                    "name": "Juan Mckay"
+                },
+                {
+                    "reg": "2023-CS-125",
+                    "name": "Lance Larson"
+                },
+                {
+                    "reg": "2023-CS-126",
+                    "name": "Alyssa Nolan"
+                },
+                {
+                    "reg": "2023-CS-127",
+                    "name": "Elijah Jackson"
+                },
+                {
+                    "reg": "2023-CS-128",
+                    "name": "Kenneth Austin PhD"
+                },
+                {
+                    "reg": "2023-CS-129",
+                    "name": "Victor Peterson"
+                },
+                {
+                    "reg": "2023-CS-130",
+                    "name": "Paul Mathis"
+                },
+                {
+                    "reg": "2023-CS-131",
+                    "name": "Monica Cross"
+                },
+                {
+                    "reg": "2023-CS-132",
+                    "name": "Kenneth Gay III"
+                },
+                {
+                    "reg": "2023-CS-133",
+                    "name": "Gregory Mendez DDS"
+                },
+                {
+                    "reg": "2023-CS-134",
+                    "name": "Amanda Mcdaniel"
+                },
+                {
+                    "reg": "2023-CS-135",
+                    "name": "Miss Elizabeth Park"
+                },
+                {
+                    "reg": "2023-CS-136",
+                    "name": "James Martin"
+                },
+                {
+                    "reg": "2023-CS-137",
+                    "name": "Christopher Roberts"
+                },
+                {
+                    "reg": "2023-CS-138",
+                    "name": "Brittney Watkins"
+                },
+                {
+                    "reg": "2023-CS-139",
+                    "name": "Kenneth Duke"
+                },
+                {
+                    "reg": "2023-CS-140",
+                    "name": "Miss Brittany Green MD"
+                },
+                {
+                    "reg": "2023-CS-141",
+                    "name": "Kimberly Murray"
+                },
+                {
+                    "reg": "2023-CS-142",
+                    "name": "Andrea Fuller"
+                },
+                {
+                    "reg": "2023-CS-143",
+                    "name": "Barbara Herrera"
+                },
+                {
+                    "reg": "2023-CS-144",
+                    "name": "Isaac Burnett"
+                },
+                {
+                    "reg": "2023-CS-145",
+                    "name": "Amber Pierce"
+                },
+                {
+                    "reg": "2023-CS-146",
+                    "name": "Timothy Valdez"
+                },
+                {
+                    "reg": "2023-CS-147",
+                    "name": "Jessica Brown"
+                },
+                {
+                    "reg": "2023-CS-148",
+                    "name": "David Thompson"
+                },
+                {
+                    "reg": "2023-CS-149",
+                    "name": "David Fuller"
+                },
+                {
+                    "reg": "2023-CS-150",
+                    "name": "Sara Williams"
+                },
+                {
+                    "reg": "2023-CS-151",
+                    "name": "Jennifer Bauer"
+                },
+                {
+                    "reg": "2023-CS-152",
+                    "name": "Carrie Davis"
+                },
+                {
+                    "reg": "2023-CS-153",
+                    "name": "Renee Williams"
+                },
+                {
+                    "reg": "2023-CS-154",
+                    "name": "Jennifer Copeland"
+                },
+                {
+                    "reg": "2023-CS-155",
+                    "name": "Amber Johnson MD"
+                },
+                {
+                    "reg": "2023-CS-156",
+                    "name": "Chelsea Sanchez"
+                },
+                {
+                    "reg": "2023-CS-157",
+                    "name": "Benjamin Diaz"
+                },
+                {
+                    "reg": "2023-CS-158",
+                    "name": "Jason Gregory"
+                },
+                {
+                    "reg": "2023-CS-159",
+                    "name": "Valerie Brown"
+                },
+                {
+                    "reg": "2023-CS-160",
+                    "name": "Mary Choi"
+                },
+                {
+                    "reg": "2023-CS-161",
+                    "name": "Kristen Smith"
+                },
+                {
+                    "reg": "2023-CS-162",
+                    "name": "Jon Navarro"
+                },
+                {
+                    "reg": "2023-CS-163",
+                    "name": "Mr. Kenneth Mcdaniel Jr."
+                },
+                {
+                    "reg": "2023-CS-164",
+                    "name": "Brenda Jones"
+                },
+                {
+                    "reg": "2023-CS-165",
+                    "name": "Kim Patton"
+                },
+                {
+                    "reg": "2023-CS-166",
+                    "name": "Michele Moore"
+                },
+                {
+                    "reg": "2023-CS-167",
+                    "name": "Robert Greene"
+                },
+                {
+                    "reg": "2023-CS-168",
+                    "name": "Erik Holloway"
+                },
+                {
+                    "reg": "2023-CS-169",
+                    "name": "Daniel Thomas"
+                },
+                {
+                    "reg": "2023-CS-170",
+                    "name": "Whitney Gibbs"
+                },
+                {
+                    "reg": "2023-CS-171",
+                    "name": "Angela Gregory"
+                },
+                {
+                    "reg": "2023-CS-172",
+                    "name": "Danny Baldwin"
+                },
+                {
+                    "reg": "2023-CS-173",
+                    "name": "Danielle Taylor"
+                },
+                {
+                    "reg": "2023-CS-174",
+                    "name": "Sandra Ford"
+                },
+                {
+                    "reg": "2023-CS-175",
+                    "name": "Jenna Lewis"
+                },
+                {
+                    "reg": "2023-CS-176",
+                    "name": "Laura Mueller"
+                },
+                {
+                    "reg": "2023-CS-177",
+                    "name": "Thomas Bell"
+                },
+                {
+                    "reg": "2023-CS-178",
+                    "name": "Colleen Burton"
+                },
+                {
+                    "reg": "2023-CS-179",
+                    "name": "Leon Walton"
+                }
+            ]
+        }
+    ]
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default class Exam {
-  constructor(course = "CSC-", date = new Date().toISOString().split("T")[0], time = "TBD", duration = 90, student = []) {
+  constructor(course = "CSC-", date = new Date().toISOString().split("T")[0], time = "09:00", duration = 90, student = []) {
     this.course = course
     this.date = date
     this.time = time
@@ -77,7 +77,8 @@ export default class Exam {
       const payload = {
         course: exam.course || "",   // default empty string
         date: exam.date || "",       // default empty string
-        duration: Number(exam.duration) || 0
+        duration: Number(exam.duration) || 0,
+        time: exam.time || "09:00"   // default time
       }
       const response = await axios.post(`${API_URL}/exam/update`, payload)
       return response.data

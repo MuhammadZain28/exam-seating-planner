@@ -2,12 +2,12 @@
     "rooms": [
         {
             "name": "N1",
-            "columns": 6,
-            "rows": 7
+            "columns": 8,
+            "rows": 8
         },
         {
             "name": "N10",
-            "columns": 8,
+            "columns": 10,
             "rows": 8
         },
         {
@@ -22,13 +22,13 @@
         },
         {
             "name": "N2",
-            "columns": 9,
-            "rows": 7
+            "columns": 8,
+            "rows": 8
         },
         {
             "name": "N3",
-            "columns": 9,
-            "rows": 7
+            "columns": 8,
+            "rows": 8
         },
         {
             "name": "N4",

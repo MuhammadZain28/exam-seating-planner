@@ -7,7 +7,8 @@ def arrange_exam_hall(rooms, exams):
     count = 0
     while not exams.isEmpty() and rooms:
         room = rooms.pop(0)
-        halls[room["name"]] = []
+        halls[room["name"]] = {}
+        courses = {}
         groups = {0: [], 1: [], 2: [], 3: []}
 
         for r in range(room["rows"]):
@@ -15,18 +16,15 @@ def arrange_exam_hall(rooms, exams):
                 g = (r % 2) * 2 + (c % 2)
                 groups[g].append((r, c))
 
-        print(f"Seat group {groups}")
 
         hall = [[None for _ in range(room["columns"])] for _ in range(room["rows"])]
 
         i = 0
         remaining_seats = []
         new_exams = []
-        msg = ""
         while i < 4 and not exams.isEmpty():
             exam_info = exams.pop()
-            if len(exam_info["students"]) > len(groups[i]) and len(rooms) == 0:
-                continue
+            courses[exam_info["course"]] = 0
 
             for student in exam_info["students"]:
                 if not groups[i]:
@@ -34,6 +32,7 @@ def arrange_exam_hall(rooms, exams):
                     continue
                 r, c = groups[i].pop()
                 hall[r][c] = (student["reg"])
+                courses[exam_info["course"]] += 1
                 count += 1
             if remaining_seats and len(rooms):
                 new_exams.append({"course": exam_info["course"], "date": exam_info["date"], "duration": exam_info["duration"], "students": remaining_seats})
@@ -43,21 +42,19 @@ def arrange_exam_hall(rooms, exams):
             for ne in new_exams:
                 exams.push(ne, len(exam_info["students"]))
 
-        halls[room["name"]] = hall
-
+        halls[room["name"]] = {"layout": hall, "courses": courses}
+    print("Total Students Seated:", count)
     return halls
 
 
-def shedule_exams(date="2025-12-21"):
+def shedule_exams(date="2025-12-21", time="09:00"):
     roomInstance = Rooms()
     examInstance = Exams()
-    roomInstance.load()
-    examInstance.load()
     rooms = roomInstance.to_list()
     exams = PriorityQueue()
     for exam in examInstance.get():
         print(exam["date"], date)
-        if exam["date"] == date:
+        if exam["date"] == date and exam["time"] == time:
             exams.push(exam, len(exam["students"]))
         elif exam["date"] > date:
             break

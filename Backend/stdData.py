@@ -5,7 +5,7 @@ import random
 
 fake = Faker()
 
-NUM_STUDENTS_PER_COURSE = 200
+NUM_STUDENTS_PER_COURSE = 179
 
 
 def generate_students(year=2024):
@@ -18,7 +18,7 @@ def generate_students(year=2024):
         })
     return students
 
-year = 2025
+year = 2023
 students = generate_students(year)
 df = pd.DataFrame(students)
 df.to_csv(f"students {year}.csv", index=False)

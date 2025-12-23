@@ -23,6 +23,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
     e.preventDefault();
 
     const examInstance = new Exam();
+
     if (editingExam) {
       const res = await examInstance.updateExam(formData);
       if (res.Error) {
@@ -39,6 +40,14 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
         setExams(updatedExams);
       }
     } else {
+      const count = exams.reduce((acc, exam) => acc + (exam.time === formData.time ? 1 : 0), 0);
+      if (count >= 4) {
+        await alertBox(`There are already ${count} exams scheduled at ${formData.time}. So, Exam cannot be scheduled at this time.`,
+          "Error",
+          <MessageCircleX />
+        );
+        return;
+      }
       const res = await examInstance.insertExam(formData);
       if (res.Error) {
         await alertBox(res.Error, "Error", <MessageCircleX />);
@@ -164,6 +173,18 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 required
               />
             </label>
+            <label htmlFor="time">
+              Time
+              <input
+                type="time"
+                value={formData.time}
+                onChange={(e) =>
+                  setFormData({ ...formData, time: e.target.value })
+                }
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                required
+              />
+            </label>
             <label htmlFor="">
               Duration
               <input
@@ -177,11 +198,9 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 required
               />
             </label>
+            </div>
             {!editingExam && (
               <div className="flex flex-col">
-                <p>
-                  {formData.student ? formData.student.name : "No file chosen"}
-                </p>
                 <label className="flex items-center justify-between">
                   Students List
                   <div className="flex items-center gap-2 text-sm font-normal">
@@ -210,10 +229,12 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                   onChange={(e) => {
                     setFormData({ ...formData, student: e.target.files[0] });
                   }}
-                />
+                  />
+                  <p>
+                    {formData.student ? formData.student.name : "No file chosen"}
+                  </p>
               </div>
             )}
-          </div>
 
           <div className="flex space-x-3">
             <button
