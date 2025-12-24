@@ -1,10 +1,5 @@
 import json
 from ..structures.LinkList import LinkList
-from dataclasses import dataclass
-@dataclass(order=True)
-class Key:
-    date: str
-    course: str
 class Exams:
     _instance = None
     def __new__(cls):
@@ -51,7 +46,8 @@ class Exams:
                 date=exam.date,
                 duration=exam.duration,
                 students=exam_node.data.students,
-                time=exam.time
+                time=exam.time,
+                session=exam.session
             )
             exam_node.data = ex
             self.save()
@@ -83,23 +79,26 @@ class Exams:
                     date=record["date"],
                     duration=record["duration"],
                     students=students,
-                    time=record["time"]
+                    time=record["time"],
+                    session=record["session"]
                 )
                 self.insert(exam)
 
 
 class Exam:
-    def __init__(self, course, date, duration, students, time):
+    def __init__(self, course, date, duration, students, time, session):
         self.course = course
         self.date = date
         self.duration = duration
         self.students = students
         self.time = time
+        self.session = session
     def to_dict(self):
         return {
             "course": self.course,
             "date": self.date,
             "time": self.time,
             "duration": self.duration,
-            "students": self.students
+            "students": self.students,
+            "session": self.session
         }

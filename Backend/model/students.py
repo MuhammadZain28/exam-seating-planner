@@ -1,23 +1,26 @@
 from .exam import Exams
 
 examInstance = Exams()
-
+DELETED = object()
 class Student:
-    def __init__(self, name, reg, course):
+    def __init__(self, name, reg, course, session):
         self.name = name
         self.reg = reg
         self.course = course
+        self.session = session
 
     def to_dict(self):
         return {
             "name": self.name,
-            "reg": self.reg
+            "reg": self.reg,
+            "session": self.session
         }
     def to_print(self):
         return {
             "name": self.name,
             "reg": self.reg,
             "course": self.course,
+            "session": self.session
         }
 
 class Students:
@@ -31,91 +34,72 @@ class Students:
         return cls._instance
 
     def insert(self, student):
-        key = sum(ord(c) for c in student.reg)
-        index = self.hash_1(key)
-        steps = self.hash_2(key)
-        i = 0
-        while self.table[index] is not None:
-            index = (index + steps) % self.size
-            i += 1
-            if i > self.size:
-                print("Hash table is full, cannot insert student:", student.reg)
-                return  False
-        self.table[index] = student
-        self.elements += 1
-        return True
+        if self.elements / self.size > 0.7:
+            self.rehash()
+        key = self.compute_key(student.reg)
+        h1 = key % self.size
+        h2 = 2 + (key % (self.size - 1))
+        for attempt in range(self.size):
+            idx = (h1 + attempt * h2) % self.size
+            if self.table[idx] is None or self.table[idx] is DELETED:
+                self.table[idx] = student
+                self.elements += 1
+                return True
+        return False
 
-    def hash_1(self, key):
-        return key % self.size
-
-    def hash_2(self, key):
-        return 2 + (key % (self.size - 1))
-
-    def search(self, student):
-        key = sum(ord(c) for c in student["reg"])
-        index = self.hash_1(key)
-        steps = self.hash_2(key)
-
-        i = 0
-        while self.table[index] is not None:
-            print("Searching at index:", i)
-            if self.table[index].reg == student["reg"]:
-                return self.table[index]
-
-            index = (index + steps) % self.size
-            i += 1
-            if i > self.size:
+    def search(self, reg):
+        key = self.compute_key(reg)
+        h1 = key % self.size
+        h2 = 2 + (key % (self.size - 1))
+        for attempt in range(self.size):
+            idx = (h1 + attempt * h2) % self.size
+            s = self.table[idx]
+            if s is None:
                 return None
+            if s is not DELETED and s.reg == reg:
+                return s
+        return None
 
-    def check_duplicate(self, students):
-        if self.elements == 0:
-            return 0, None
-        duplicates = 0
-        conflict = None
-        for student in students:
-            searched = self.search(student)
-            if searched is not None:
-                duplicates += 1
-                conflict = searched.to_print()
-        if duplicates == 0:
-            return 0, None
-        print(conflict)
-        return duplicates, conflict["course"]
+    def compute_key(self, reg):
+        key = 0
+        p = 31
+        m = 10**9 + 9
+        for i, c in enumerate(reg):
+            key = (key + (ord(c) * pow(p, i, m))) % m
+        return key
+
+
     def to_list(self):
-        result = []
-        count = 0
-        for i, student in enumerate(self.table):
-            if count > self.elements:
-                break
-            if student is None or student == -1:
-                continue
-            result.append(student.to_print())
-            count += 1
+        result = [s.to_print() for s in self.table if s and s != DELETED]
         return result
 
 
     def delete(self, reg):
-        key = sum(ord(c) for c in reg)
-        index = self.hash_1(key)
-        steps = self.hash_2(key)
-
-        i = 0
-        while self.table[index] is not None:
-            if self.table[index] != -1 and self.table[index].reg == reg:
-                self.table[index] = -1  # Mark as deleted
-                self.elements -= 1
-                return True
-
-            index = (index + steps) % self.size
-            i += 1
-            if i > self.size:
+        key = self.compute_key(reg)
+        h1 = key % self.size
+        h2 = 2 + (key % (self.size - 1))
+        for attempt in range(self.size):
+            idx = (h1 + attempt * h2) % self.size
+            s = self.table[idx]
+            if s is None:
                 return False
+            if s is not DELETED and s.reg == reg:
+                self.table[idx] = DELETED
+                return True
         return False
 
+    def rehash(self):
+        old_table = self.table
+        self.size = self.size * 2 + 1
+        self.table = [None] * self.size
+        self.elements = 0
+        for student in old_table:
+            if student and student != DELETED:
+                self.insert(student)
 
     def load(self):
         exam = examInstance.get()
         for record in exam:
             for s in record["students"]:
-                student = Student(name=s["name"], reg=s["reg"], course=record["course"])
+                student = Student(name=s["name"], reg=s["reg"], course=record["course"], session=record["session"])
                 self.insert(student)

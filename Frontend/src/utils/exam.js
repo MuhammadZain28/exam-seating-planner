@@ -3,12 +3,13 @@ import axios from "axios";
 const API_URL = "http://127.0.0.1:8000";
 
 export default class Exam {
-  constructor(course = "CSC-", date = new Date().toISOString().split("T")[0], time = "09:00", duration = 90, student = []) {
+  constructor(course = "CSC-", date = new Date().toISOString().split("T")[0], time = "09:00", duration = 90, student = [], session = "2024") {
     this.course = course
     this.date = date
     this.time = time
     this.duration = duration
     this.student = student
+    this.session = session
   }
 
   insertExam = async (exam) => {
@@ -19,6 +20,7 @@ export default class Exam {
       form.append("time", exam.time)
       form.append("duration", exam.duration);
       form.append("file", exam.student);
+      form.append("session", exam.session);
       console.log("Form Data:", Array.from(form.entries()));
       const response = await axios.post(`${API_URL}/exam/insert`,
         form,
@@ -40,6 +42,7 @@ export default class Exam {
       form.append("duration", exam.duration);
       form.append("file", exam.student);
       form.append("conflict", conflictCourse);
+      form.append("session", exam.session);
       console.log("Form Data:", Array.from(form.entries()));
       const response = await axios.post(`${API_URL}/exam/confirm`,
         form,
@@ -78,7 +81,8 @@ export default class Exam {
         course: exam.course || "",   // default empty string
         date: exam.date || "",       // default empty string
         duration: Number(exam.duration) || 0,
-        time: exam.time || "09:00"   // default time
+        time: exam.time || "09:00",   // default time
+        session: exam.session || "2024"
       }
       const response = await axios.post(`${API_URL}/exam/update`, payload)
       return response.data

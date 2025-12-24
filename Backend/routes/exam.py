@@ -16,6 +16,7 @@ class ExamBase(BaseModel):
     date: str
     duration: int
     time: str
+    session: str
 
 
 @router.get("/")
@@ -27,30 +28,27 @@ async def insert(
     date: str = Form(...),
     time: str = Form(...),
     duration: int = Form(...),
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    session: str = Form(...)
     ):
-    # try:
+    try:
+        if not conflictGraph.can_place_exam(date, time, session):
+            return {"Error": "Conflict detected with another exam at the same date and time for the same session."}
         contents = await file.read()
         df = pd.read_csv(pd.io.common.BytesIO(contents))
 
         students = df.to_dict(orient="records")
-        # duplicate_count, conflict_course = studentInstance.check_duplicate(students)
-        # percentage = (duplicate_count / len(students))
-        # if percentage > 0 and percentage <= 0.3:
-        #     return {"Alert" : f"{duplicate_count} students of this course already giving Exam on this day. Do you still want to schedule...?", "conflict": conflict_course}
-        # elif percentage > 0.3:
-        #     return {"Error" : f"{duplicate_count} students of this course already giving Exam on this day. Cannot schedule Exam."}
 
-        exam = Exam(course=course, date=date, duration=duration, students=students, time=time)
+        exam = Exam(course=course, date=date, duration=duration, students=students, time=time, session=session)
         result = exams.insert(exam)
         if not result:
             return {"Error": "Exam with this course already exists"}
         for student in students:
-            student = Student(name=student["name"], reg=student["reg"], course=course)
+            student = Student(name=student["name"], reg=student["reg"], course=course, session=session)
             studentInstance.insert(student)
         return {"Success": "Exam is Saved Successfully!"}
-    # except Exception as e:
-    #     return {"Error": str(e)}
+    except Exception as e:
+        return {"Error": str(e)}
 
 @router.post("/confirm")
 async def insert(
@@ -59,20 +57,21 @@ async def insert(
     time: str = Form(...),
     duration: int = Form(...),
     file: UploadFile = File(...),
-    conflict: str = Form(...)
+    conflict: str = Form(...),
+    session: str = Form(...)
     ):
     try:
         contents = await file.read()
         df = pd.read_csv(pd.io.common.BytesIO(contents))
 
         students = df.to_dict(orient="records")
-        exam = Exam(course=course, date=date, duration=duration, students=students, time=time)
+        exam = Exam(course=course, date=date, duration=duration, students=students, time=time, session=session)
         result = exams.insert(exam)
         if not result:
             return {"Error": "Exam with this course already exists"}
         conflictGraph.add_conflict(date, course, conflict)
         for student in students:
-            student = Student(name=student["name"], reg=student["reg"], course=course)
+            student = Student(name=student["name"], reg=student["reg"], course=course, session=session)
             studentInstance.insert(student)
         return {"Success": "Exam is Saved Successfully!"}
     except Exception as e:

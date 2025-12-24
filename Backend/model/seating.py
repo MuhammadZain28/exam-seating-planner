@@ -24,7 +24,10 @@ def arrange_exam_hall(rooms, exams):
         new_exams = []
         while i < 4 and not exams.isEmpty():
             exam_info = exams.pop()
-            courses[exam_info["course"]] = 0
+            if not exam_info:
+                break
+            key = exam_info['session']
+            courses[key] = 0
 
             for student in exam_info["students"]:
                 if not groups[i]:
@@ -32,10 +35,10 @@ def arrange_exam_hall(rooms, exams):
                     continue
                 r, c = groups[i].pop()
                 hall[r][c] = (student["reg"])
-                courses[exam_info["course"]] += 1
+                courses[key] += 1
                 count += 1
             if remaining_seats and len(rooms):
-                new_exams.append({"course": exam_info["course"], "date": exam_info["date"], "duration": exam_info["duration"], "students": remaining_seats})
+                new_exams.append({"course": exam_info["course"], "date": exam_info["date"], "duration": exam_info["duration"], "session": exam_info["session"], "students": remaining_seats})
                 remaining_seats = []
             i = (i + 1) % 4
         if new_exams:
@@ -53,7 +56,6 @@ def shedule_exams(date="2025-12-21", time="09:00"):
     rooms = roomInstance.to_list()
     exams = PriorityQueue()
     for exam in examInstance.get():
-        print(exam["date"], date)
         if exam["date"] == date and exam["time"] == time:
             exams.push(exam, len(exam["students"]))
         elif exam["date"] > date:

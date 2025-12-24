@@ -32,9 +32,9 @@ const Halls = forwardRef(({ arrangement }, ref) => {
             ))}
           </div>
           <div className="flex justify-evenly items-center mt-4">
-            {Object.entries(hall.courses).map(([course, count]) => (
-              <div key={course} className="mt-2 text-md text-black">
-                <span className="font-semibold">{course}:</span> {count} students
+            {Object.entries(hall.courses).map(([session, count]) => (
+              <div key={session} className="mt-2 text-md text-black">
+                <span className="font-semibold">Session - {session}:</span> {count} students
               </div>
             ))}
           </div>

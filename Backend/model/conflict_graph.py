@@ -7,23 +7,23 @@ class Conflicts:
             cls.graph = {}
         return cls._instance
 
-    def add_conflict(self, date, course1, course2):
+    def add_conflict(self, date, time, session):
         if date not in self.graph:
             self.graph[date] = {}
 
-        if course1 not in self.graph[date]:
-            self.graph[date][course1] = []
+        if time not in self.graph[date]:
+            self.graph[date][time] = []
 
-        if course2 not in self.graph[date]:
-            self.graph[date][course2] = []
-
-        if course2 not in self.graph[date][course1]:
-            self.graph[date][course1].append(course2)
-
-        if course1 not in self.graph[date][course2]:
-            self.graph[date][course2].append(course1)
-
+        if session not in self.graph[date][time]:
+            self.graph[date][time].append(session)
         self.save_graph()
+
+    def can_place_exam(self, date, time, session):
+        if date in self.graph and time in self.graph[date]:
+            if session in self.graph[date][time] and len(self.graph[date][time]) < 4:
+                return False
+        self.add_conflict(date, time, session)
+        return True
 
     def save_graph(self):
         with open("conflict_graph.json", "w", encoding="utf-8") as f:

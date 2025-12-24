@@ -40,9 +40,13 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
         setExams(updatedExams);
       }
     } else {
-      const count = exams.reduce((acc, exam) => acc + (exam.time === formData.time ? 1 : 0), 0);
+      const count = exams.reduce(
+        (acc, exam) => acc + (exam.time === formData.time ? 1 : 0),
+        0
+      );
       if (count >= 4) {
-        await alertBox(`There are already ${count} exams scheduled at ${formData.time}. So, Exam cannot be scheduled at this time.`,
+        await alertBox(
+          `There are already ${count} exams scheduled at ${formData.time}. So, Exam cannot be scheduled at this time.`,
           "Error",
           <MessageCircleX />
         );
@@ -198,7 +202,18 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 required
               />
             </label>
-            </div>
+            <label htmlFor="">
+              Session
+              <input
+                type="text"
+                value={formData.session}
+                onChange={(e) =>
+                  setFormData({ ...formData, session: e.target.value })
+                }
+                className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                required
+              />
+            </label>
             {!editingExam && (
               <div className="flex flex-col">
                 <label className="flex items-center justify-between">
@@ -229,12 +244,13 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                   onChange={(e) => {
                     setFormData({ ...formData, student: e.target.files[0] });
                   }}
-                  />
-                  <p>
-                    {formData.student ? formData.student.name : "No file chosen"}
-                  </p>
+                />
+                <p>
+                  {formData.student ? formData.student.name : "No file chosen"}
+                </p>
               </div>
             )}
+          </div>
 
           <div className="flex space-x-3">
             <button
@@ -263,15 +279,11 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
             <div className="flex justify-between items-start w-full">
               <div className="w-full">
                 <h3 className="text-xl font-semibold text-black mb-2">
-                  {exam.course}
+                  Session: {exam.session}
                 </h3>
-                <p className="text-black text-sm mb-2">
-                  <strong>Duration: </strong>
-                  {exam.duration} mins
-                </p>
-                <p className="text-black text-sm mb-4">
-                  <strong>{exam.date}</strong> at <strong>{exam.time}</strong>
-                </p>
+                <h3 className="text-md font-semibold text-black mb-2">
+                  Course: {exam.course}
+                </h3>
               </div>
               <div className="flex space-x-2">
                 <button
@@ -287,6 +299,14 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-black text-sm mb-2">
+                Duration: {exam.duration} mins
+              </p>
+              <p className="text-black text-sm mb-4">
+                {exam.date} at {exam.time}
+              </p>
             </div>
             <div className="bg-indigo-50 rounded p-4">
               <p className="text-sm font-medium text-black mb-2">

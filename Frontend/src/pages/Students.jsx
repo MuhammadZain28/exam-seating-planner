@@ -53,7 +53,7 @@ const StudentsPage = ({students, setStudents}) => {
                   Course
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
-                  Semester
+                  Session
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Actions
@@ -66,7 +66,7 @@ const StudentsPage = ({students, setStudents}) => {
                   <td className="px-6 py-4 text-black">{student.name}</td>
                   <td className="px-6 py-4 text-black">{student.reg}</td>
                   <td className="px-6 py-4 text-black">{student.course}</td>
-                  <td className="px-6 py-4 text-black">{student.semester}</td>
+                  <td className="px-6 py-4 text-black">{student.session}</td>
                   <td className="px-6 py-4 flex space-x-2">
                     <button
                       onClick={() => handleDelete(student)}
