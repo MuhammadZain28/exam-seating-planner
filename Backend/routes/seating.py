@@ -1,8 +1,23 @@
 from fastapi import APIRouter
-from ..model.seating import shedule_exams
+from ..model.seating import Seating
 
 router = APIRouter()
+seating_instance = Seating()
+seating_instance.load_arrangement()
 
 @router.get("/{date}/{time}")
 def get_arranger(date: str, time: str):
-    return shedule_exams(date, time)
+    return seating_instance.shedule_exams(date, time)
+
+@router.get("/")
+def get_arrangements():
+    return seating_instance.get_arrangements()
+
+@router.get("/existing/{date}/{time}")
+def load_existing_arrangement(date: str, time: str):
+    return seating_instance.load_exist(date, time)
+
+@router.delete("/delete/{date}/{time}")
+def delete_arrangement(date: str, time: str):
+    seating_instance.delete_arrangement(date, time)
+    return {"Success": "Arrangement deleted successfully"}

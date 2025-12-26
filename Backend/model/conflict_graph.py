@@ -7,7 +7,7 @@ class Conflicts:
             cls.graph = {}
         return cls._instance
 
-    def add_conflict(self, date, time, session):
+    def add_conflict(self, date, time, session, students=0):
         if date not in self.graph:
             self.graph[date] = {}
 
@@ -15,14 +15,13 @@ class Conflicts:
             self.graph[date][time] = []
 
         if session not in self.graph[date][time]:
-            self.graph[date][time].append(session)
+            self.graph[date][time].append({"session": session, "students": students})
         self.save_graph()
 
     def can_place_exam(self, date, time, session):
         if date in self.graph and time in self.graph[date]:
             if session in self.graph[date][time] and len(self.graph[date][time]) < 4:
                 return False
-        self.add_conflict(date, time, session)
         return True
 
     def save_graph(self):

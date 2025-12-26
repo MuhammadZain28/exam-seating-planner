@@ -39,6 +39,8 @@ async def insert(
 
         students = df.to_dict(orient="records")
 
+        conflictGraph.add_conflict(date, time, session, len(students))
+
         exam = Exam(course=course, date=date, duration=duration, students=students, time=time, session=session)
         result = exams.insert(exam)
         if not result:

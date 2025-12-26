@@ -4,12 +4,10 @@ import { fetchSeatingArrangement } from '../utils/seating';
 import Halls from '../components/Halls';
 import { useReactToPrint } from 'react-to-print';
 
-// Seating Plan Component
-const SeatingPlanPage = ({ seatingPlans = [], setSeatingPlans }) => {
+const SeatingPlanPage = ({ seatingPlans = null, setSeatingPlans }) => {
   const ref = useRef(null);
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [time, setTime] = useState("09:00");
-  const [currentPlan, setCurrentPlan] = useState(null);
 
   const handlePrint = useReactToPrint({
     contentRef: ref,
@@ -35,13 +33,13 @@ const SeatingPlanPage = ({ seatingPlans = [], setSeatingPlans }) => {
       arrangement: seatingArrangement,
       generatedAt: new Date().toLocaleString()
     };
-    console.log("Generated Seating Plan:", plan);
-    setCurrentPlan(plan);
-    setSeatingPlans([...seatingPlans, plan]);
+    setSeatingPlans(plan);
   }
   const downloadPlan = () => {
     handlePrint();
   }
+
+
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Seating Plan Generation</h1>
@@ -58,7 +56,7 @@ const SeatingPlanPage = ({ seatingPlans = [], setSeatingPlans }) => {
             Generate Plan
           </button>
         </div>
-        {currentPlan && (
+        {seatingPlans && (
           <div className="mt-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold mb-2 text-black">Seating Plan for {date} at {time}</h3>
@@ -70,7 +68,7 @@ const SeatingPlanPage = ({ seatingPlans = [], setSeatingPlans }) => {
                 Download Seating Plan
               </button>
             </div>
-              { currentPlan.arrangement && <Halls arrangement={currentPlan.arrangement} ref={ref} /> }
+              { seatingPlans.arrangement && <Halls arrangement={seatingPlans.arrangement} ref={ref} /> }
           </div>
         )}
       </div>

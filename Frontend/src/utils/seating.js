@@ -11,3 +11,33 @@ export async function fetchSeatingArrangement(date, time) {
         return null;
     }
 }
+
+export async function fetchAllArrangements() {
+    try {
+        const response = await axios.get(`${API_URL}/seating/`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching all arrangements:', error);
+        return null;
+    }
+}
+
+export async function ExistingArrangements(date, time) {
+    try {
+        const response = await axios.get(`${API_URL}/seating/existing/${encodeURIComponent(date)}/${encodeURIComponent(time)}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching existing arrangements:', error);
+        return null;
+    }
+}
+
+export async function deleteArrangement(date, time) {
+    try {
+        const response = await axios.delete(`${API_URL}/seating/delete/${encodeURIComponent(date)}/${encodeURIComponent(time)}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting arrangement:', error);
+        return null;
+    }
+}

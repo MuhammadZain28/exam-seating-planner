@@ -41,7 +41,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
       }
     } else {
       const count = exams.reduce(
-        (acc, exam) => acc + (exam.time === formData.time ? 1 : 0),
+        (acc, exam) => acc + (exam.time === formData.time && exam.date === formData.date ? 1 : 0),
         0
       );
       if (count >= 4) {

@@ -5,10 +5,13 @@ import Dashboard from './pages/Dashboard.jsx';
 import StudentsPage from './pages/Students.jsx';
 import RoomsPage from './pages/Rooms.jsx';
 import ExamsPage from './pages/Exams.jsx';
+import ArrangementPage from './pages/Arrangements.jsx';
+import Wrapper from './pages/Wrapper.jsx';
 import { useState, useEffect } from 'react';
 import Exam from './utils/exam.js';
 import Student from './utils/student.js';
 import Room from './utils/room.js';
+import { fetchAllArrangements } from './utils/seating.js';
 
 
 const App = () => {
@@ -16,7 +19,8 @@ const App = () => {
   const [exams, setExams] = useState(null)
   const [students, setStudents] = useState(null)
   const [rooms, setRooms] = useState(null)
-  const [seatingPlans, setSeatingPlans] = useState([]);
+  const [seatingPlans, setSeatingPlans] = useState(null);
+  const [arrangements, setArrangements] = useState(null);
   const [reloadFlag, setReloadFlag] = useState(false);
 
   useEffect(() => {
@@ -64,6 +68,20 @@ const App = () => {
     fetchRooms();
   }, []);
 
+  useEffect(() => {
+    const fetchArrangements = async () => {
+      const data = await fetchAllArrangements();
+      console.log("Fetched Arrangements:", data);
+      if (data) {
+        setArrangements(data);
+      } else {
+        setArrangements([]);
+      }
+    };
+
+    fetchArrangements();
+  }, []);
+
   if (exams === null || students === null || rooms === null) {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
@@ -76,7 +94,8 @@ const App = () => {
         <Route path="/students" element={<StudentsPage students={students} setStudents={setStudents} />} />
         <Route path="/rooms" element={<RoomsPage rooms={rooms} setRooms={setRooms} />} />
         <Route path="/exams" element={<ExamsPage exams={exams} setExams={setExams} reload={reloadFlag} setReload={setReloadFlag} />} />
-        <Route path="/seating" element={<SeatingPlanPage seatingPlans={seatingPlans} setSeatingPlans={setSeatingPlans} />} />
+        <Route path="/seating" element={<Wrapper><SeatingPlanPage seatingPlans={seatingPlans} setSeatingPlans={setSeatingPlans} /></Wrapper>} />
+        <Route path="/arrangements" element={<Wrapper><ArrangementPage arrangements={arrangements} setArrangements={setArrangements} /></Wrapper>} />
       </Routes>
     </div>
   );
