@@ -31,7 +31,7 @@ class LinkList:
     def search(self, key):
         current = self.head
         while current:
-            if current.data.course == key:
+            if current.data.course == key.course and current.data.session == key.session:
                 return current
             current = current.next
         return None
@@ -39,7 +39,7 @@ class LinkList:
     def delete(self, key):
         current = self.head
         while current:
-            if current.data.course == key:
+            if current.data.course == key["course"] and current.data.session == key["session"]:
                 if current == self.head:
                     self.head = current.next
                 self.size -= 1

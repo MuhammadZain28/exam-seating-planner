@@ -25,7 +25,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
     const examInstance = new Exam();
 
     if (editingExam) {
-      const res = await examInstance.updateExam(formData);
+      const res = await examInstance.updateExam(formData, editingExam.course);
       if (res.Error) {
         alertBox(res.Error, "Error", <MessageCircleX />);
       } else {
@@ -35,7 +35,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
           <CircleCheckBigIcon />
         );
         const updatedExams = exams.map((exam) =>
-          exam.course === formData.course ? formData : exam
+          exam.course === editingExam.course ? formData : exam
         );
         setExams(updatedExams);
       }
@@ -106,7 +106,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
     );
     if (!confirm) return;
     const examInstance = new Exam();
-    const response = await examInstance.deleteExam(exam.course);
+    const response = await examInstance.deleteExam(exam.course, exam.session);
     if (response.Error) {
       alertBox(response.Error, "Error", <MessageCircleX />);
     } else {
@@ -159,7 +159,6 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                     setFormData({ ...formData, course: e.target.value })
                   }
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  disabled={editingExam !== null}
                   required
                 />
               </label>
@@ -212,6 +211,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
                 }
                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 required
+                disabled={editingExam !== null}
               />
             </label>
             {!editingExam && (

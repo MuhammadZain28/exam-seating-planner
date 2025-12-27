@@ -65,9 +65,9 @@ export default class Exam {
     }
   };
 
-  deleteExam = async (course) => {
+  deleteExam = async (course, session) => {
     try {
-      const response = await axios.delete(`${API_URL}/exam/${encodeURIComponent(course)}/`)
+      const response = await axios.delete(`${API_URL}/exam/${encodeURIComponent(course)}/${encodeURIComponent(session)}/`)
       console.log("Delete Response:", response.data)
       return response.data
     } catch (error) {
@@ -75,7 +75,7 @@ export default class Exam {
       return null
     }
   }
-  updateExam = async (exam) => {
+  updateExam = async (exam, course) => {
     try {
       const payload = {
         course: exam.course || "",   // default empty string
@@ -84,7 +84,7 @@ export default class Exam {
         time: exam.time || "09:00",   // default time
         session: exam.session || "2024"
       }
-      const response = await axios.post(`${API_URL}/exam/update`, payload)
+      const response = await axios.post(`${API_URL}/exam/update/${encodeURIComponent(course)}`, payload)
       return response.data
     } catch (error) {
       console.error("Error Update Course", error)

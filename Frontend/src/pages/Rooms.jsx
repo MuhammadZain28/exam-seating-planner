@@ -21,7 +21,7 @@ const RoomsPage = ({rooms, setRooms}) => {
     };
 
     if (editingRoom) {
-      setRooms(rooms.map(r => r.id === editingRoom.id ? { ...roomData, id: r.id } : r));
+      setRooms(rooms.map(r => r.name === editingRoom.name ? { ...roomData, name: r.name } : r));
       const roomInstance = new Room();
       const res = await roomInstance.updateRoom(formData);
       if (res.Error) {

@@ -1,20 +1,12 @@
-import { Layout, Users, Building2, Calendar, Building2Icon } from "lucide-react";
-import radixSort from "../utils/Sort";
-import { useEffect } from "react";
+import { Layout, Users, Building2, Calendar, Building2Icon, Table } from "lucide-react";
 
-const Dashboard = ({ students = [], rooms = [], exams = [], seatingPlans = [], setRooms }) => {
+const Dashboard = ({ students = [], rooms = [], exams = [] }) => {
   const stats = [
     { label: 'Total Students', value: students.length, icon: Users, color: 'bg-blue-500' },
     { label: 'Available Rooms', value: rooms.length, icon: Building2, color: 'bg-green-500' },
     { label: 'Scheduled Exams', value: exams.length, icon: Calendar, color: 'bg-purple-500' },
-    { label: 'Seating Plans', value: seatingPlans.length, icon: Layout, color: 'bg-orange-500' }
+    { label: 'Total Capacity', value: rooms.reduce((acc, room) => acc + (room.rows * room.columns), 0), icon: Table, color: 'bg-orange-500' }
   ];
-
-  useEffect(() => {
-    if (rooms.length > 0) {
-      setRooms(radixSort(rooms));
-    }
-  }, []);
 
   return (
     <div className="p-6 w-full min-h-screen">

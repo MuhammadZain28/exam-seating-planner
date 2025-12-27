@@ -10,36 +10,35 @@ class Exams:
         return cls._instance
 
     def insert(self, exam):
-        is_exist = self.search(exam.course)
+        is_exist = self.search(exam)
         if is_exist:
             return False
         self.exams.push(exam)
         self.save()
         return True
 
-    def delete(self, course):
-        regs = [s["reg"] for s in self.search(course).students]
-        if self.exams.delete(course):
-            self.save()
+    def delete(self, exam):
+        regs = [s["reg"] for s in self.search(Exam(course=exam["course"], date=None, duration=None, students=None, time=None, session=exam["session"])).students]
+        if self.exams.delete(exam):
             return True, regs
         return False, None
 
-    def delete_students(self, course, reg):
-        exam = self.search(course)
+    def delete_students(self, course, reg, session):
+        exam = self.search(Exam(course=course, date=None, duration=None, students=None, time=None, session=session))
         if exam:
             exam.students = [s for s in exam.students if s["reg"] != reg]
             self.save()
             return True
         return False
 
-    def search(self, course):
-        exam_node = self.exams.search(course)
+    def search(self, exam):
+        exam_node = self.exams.search(exam)
         if exam_node:
             return exam_node.data
         return None
 
-    def update(self, exam):
-        exam_node = self.exams.search(exam.course)
+    def update(self, exam, course):
+        exam_node = self.exams.search(Exam(course=course, date=None, duration=None, students=None, time=None, session=exam.session))
         if exam_node:
             ex = Exam(
                 course=exam.course,

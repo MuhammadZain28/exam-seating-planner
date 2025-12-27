@@ -4,12 +4,14 @@ from pydantic import BaseModel
 import pandas as pd
 from ..model.students import Students, Student
 from ..model.conflict_graph import Conflicts
+from ..model.rooms import Rooms
 
 router = APIRouter()
 
 exams = Exams()
 studentInstance = Students()
 conflictGraph = Conflicts()
+rooms = Rooms()
 
 class ExamBase(BaseModel):
     course: str
@@ -39,7 +41,10 @@ async def insert(
 
         students = df.to_dict(orient="records")
 
-        conflictGraph.add_conflict(date, time, session, len(students))
+        students_count = len(students)
+        if rooms.capacity // 4 < students_count:
+            return {"Error": f"Insufficient room capacity {rooms.capacity} for the {students_count} students. These many students require {students_count*4}."}
+        conflictGraph.add_conflict(date, time, session)
 
         exam = Exam(course=course, date=date, duration=duration, students=students, time=time, session=session)
         result = exams.insert(exam)
@@ -52,38 +57,12 @@ async def insert(
     except Exception as e:
         return {"Error": str(e)}
 
-@router.post("/confirm")
-async def insert(
-    course: str = Form(...),
-    date: str = Form(...),
-    time: str = Form(...),
-    duration: int = Form(...),
-    file: UploadFile = File(...),
-    conflict: str = Form(...),
-    session: str = Form(...)
-    ):
+@router.delete("/{course}/{session}/")
+def delete(course: str, session: str):
     try:
-        contents = await file.read()
-        df = pd.read_csv(pd.io.common.BytesIO(contents))
-
-        students = df.to_dict(orient="records")
-        exam = Exam(course=course, date=date, duration=duration, students=students, time=time, session=session)
-        result = exams.insert(exam)
-        if not result:
-            return {"Error": "Exam with this course already exists"}
-        conflictGraph.add_conflict(date, course, conflict)
-        for student in students:
-            student = Student(name=student["name"], reg=student["reg"], course=course, session=session)
-            studentInstance.insert(student)
-        return {"Success": "Exam is Saved Successfully!"}
-    except Exception as e:
-        return {"Error": str(e)}
-
-@router.delete("/{course}/")
-def delete(course: str):
-    try:
-        is_deleted, regs = exams.delete(course)
+        is_deleted, regs = exams.delete({"course": course, "session": session})
         if is_deleted:
+            exams.save()
             for reg in regs:
                 studentInstance.delete(reg)
             return {"Success": "Exam deleted successfully"}
@@ -91,16 +70,16 @@ def delete(course: str):
     except Exception as e:
         return {"Error": str(e)}
 
-@router.delete("/{reg}/{course}/")
-def delete_student(reg: str, course: str):
-    result = exams.delete_students(course=course, reg=reg)
+@router.delete("/{reg}/{course}/{session}/")
+def delete_student(reg: str, course: str, session: str):
+    result = exams.delete_students(course=course, reg=reg, session=session)
     if result:
         studentInstance.delete(reg)
         return {"message": "Student deleted successfully"}
     return {"message": "Student not found"}
 
-@router.post("/update")
-def update(exam: ExamBase):
-    if exams.update(exam):
+@router.post("/update/{course}")
+def update(course: str, exam: ExamBase):
+    if exams.update(exam, course):
         return {"Success": "Exam updated successfully"}
     return {"Error": "Exam not found"}

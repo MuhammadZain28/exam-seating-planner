@@ -27,33 +27,33 @@
         },
         {
             "name": "N3",
-            "columns": 8,
-            "rows": 8
+            "columns": 7,
+            "rows": 10
         },
         {
             "name": "N4",
-            "columns": 8,
-            "rows": 8
+            "columns": 7,
+            "rows": 10
         },
         {
             "name": "N5",
-            "columns": 8,
-            "rows": 8
+            "columns": 10,
+            "rows": 7
         },
         {
             "name": "N6",
-            "columns": 8,
-            "rows": 8
+            "columns": 10,
+            "rows": 7
         },
         {
             "name": "N7",
-            "columns": 8,
-            "rows": 8
+            "columns": 7,
+            "rows": 10
         },
         {
             "name": "N8",
-            "columns": 8,
-            "rows": 8
+            "columns": 7,
+            "rows": 10
         },
         {
             "name": "N9",

@@ -60,9 +60,6 @@ class Seating:
 
 
     def shedule_exams(self, date="2025-12-21", time="09:00"):
-        # load_arrangement_result = load_arrangement(date, time)
-        # if load_arrangement_result:
-        #     return load_arrangement_result
         roomInstance = Rooms()
         examInstance = Exams()
         rooms = roomInstance.to_list()

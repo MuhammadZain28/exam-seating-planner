@@ -26,10 +26,12 @@ class Rooms:
         if cls._instance is None:
             cls._instance = super(Rooms, cls).__new__(cls)
             cls._instance.rooms = RB_Tree()
+            cls._instance.capacity = 0
         return cls._instance
     def add_room(self, room):
         key = room.name
         if (self.rooms.insert(key, room)):
+            self.capacity += room.rows * room.columns
             return True
         return False
 
