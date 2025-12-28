@@ -54,7 +54,7 @@ class Seating:
                 for ne in new_exams:
                     exams.push(ne, len(exam_info["students"]))
 
-            halls[room["name"]] = {"layout": hall, "courses": courses}
+            halls[room["name"]] = {"layout": hall[::-1], "courses": courses}
         print("Total Students Seated:", count)
         return halls
 

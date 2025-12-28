@@ -19,7 +19,7 @@ const ArrangementPage = ({ arrangements }) => {
     pageStyle: `
       @page {
         size: A4 landscape;
-        margin: 15mm 10mm;
+        margin: 10mm;
       }
       body {
         -webkit-print-color-adjust: exact;

@@ -5,7 +5,7 @@ import random
 
 fake = Faker()
 
-NUM_STUDENTS_PER_COURSE = 220
+NUM_STUDENTS_PER_COURSE = 171
 
 
 def generate_students(year=2024):

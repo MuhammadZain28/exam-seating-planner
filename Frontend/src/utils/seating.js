@@ -41,3 +41,20 @@ export async function deleteArrangement(date, time) {
         return null;
     }
 }
+
+export function getFirstAndLastRoll(layout, session) {
+  const rolls = layout
+    .flat()
+    .filter(seat => seat && seat.includes(session));
+
+  if (rolls.length === 0) {
+    return { first: "-", last: "-" };
+  }
+
+  rolls.sort();
+
+  return {
+    first: rolls[0],
+    last: rolls[rolls.length - 1]
+  };
+};

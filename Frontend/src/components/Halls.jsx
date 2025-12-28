@@ -1,4 +1,6 @@
 import { forwardRef } from "react";
+import { DoorClosed, DoorOpen } from "lucide-react"
+import { getFirstAndLastRoll } from "../utils/seating";
 
 const Halls = forwardRef(({ arrangement }, ref) => {
   console.log("Rendering Halls with arrangement:", arrangement);
@@ -13,11 +15,26 @@ const Halls = forwardRef(({ arrangement }, ref) => {
             <h2 className="text-2xl font-bold">{hallName}</h2>
             <p className="text-lg"><strong>Total Students:</strong> {Object.values(hall.courses).reduce((acc, count) => acc + count, 0)}</p>
           </div>
+          <div className="flex gap-1 items-center justify-center">
+            <div className="w-10 h-10 flex items-center justify-center text-black"><DoorOpen /></div>
+
+            {hall.layout[0].map((_, colIndex) => (
+              <div
+                key={colIndex}
+                className="w-20 h-10 flex items-center justify-center font-semibold text-black"
+              >
+                {colIndex + 1}
+              </div>
+            ))}
+          </div>
           <div
             className="flex flex-col gap-1 items-center"
           >
             {hall.layout.map((row, rowIndex) => (
               <div key={rowIndex} className="flex gap-1">
+                <div className="w-10 h-12 flex items-center justify-center font-semibold text-black">
+                  {rowIndex + 1}
+                </div>
                 {row.map((seat, seatIndex) => (
                   <div
                     key={seatIndex}
@@ -33,8 +50,11 @@ const Halls = forwardRef(({ arrangement }, ref) => {
           </div>
           <div className="flex justify-evenly items-center mt-4">
             {Object.entries(hall.courses).map(([session, count]) => (
-              <div key={session} className="mt-2 text-md text-black">
-                <span className="font-semibold">Session - {session}:</span> {count} students
+              <div key={session} className="mt-2 text-md text-black flex flex-col items-center gap-1">
+                <span className=""><strong>Session - {session}:</strong> {count} students</span>
+                <span className="text-sm">
+                  {getFirstAndLastRoll(hall.layout, session).first} - {getFirstAndLastRoll(hall.layout, session).last}
+                </span>
               </div>
             ))}
           </div>
