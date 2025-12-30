@@ -3,24 +3,27 @@ from .exam import Exams
 examInstance = Exams()
 DELETED = object()
 class Student:
-    def __init__(self, name, reg, course, session):
+    def __init__(self, name, reg, course, session, section):
         self.name = name
         self.reg = reg
         self.course = course
         self.session = session
+        self.section = section
 
     def to_dict(self):
         return {
             "name": self.name,
             "reg": self.reg,
-            "session": self.session
+            "session": self.session,
+            "section": self.section
         }
     def to_print(self):
         return {
             "name": self.name,
             "reg": self.reg,
             "course": self.course,
-            "session": self.session
+            "session": self.session,
+            "section": self.section
         }
 
 class Students:
@@ -101,5 +104,5 @@ class Students:
         exam = examInstance.get()
         for record in exam:
             for s in record["students"]:
-                student = Student(name=s["name"], reg=s["reg"], course=record["course"], session=record["session"])
+                student = Student(name=s["name"], reg=s["reg"], course=record["course"], session=record["session"], section=s["section"])
                 self.insert(student)

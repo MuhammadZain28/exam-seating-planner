@@ -23,7 +23,7 @@ class Conflicts:
             if session in self.graph[date][time] and len(self.graph[date][time]) < 4:
                 return False
         return True
-    
+
     def remove_conflict(self, date, time, session):
         if date in self.graph and time in self.graph[date]:
             if session in self.graph[date][time]:
@@ -35,7 +35,7 @@ class Conflicts:
                 self.save_graph()
                 return True
         return False
-    
+
     def update_conflict(self, old_date, old_time, old_session, new_date, new_time, new_session):
         self.remove_conflict(old_date, old_time, old_session)
         self.add_conflict(new_date, new_time, new_session)

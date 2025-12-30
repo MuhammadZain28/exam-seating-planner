@@ -50,7 +50,7 @@ const StudentsPage = ({students, setStudents}) => {
                   Roll No
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
-                  Course
+                  Section
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase">
                   Session
@@ -65,7 +65,7 @@ const StudentsPage = ({students, setStudents}) => {
                 <tr key={student.reg + student.course} className="hover:bg-gray-50">
                   <td className="px-6 py-4 text-black">{student.name}</td>
                   <td className="px-6 py-4 text-black">{student.reg}</td>
-                  <td className="px-6 py-4 text-black">{student.course}</td>
+                  <td className="px-6 py-4 text-black">{student.section}</td>
                   <td className="px-6 py-4 text-black">{student.session}</td>
                   <td className="px-6 py-4 flex space-x-2">
                     <button

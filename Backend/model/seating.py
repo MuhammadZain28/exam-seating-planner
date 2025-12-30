@@ -22,6 +22,7 @@ class Seating:
             room = rooms.pop(0)
             halls[room["name"]] = {}
             courses = {}
+            section = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
             groups = {0: [], 1: [], 2: [], 3: []}
 
             for r in range(room["rows"]):
@@ -40,7 +41,7 @@ class Seating:
                 if not exam_info:
                     break
                 key = exam_info['session']
-                courses[key] = 0
+                courses[key] = {}
 
                 for student in exam_info["students"]:
                     if not groups[i]:
@@ -48,11 +49,13 @@ class Seating:
                         continue
                     r, c = groups[i].pop()
                     hall[r][c] = (student["reg"])
-                    courses[key] += 1
+                    section[student["section"]] += 1
+                    section[student["section"]] += 1
                     count += 1
                 if remaining_seats and len(rooms):
                     new_exams.append({"course": exam_info["course"], "date": exam_info["date"], "duration": exam_info["duration"], "session": exam_info["session"], "students": remaining_seats})
                     remaining_seats = []
+                courses[key] = section.copy()
                 i = (i + 1) % 4
             if new_exams:
                 for ne in new_exams:
@@ -140,7 +143,6 @@ class Seating:
                 json.dump(self.arrangements, f, indent=1)
             return True
         return False
-    
 
     def export_xlsx(self, date, time):
         data = self.load_exist(date, time)
@@ -168,12 +170,12 @@ class Seating:
             ws = wb.create_sheet(title=hall)
 
             layout = details["layout"]
-            courses = details["courses"]
+            courses = details["courses"]  # batch -> section -> count
 
+            # ---------------- Seating Layout ----------------
             for r, row in enumerate(layout, start=1):
                 for c, value in enumerate(row, start=1):
                     cell = ws.cell(row=r, column=c, value=value)
-
                     cell.border = thin_border
                     cell.alignment = center_align
 
@@ -185,31 +187,37 @@ class Seating:
             for col in ws.columns:
                 ws.column_dimensions[col[0].column_letter].width = 18
 
+            # ---------------- Summary Table ----------------
             start_row = len(layout) + 2
 
             title_cell = ws.cell(row=start_row, column=1, value="Courses Summary")
             title_cell.alignment = center_align
             title_cell.border = thin_border
 
-            headers = ["Batch", "Count"]
+            headers = ["Batch", "Section", "Count"]
             for col, header in enumerate(headers, start=1):
                 cell = ws.cell(row=start_row + 1, column=col, value=header)
                 cell.alignment = center_align
                 cell.border = thin_border
 
-            for i, (batch, count) in enumerate(courses.items()):
-                row_no = start_row + 2 + i
+            row_no = start_row + 2
 
-                b_cell = ws.cell(row=row_no, column=1, value=batch)
-                c_cell = ws.cell(row=row_no, column=2, value=count)
+            for batch, sections in courses.items():
+                for section, count in sections.items():
+                    b_cell = ws.cell(row=row_no, column=1, value=batch)
+                    s_cell = ws.cell(row=row_no, column=2, value=section)
+                    c_cell = ws.cell(row=row_no, column=3, value=count)
 
-                for cell in (b_cell, c_cell):
-                    cell.alignment = center_align
-                    cell.border = thin_border
+                    for cell in (b_cell, s_cell, c_cell):
+                        cell.alignment = center_align
+                        cell.border = thin_border
 
-                if batch in batch_fills:
-                    b_cell.fill = batch_fills[batch]
-                    c_cell.fill = batch_fills[batch]
+                    if batch in batch_fills:
+                        b_cell.fill = batch_fills[batch]
+                        s_cell.fill = batch_fills[batch]
+                        c_cell.fill = batch_fills[batch]
+
+                    row_no += 1
 
         output = BytesIO()
         wb.save(output)

@@ -52,7 +52,7 @@ async def insert(
         if not result:
             return {"Error": "Exam with this course already exists"}
         for student in students:
-            student = Student(name=student["name"], reg=student["reg"], course=course, session=session)
+            student = Student(name=student.get("name", " "), reg=student.get("reg", " "), course=course, session=session, section=student.get("section", 'A'))
             studentInstance.insert(student)
         return {"Success": "Exam is Saved Successfully!"}
     except Exception as e:
@@ -82,6 +82,6 @@ def delete_student(reg: str, course: str, session: str):
 
 @router.post("/update/{course}")
 def update(course: str, exam: ExamBase):
-    if exams.update(exam, course):  
+    if exams.update(exam, course):
         return {"Success": "Exam updated successfully"}
     return {"Error": "Exam not found"}

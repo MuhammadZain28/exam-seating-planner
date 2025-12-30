@@ -1,6 +1,5 @@
 import { forwardRef } from "react";
 import { DoorClosed, DoorOpen } from "lucide-react"
-import { getFirstAndLastRoll } from "../utils/seating";
 
 const Halls = forwardRef(({ arrangement }, ref) => {
   console.log("Rendering Halls with arrangement:", arrangement);
@@ -13,15 +12,14 @@ const Halls = forwardRef(({ arrangement }, ref) => {
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">{hallName}</h2>
-            <p className="text-lg"><strong>Total Students:</strong> {Object.values(hall.courses).reduce((acc, count) => acc + count, 0)}</p>
           </div>
           <div className="flex gap-1 items-center justify-center">
-            <div className="w-10 h-10 flex items-center justify-center text-black"><DoorOpen /></div>
+            <div className="w-10 h-8 flex items-center justify-center text-black"><DoorOpen /></div>
 
             {hall.layout[0].map((_, colIndex) => (
               <div
                 key={colIndex}
-                className="w-20 h-10 flex items-center justify-center font-semibold text-black"
+                className="w-20 h-8 flex items-center justify-center font-semibold text-black"
               >
                 {colIndex + 1}
               </div>
@@ -32,13 +30,13 @@ const Halls = forwardRef(({ arrangement }, ref) => {
           >
             {hall.layout.map((row, rowIndex) => (
               <div key={rowIndex} className="flex gap-1">
-                <div className="w-10 h-12 flex items-center justify-center font-semibold text-black">
+                <div className="w-10 h-8 flex items-center justify-center font-semibold text-black">
                   {rowIndex + 1}
                 </div>
                 {row.map((seat, seatIndex) => (
                   <div
                     key={seatIndex}
-                    className={`flex items-center justify-center border text-black text-[12px] rounded-lg w-20 h-12 ${
+                    className={`flex items-center justify-center border text-black text-[12px] rounded-lg w-20 h-8 ${
                       seat ? "bg-indigo-300" : "bg-gray-200"
                     }`}
                   >
@@ -48,16 +46,21 @@ const Halls = forwardRef(({ arrangement }, ref) => {
               </div>
             ))}
           </div>
-          <div className="flex justify-evenly items-center mt-4">
-            {Object.entries(hall.courses).map(([session, count]) => (
-              <div key={session} className="mt-2 text-md text-black flex flex-col items-center gap-1">
-                <span className=""><strong>Session - {session}:</strong> {count} students</span>
-                <span className="text-sm">
-                  {getFirstAndLastRoll(hall.layout, session).first} - {getFirstAndLastRoll(hall.layout, session).last}
+          {Object.entries(hall.courses).map(([course, sections]) => (
+          <div key={course} className="flex justify-evenly items-center mt-4">
+            <p><strong>{course}:</strong></p>
+            {Object.entries(sections).map(([section, count]) => (
+              <div
+                key={section}
+                className="text-md text-black flex flex-col items-center gap-1"
+              >
+                <span>
+                  <strong>Section {section}:</strong> {count} students
                 </span>
               </div>
             ))}
           </div>
+          ))}
         </div>
       ))}
     </div>

@@ -47,6 +47,8 @@ class Rooms:
         import json
         with open("rooms.json", "r", encoding="utf-8") as f:
             data = json.load(f)
+            if data == {}:
+                return
             for record in data["rooms"]:
                 room = Room(**record)
                 self.add_room(room)

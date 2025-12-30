@@ -15,10 +15,11 @@ def generate_students(year=2024):
         students.append({
             "reg": reg,
             "name": fake.name(),
+            "section": random.choice(['A', 'B', 'C', 'D'])
         })
     return students
 
-year = 2023
+year = 2024
 students = generate_students(year)
 df = pd.DataFrame(students)
 df.to_csv(f"students {year}.csv", index=False)
