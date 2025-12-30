@@ -1,3 +1,6 @@
+from openpyxl import Workbook
+from openpyxl.styles import Border, Side, Alignment, PatternFill
+from io import BytesIO
 from .rooms import Rooms
 from .exam import Exams
 from ..structures.Queue import PriorityQueue
@@ -12,6 +15,7 @@ class Seating:
         return cls._instance
 
     def arrange_exam_hall(self, rooms, exams):
+        self.radixSort(rooms)
         halls = {}
         count = 0
         while not exams.isEmpty() and rooms:
@@ -58,6 +62,32 @@ class Seating:
         print("Total Students Seated:", count)
         return halls
 
+    def radixSort(self, arr):
+        max1 = max(arr["rows"] * arr["columns"] for arr in arr)
+        exp = 1
+        while max1 // exp > 0:
+            self.countingSort(arr, exp)
+            exp *= 10
+        arr.reverse()
+    def countingSort(self, arr, exp):
+        n = len(arr)
+        output = [0] * n
+        count = [0] * 10
+
+        for i in range(n):
+            index = (arr[i]["rows"] * arr[i]["columns"] // exp) % 10
+            count[index] += 1
+
+        for i in range(1, 10):
+            count[i] += count[i - 1]
+
+        for i in range(n - 1, -1, -1):
+            index = (arr[i]["rows"] * arr[i]["columns"] // exp) % 10
+            output[count[index] - 1] = arr[i]
+            count[index] -= 1
+
+        for i in range(n):
+            arr[i] = output[i]
 
     def shedule_exams(self, date="2025-12-21", time="09:00"):
         roomInstance = Rooms()
@@ -90,6 +120,7 @@ class Seating:
         if date in self.arrangements and time in self.arrangements[date]:
             return self.arrangements[date][time]
         return None
+
     def get_arrangements(self):
         data = []
         for date, times in self.arrangements.items():
@@ -109,4 +140,80 @@ class Seating:
                 json.dump(self.arrangements, f, indent=1)
             return True
         return False
+    
+
+    def export_xlsx(self, date, time):
+        data = self.load_exist(date, time)
+
+        wb = Workbook()
+        wb.remove(wb.active)
+
+        thin_border = Border(
+            left=Side(style="thin"),
+            right=Side(style="thin"),
+            top=Side(style="thin"),
+            bottom=Side(style="thin"),
+        )
+
+        center_align = Alignment(horizontal="center", vertical="center")
+
+        batch_fills = {
+            "2021": PatternFill(start_color="BDD7EE", end_color="BDD7EE", fill_type="solid"),
+            "2022": PatternFill(start_color="C6E0B4", end_color="C6E0B4", fill_type="solid"),
+            "2023": PatternFill(start_color="FFF2CC", end_color="FFF2CC", fill_type="solid"),
+            "2024": PatternFill(start_color="F8CBAD", end_color="F8CBAD", fill_type="solid"),
+        }
+
+        for hall, details in data.items():
+            ws = wb.create_sheet(title=hall)
+
+            layout = details["layout"]
+            courses = details["courses"]
+
+            for r, row in enumerate(layout, start=1):
+                for c, value in enumerate(row, start=1):
+                    cell = ws.cell(row=r, column=c, value=value)
+
+                    cell.border = thin_border
+                    cell.alignment = center_align
+
+                    if isinstance(value, str):
+                        batch = value.split("-")[0]
+                        if batch in batch_fills:
+                            cell.fill = batch_fills[batch]
+
+            for col in ws.columns:
+                ws.column_dimensions[col[0].column_letter].width = 18
+
+            start_row = len(layout) + 2
+
+            title_cell = ws.cell(row=start_row, column=1, value="Courses Summary")
+            title_cell.alignment = center_align
+            title_cell.border = thin_border
+
+            headers = ["Batch", "Count"]
+            for col, header in enumerate(headers, start=1):
+                cell = ws.cell(row=start_row + 1, column=col, value=header)
+                cell.alignment = center_align
+                cell.border = thin_border
+
+            for i, (batch, count) in enumerate(courses.items()):
+                row_no = start_row + 2 + i
+
+                b_cell = ws.cell(row=row_no, column=1, value=batch)
+                c_cell = ws.cell(row=row_no, column=2, value=count)
+
+                for cell in (b_cell, c_cell):
+                    cell.alignment = center_align
+                    cell.border = thin_border
+
+                if batch in batch_fills:
+                    b_cell.fill = batch_fills[batch]
+                    c_cell.fill = batch_fills[batch]
+
+        output = BytesIO()
+        wb.save(output)
+        output.seek(0)
+
+        return output
 

@@ -1,8 +1,11 @@
 import { Layout, Users, Building2, Calendar, Building2Icon, Table } from "lucide-react";
 
 const Dashboard = ({ students = [], rooms = [], exams = [] }) => {
+  
+  const allRegs = students.map((s) => s.reg);
+  const uniqueRegs = new Set(allRegs);
   const stats = [
-    { label: 'Total Students', value: students.length, icon: Users, color: 'bg-blue-500' },
+    { label: 'Total Students', value: uniqueRegs.size, icon: Users, color: 'bg-blue-500' },
     { label: 'Available Rooms', value: rooms.length, icon: Building2, color: 'bg-green-500' },
     { label: 'Scheduled Exams', value: exams.length, icon: Calendar, color: 'bg-purple-500' },
     { label: 'Total Capacity', value: rooms.reduce((acc, room) => acc + (room.rows * room.columns), 0), icon: Table, color: 'bg-orange-500' }

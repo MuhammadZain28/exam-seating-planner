@@ -275,7 +275,7 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {exams.map((exam) => (
-          <div key={exam.course} className="bg-white rounded-lg shadow-md p-6">
+          <div key={exam.course + exam.session} className="bg-white rounded-lg shadow-md p-6">
             <div className="flex justify-between items-start w-full">
               <div className="w-full">
                 <h3 className="text-xl font-semibold text-black mb-2">

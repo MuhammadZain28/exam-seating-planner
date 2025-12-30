@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from fastapi.responses import StreamingResponse
 from ..model.seating import Seating
 
 router = APIRouter()
@@ -21,3 +22,15 @@ def load_existing_arrangement(date: str, time: str):
 def delete_arrangement(date: str, time: str):
     seating_instance.delete_arrangement(date, time)
     return {"Success": "Arrangement deleted successfully"}
+
+@router.get("/export/{date}/{time}")
+def export_arrangement(date: str, time: str):
+    blob = seating_instance.export_xlsx(date, time)
+
+    return StreamingResponse(
+        blob,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={
+            "Content-Disposition": f'attachment; filename="seating_{date}_{time}.xlsx"'
+        }
+    )

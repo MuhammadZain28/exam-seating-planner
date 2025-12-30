@@ -42,6 +42,18 @@ export async function deleteArrangement(date, time) {
     }
 }
 
+export async function exportXlsx(date, time) {
+    try {
+        const response = await axios.get(`${API_URL}/seating/export/${encodeURIComponent(date)}/${encodeURIComponent(time)}`, {
+            responseType: 'blob',
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error exporting XLSX:', error);
+        return null;
+    }   
+}
+
 export function getFirstAndLastRoll(layout, session) {
   const rolls = layout
     .flat()

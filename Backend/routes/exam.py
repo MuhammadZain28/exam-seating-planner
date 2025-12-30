@@ -11,6 +11,7 @@ router = APIRouter()
 exams = Exams()
 studentInstance = Students()
 conflictGraph = Conflicts()
+conflictGraph.load_graph()
 rooms = Rooms()
 
 class ExamBase(BaseModel):
@@ -60,11 +61,12 @@ async def insert(
 @router.delete("/{course}/{session}/")
 def delete(course: str, session: str):
     try:
-        is_deleted, regs = exams.delete({"course": course, "session": session})
+        is_deleted, regs, time, date = exams.delete({"course": course, "session": session})
         if is_deleted:
-            exams.save()
             for reg in regs:
                 studentInstance.delete(reg)
+            conflictGraph.remove_conflict(date, time, session)
+            exams.save()
             return {"Success": "Exam deleted successfully"}
         return {"Error": "Exam not found"}
     except Exception as e:
@@ -80,6 +82,6 @@ def delete_student(reg: str, course: str, session: str):
 
 @router.post("/update/{course}")
 def update(course: str, exam: ExamBase):
-    if exams.update(exam, course):
+    if exams.update(exam, course):  
         return {"Success": "Exam updated successfully"}
     return {"Error": "Exam not found"}

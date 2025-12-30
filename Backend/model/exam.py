@@ -1,5 +1,8 @@
 import json
 from ..structures.LinkList import LinkList
+from .conflict_graph import Conflicts
+
+conflict_graph = Conflicts()
 class Exams:
     _instance = None
     def __new__(cls):
@@ -18,10 +21,11 @@ class Exams:
         return True
 
     def delete(self, exam):
-        regs = [s["reg"] for s in self.search(Exam(course=exam["course"], date=None, duration=None, students=None, time=None, session=exam["session"])).students]
+        found = self.search(Exam(course=exam["course"], date=None, duration=None, students=None, time=None, session=exam["session"]))
+        regs = [s["reg"] for s in found.students]
         if self.exams.delete(exam):
-            return True, regs
-        return False, None
+            return True, regs, found.time, found.date
+        return False, None, None, None
 
     def delete_students(self, course, reg, session):
         exam = self.search(Exam(course=course, date=None, duration=None, students=None, time=None, session=session))
@@ -40,6 +44,7 @@ class Exams:
     def update(self, exam, course):
         exam_node = self.exams.search(Exam(course=course, date=None, duration=None, students=None, time=None, session=exam.session))
         if exam_node:
+            old_exam = exam_node.data
             ex = Exam(
                 course=exam.course,
                 date=exam.date,
@@ -48,9 +53,18 @@ class Exams:
                 time=exam.time,
                 session=exam.session
             )
-            exam_node.data = ex
+            
+            conflict_graph.update_conflict(
+                old_date=old_exam.date,
+                old_time=old_exam.time,
+                old_session=old_exam.session,
+                new_date=exam.date,
+                new_time=exam.time,
+                new_session=exam.session
+            )
+            exam_node.data = ex 
             self.save()
-            return True
+            return True 
         return False
 
     def get(self):
