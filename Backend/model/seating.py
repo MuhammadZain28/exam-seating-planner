@@ -49,13 +49,14 @@ class Seating:
                         continue
                     r, c = groups[i].pop()
                     hall[r][c] = (student["reg"])
-                    section[student["section"]] += 1
-                    section[student["section"]] += 1
+                    section[student.get("section", "A")] += 1
+
                     count += 1
                 if remaining_seats and len(rooms):
                     new_exams.append({"course": exam_info["course"], "date": exam_info["date"], "duration": exam_info["duration"], "session": exam_info["session"], "students": remaining_seats})
                     remaining_seats = []
                 courses[key] = section.copy()
+                section = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
                 i = (i + 1) % 4
             if new_exams:
                 for ne in new_exams:

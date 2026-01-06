@@ -104,5 +104,5 @@ class Students:
         exam = examInstance.get()
         for record in exam:
             for s in record["students"]:
-                student = Student(name=s["name"], reg=s["reg"], course=record["course"], session=record["session"], section=s["section"])
+                student = Student(name=s.get("name", " "), reg=s["reg"], course=record["course"], session=record["session"], section=s.get("section", "A"))
                 self.insert(student)
