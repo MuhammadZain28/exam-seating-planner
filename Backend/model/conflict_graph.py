@@ -7,15 +7,15 @@ class Conflicts:
             cls.graph = {}
         return cls._instance
 
-    def add_conflict(self, date, time, session):
+    def add_conflict(self, date, time, session, students):
         if date not in self.graph:
             self.graph[date] = {}
 
         if time not in self.graph[date]:
-            self.graph[date][time] = []
+            self.graph[date][time] = {}
 
         if session not in self.graph[date][time]:
-            self.graph[date][time].append(session)
+            self.graph[date][time][session] = list(map(lambda s: s["reg"], students))
         self.save_graph()
 
     def can_place_exam(self, date, time, session):
@@ -24,10 +24,19 @@ class Conflicts:
                 return False
         return True
 
+    def student_conflict(self, date, time, students):
+        if date in self.graph and time in self.graph[date]:
+            for session in self.graph[date][time]:
+                prev_student = self.graph[date][time][session]
+                disjoint = set(prev_student).isdisjoint(set(students))
+                print(disjoint)
+                if not disjoint:
+                    return False
+        return True
     def remove_conflict(self, date, time, session):
         if date in self.graph and time in self.graph[date]:
             if session in self.graph[date][time]:
-                self.graph[date][time].remove(session)
+                del self.graph[date][time][session]
                 if not self.graph[date][time]:
                     del self.graph[date][time]
                 if not self.graph[date]:
@@ -36,9 +45,9 @@ class Conflicts:
                 return True
         return False
 
-    def update_conflict(self, old_date, old_time, old_session, new_date, new_time, new_session):
+    def update_conflict(self, old_date, old_time, old_session, new_date, new_time, new_session, students):
         self.remove_conflict(old_date, old_time, old_session)
-        self.add_conflict(new_date, new_time, new_session)
+        self.add_conflict(new_date, new_time, new_session, students)
 
     def save_graph(self):
         with open("conflict_graph.json", "w", encoding="utf-8") as f:

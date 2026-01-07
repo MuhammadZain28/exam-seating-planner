@@ -13,9 +13,6 @@ class Exams:
         return cls._instance
 
     def insert(self, exam):
-        is_exist = self.search(exam)
-        if is_exist:
-            return False
         self.exams.push(exam)
         self.save()
         return True
@@ -53,18 +50,19 @@ class Exams:
                 time=exam.time,
                 session=exam.session
             )
-            
+
             conflict_graph.update_conflict(
                 old_date=old_exam.date,
                 old_time=old_exam.time,
                 old_session=old_exam.session,
                 new_date=exam.date,
                 new_time=exam.time,
-                new_session=exam.session
+                new_session=exam.session,
+                students=old_exam.students
             )
-            exam_node.data = ex 
+            exam_node.data = ex
             self.save()
-            return True 
+            return True
         return False
 
     def get(self):

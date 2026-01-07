@@ -19,7 +19,7 @@ class Seating:
         halls = {}
         count = 0
         while not exams.isEmpty() and rooms:
-            room = rooms.pop(0)
+            room = rooms.pop(-1)
             halls[room["name"]] = {}
             courses = {}
             section = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
@@ -72,7 +72,6 @@ class Seating:
         while max1 // exp > 0:
             self.countingSort(arr, exp)
             exp *= 10
-        arr.reverse()
     def countingSort(self, arr, exp):
         n = len(arr)
         output = [0] * n

@@ -45,7 +45,10 @@ async def insert(
         students_count = len(students)
         if rooms.capacity // 4 < students_count:
             return {"Error": f"Insufficient room capacity {rooms.capacity} for the {students_count} students. These many students require {students_count*4}."}
-        conflictGraph.add_conflict(date, time, session)
+        else:
+            if not conflictGraph.student_conflict(date, time, list(map(lambda s: s["reg"], students))):
+                return {"Error": "Student conflict detected with another exam at the same date and time."}
+        conflictGraph.add_conflict(date, time, session, students)
 
         exam = Exam(course=course, date=date, duration=duration, students=students, time=time, session=session)
         result = exams.insert(exam)
