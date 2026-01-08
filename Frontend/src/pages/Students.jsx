@@ -15,7 +15,7 @@ const StudentsPage = ({students, setStudents}) => {
     const confirm = await alertBox(`Do you want to delete student ${student.name}?`, "Delete", <MessageCircleX />, null, "Delete", "Cancel");
     if (!confirm) return;
     const studentInstance = new Student();
-    const response = await studentInstance.deleteStudent(student.reg, student.course, student.date);
+    const response = await studentInstance.deleteStudent(student.reg, student.course, student.session);
     if (response.Error) {
       alertBox(response.Error, "Error", <MessageCircleX />);
     } else {

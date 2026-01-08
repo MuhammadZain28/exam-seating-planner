@@ -4,12 +4,15 @@ import { DoorClosed, DoorOpen } from "lucide-react"
 const Halls = forwardRef(({ arrangement }, ref) => {
 
   const keys = Object.keys(arrangement);
+  if (keys.length === 0) {
+    return <div ref={ref}>No arrangement data available.</div>;
+  }
   const std = [arrangement[keys[0]]["layout"][0][0], arrangement[keys[0]]["layout"][0][1], arrangement[keys[0]]["layout"][1][0], arrangement[keys[0]]["layout"][1][1]];
   console.log("Rendering arrangement:", std);
   const palette = ["bg-red-200", "bg-blue-200", "bg-green-200", "bg-yellow-100"];
 
   const colors = std.reduce((acc, regNo, index) => {
-    const year = regNo?.split("-")[0]; // if regNo is null, year = undefined
+    const year = regNo?.split("-")[0];
     if (year) {
       acc[year] = palette[index % palette.length];
     }
