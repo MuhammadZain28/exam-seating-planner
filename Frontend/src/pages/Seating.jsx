@@ -15,8 +15,8 @@ const SeatingPlanPage = ({ seatingPlans = null, setSeatingPlans }) => {
     suppressErrors: false,
     pageStyle: `
       @page {
-        size: A4 landscape;
-        margin: 10mm;
+        size: A3 landscape;
+        margin: 10mm 0mm;
       }
       body {
         -webkit-print-color-adjust: exact;

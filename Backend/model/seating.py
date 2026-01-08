@@ -16,11 +16,10 @@ class Seating:
 
     def arrange_exam_hall(self, rooms, exams):
         self.radixSort(rooms)
-        halls = {}
+        halls = []
         count = 0
         while not exams.isEmpty() and rooms:
             room = rooms.pop(-1)
-            halls[room["name"]] = {}
             courses = {}
             section = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
             groups = {0: [], 1: [], 2: [], 3: []}
@@ -48,7 +47,7 @@ class Seating:
                         remaining_seats.append(student)
                         continue
                     r, c = groups[i].pop()
-                    hall[r][c] = (student["reg"])
+                    hall[r][c] = (student["reg"], key)
                     section[student.get("section", "A")] += 1
 
                     count += 1
@@ -62,7 +61,7 @@ class Seating:
                 for ne in new_exams:
                     exams.push(ne, len(exam_info["students"]))
 
-            halls[room["name"]] = {"layout": hall[::-1], "courses": courses}
+            halls.append({"name": room["name"], "layout": hall[::-1], "courses": courses})
         print("Total Students Seated:", count)
         return halls
 

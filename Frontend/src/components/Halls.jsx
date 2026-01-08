@@ -3,31 +3,49 @@ import { DoorClosed, DoorOpen } from "lucide-react"
 
 const Halls = forwardRef(({ arrangement }, ref) => {
 
-  const keys = Object.keys(arrangement);
-  if (keys.length === 0) {
-    return <div ref={ref}>No arrangement data available.</div>;
-  }
-  const std = [arrangement[keys[0]]["layout"][0][0], arrangement[keys[0]]["layout"][0][1], arrangement[keys[0]]["layout"][1][0], arrangement[keys[0]]["layout"][1][1]];
-  console.log("Rendering arrangement:", std);
-  const palette = ["bg-red-200", "bg-blue-200", "bg-green-200", "bg-yellow-100"];
+  const sessions = arrangement.length ? Object.keys(arrangement[0]?.courses) : [];
+  console.log("Arrangements: ", arrangement);
+  const palette = ["red-200", "blue-200", "green-200", "yellow-100"];
 
-  const colors = std.reduce((acc, regNo, index) => {
-    const year = regNo?.split("-")[0];
-    if (year) {
-      acc[year] = palette[index % palette.length];
-    }
-    return acc;
-  }, {});
+  const colors = Object.fromEntries(
+    sessions
+      .filter(Boolean)
+      .map((session, index) => [session, palette[index] ?? "#000"])
+  );
+
+  if (arrangement.length === 0) {
+    return (
+      <div className="p-4 w-full h-full flex items-center justify-center" ref={ref}>
+        <p className="text-gray-500">No seating arrangement available.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 w-full h-full relative" ref={ref}>
-      {Object.entries(arrangement).map(([hallName, hall]) => (
+      {arrangement.map((hall) => (
         <div
-          key={hallName}
-          className="bg-indigo-50 mb-6 p-4 border rounded-lg print:grid place-self-center w-full" style={{pageBreakAfter: "always"}}
+          key={hall.name}
+          className="mb-6 p-4 border rounded-lg print:bg-transparent print:py-2 print:px-0 print:border-none print:grid w-full" style={{pageBreakAfter: "always"}}
         >
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold">{hallName}</h2>
+            <h2 className="text-2xl font-bold">{hall.name}</h2>
+          </div>
+          
+          <div className="grid grid-cols-2 mb-2 gap-2">
+            {Object.entries(hall.courses).map(([course, sections]) => (
+              <div key={course} className={`grid grid-cols-[1fr_3fr_3fr_3fr_3fr] gap-2 border-l-4 border-${colors[course]} bg-${colors[course]} bg-opacity-20 p-2`} >
+                <strong className="text-black text-sm">{course}:</strong>
+                {Object.entries(sections).map(([section, count]) => (
+                  <div
+                    key={section}
+                    className={`text-md text-black flex items-center gap-2`}
+                  >
+                    { count > 0 && <>{section} : {count} </> }
+                  </div>
+                ))}
+            </div>
+            ))}
           </div>
           <div className="flex gap-1 items-center justify-center">
             <div className="w-10 h-8 flex items-center justify-center text-black"><DoorOpen /></div>
@@ -35,7 +53,7 @@ const Halls = forwardRef(({ arrangement }, ref) => {
             {hall.layout[0].map((_, colIndex) => (
               <div
                 key={colIndex}
-                className="w-24 h-8 flex items-center justify-center font-semibold text-black"
+                className="w-24 h-8 print:w-36 flex items-center justify-center font-semibold text-black"
               >
                 {colIndex + 1}
               </div>
@@ -52,29 +70,18 @@ const Halls = forwardRef(({ arrangement }, ref) => {
                 {row.map((seat, seatIndex) => (
                   <div
                     key={seatIndex}
-                    className={`flex items-center justify-center border text-black text-[12px] rounded-lg w-24 h-8 ${
-                      seat ? colors[seat.split("-")[0].replace("r", '').replace('R', '').replace('/', '').replace('M', '')] : "bg-gray-300"
+                    className={`flex flex-col items-center shadow-md justify-evenly border text-black text-[12px] print:text-lg rounded w-24 print:w-36 h-14 print:h-20 ${
+                      seat ? `bg-white border-0 border-l-4 border-${colors[seat?.[1]]}` : "bg-gray-300"
                     }`}
                   >
-                    {seat || ""}
+                    {seat ? <p className={`bg-${colors[seat?.[1]]} px-4`}>{seat[1]}</p> : null}
+                    <p>{seat ? seat[0] : "-"}</p>
                   </div>
+                  
                 ))}
               </div>
             ))}
           </div>
-          {Object.entries(hall.courses).map(([course, sections]) => (
-          <div key={course} className={`grid grid-cols-[1fr_2fr_2fr_2fr_2fr] mx-10 gap-4 ${colors[course]} px-2`} >
-            <p><strong>{course}:</strong></p>
-            {Object.entries(sections).map(([section, count]) => (
-              <div
-                key={section}
-                className={`text-md text-black flex items-center gap-2`}
-              >
-                { count > 0 && <><strong>Section {section}:</strong> {count} students</> }
-              </div>
-            ))}
-          </div>
-          ))}
         </div>
       ))}
     </div>
