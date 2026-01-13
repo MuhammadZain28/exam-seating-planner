@@ -22,12 +22,23 @@ class Seating:
             room = rooms.pop(-1)
             courses = {}
             section = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
-            groups = {0: [], 1: [], 2: [], 3: []}
+            noOfGroups = 0
+            if room["name"] == "Lab-1" or room["name"] == "Lab-4" or room["name"] == "Lab-3" or room["name"] == "N9" or room["name"] == "N10" or room["name"] == "N11" or room["name"] == "N12":
+                groups = {0: [], 1: []}
 
-            for r in range(room["rows"]):
-                for c in range(room["columns"]):
-                    g = (r % 2) * 2 + (c % 2)
-                    groups[g].append((r, c))
+                for r in range(room["rows"]):
+                    for c in range(room["columns"]):
+                        g = (r + c) % 2
+                        groups[g].append((r, c))
+                noOfGroups = 2
+            else:
+                groups = {0: [], 1: [], 2: [], 3: []}
+
+                for r in range(room["rows"]):
+                    for c in range(room["columns"]):
+                        g = (r % 2) * 2 + (c % 2)
+                        groups[g].append((r, c))
+                noOfGroups = 4
 
 
             hall = [[None for _ in range(room["columns"])] for _ in range(room["rows"])]
@@ -35,11 +46,11 @@ class Seating:
             i = 0
             remaining_seats = []
             new_exams = []
-            while i < 4 and not exams.isEmpty():
+            while not exams.isEmpty():
                 exam_info = exams.pop()
                 if not exam_info:
-                    break
-                key = exam_info['session']
+                    continue
+                key = exam_info['course']
                 courses[key] = {}
 
                 for student in exam_info["students"]:
@@ -56,12 +67,12 @@ class Seating:
                     remaining_seats = []
                 courses[key] = section.copy()
                 section = {'A': 0, 'B': 0, 'C': 0, 'D': 0}
-                i = (i + 1) % 4
+                i = (i + 1) % noOfGroups
             if new_exams:
                 for ne in new_exams:
-                    exams.push(ne, len(exam_info["students"]))
+                    exams.push(ne, len(ne["students"]))
 
-            halls.append({"name": room["name"], "layout": hall[::-1], "courses": courses})
+            halls.append({"name": room["name"], "layout": hall, "courses": courses})
         print("Total Students Seated:", count)
         return halls
 

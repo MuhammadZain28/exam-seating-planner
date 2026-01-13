@@ -40,18 +40,6 @@ const ExamsPage = ({ exams, setExams, reload, setReload }) => {
         setExams(updatedExams);
       }
     } else {
-      const count = exams.reduce(
-        (acc, exam) => acc + (exam.time === formData.time && exam.date === formData.date ? 1 : 0),
-        0
-      );
-      if (count >= 4) {
-        await alertBox(
-          `There are already ${count} exams scheduled at ${formData.time}. So, Exam cannot be scheduled at this time.`,
-          "Error",
-          <MessageCircleX />
-        );
-        return;
-      }
       const res = await examInstance.insertExam(formData);
       if (res.Error) {
         await alertBox(res.Error, "Error", <MessageCircleX />);

@@ -53,7 +53,7 @@ const SeatingPlanPage = ({ seatingPlans = null, setSeatingPlans }) => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6" style={{ maxWidth: "calc(100vw - 75px)", overflowX: "auto" }}>
       <h1 className="text-3xl font-bold mb-6 text-gray-800">
         Seating Plan Generation
       </h1>

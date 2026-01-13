@@ -1,64 +1,69 @@
 {
     "rooms": [
         {
-            "name": "N1",
-            "columns": 7,
-            "rows": 10
+            "name": "Lab-1",
+            "columns": 5,
+            "rows": 8
         },
         {
-            "name": "N10",
-            "columns": 10,
+            "name": "Lab-3",
+            "columns": 5,
             "rows": 7
         },
         {
+            "name": "Lab-4",
+            "columns": 8,
+            "rows": 4
+        },
+        {
+            "name": "N10",
+            "columns": 6,
+            "rows": 9
+        },
+        {
             "name": "N11",
-            "columns": 10,
+            "columns": 7,
             "rows": 9
         },
         {
             "name": "N12",
-            "columns": 8,
-            "rows": 5
-        },
-        {
-            "name": "N2",
             "columns": 7,
-            "rows": 10
+            "rows": 5
         },
         {
             "name": "N3",
             "columns": 7,
-            "rows": 10
+            "rows": 7
         },
         {
             "name": "N4",
             "columns": 7,
-            "rows": 10
+            "rows": 7
         },
         {
             "name": "N5",
-            "columns": 10,
+            "columns": 7,
             "rows": 7
         },
         {
             "name": "N6",
-            "columns": 10,
+            "columns": 7,
             "rows": 7
         },
         {
             "name": "N7",
             "columns": 7,
-            "rows": 10
+            "rows": 12
         },
         {
             "name": "N8",
             "columns": 7,
-            "rows": 10
+            "rows": 12
         },
         {
             "name": "N9",
-            "columns": 10,
-            "rows": 7
+            "columns": 6,
+            "rows": 10
         }
     ]
 }
